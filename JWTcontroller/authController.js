@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const User = require("../models/userModels");
 const jwt = require("jsonwebtoken");
 
 const generateToken = (id) => {
@@ -19,7 +19,7 @@ exports.registerAdmin = async (req, res) => {
 
 // Login an admin
 exports.loginAdmin = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password } = req.body; 
 
   try {
     const user = await User.findOne({ username });

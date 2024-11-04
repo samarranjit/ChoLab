@@ -3,6 +3,7 @@ const router = require("express").Router();
 const { Intro, TeamMember, News, Publication } = require("../models/memberModel.js");
 const User = require("../models/userModels.js");
 const JoinUs = require ("../models/formDetailsModel.js")
+// const { registerAdmin, loginAdmin } = require("../controllers/authController");
 
 
 
@@ -264,5 +265,6 @@ router.post('/admin-login', async (req, res) => {
         
     }
 })
+
 
 module.exports = router;

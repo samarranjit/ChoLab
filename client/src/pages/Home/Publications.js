@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { allContexts } from '../../Context/AllContexts'
 function Publications() {
     const { Data } = useContext(allContexts);
-    console.log(Data?.intro?.publication_desc);
+    // console.log(Data?.intro?.publication_desc);
     return (
         <div className="h-[full] p-[65px] sm:p-7 bg-secondary flex justify-center items-center wave-top sm:h-full sm:flex-col relative">
             <div className="custom-shape-divider-top-1730584481 sm:translate-y-10 sm:rotate-180">

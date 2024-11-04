@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
-    <div className='relative'>
+    <div className='relative mt-2'>
       <div className='p-5 bg-secondary text-primary flex flex-col justify-left relative   items-center  sm:text-center sm:p-0 text-left  '>
       <div className="custom-shape-divider-top-1730592413 ">
     <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -17,7 +17,7 @@ function Footer() {
         <div className="grid grid-cols-3 justify-between p-10   sm:grid-cols-1">
 
           <div className="Cho flex justify-center items-center">
-            <img className='rounded-[50%] w-[70%] sm:w-[100%] flex items-center justify-center my-[50px] sm:mt-5 sm:mb-0' src="https://media.licdn.com/dms/image/v2/D4E03AQHm3YHSVPrgOw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1696147453955?e=1735171200&v=beta&t=v0NXFeq5YL_H38F3fwz3CnwPa1QOxhozHfIbthEiLak" alt="" />
+            <img className='rounded-[50%] w-[70%] sm:w-[70%] flex items-center justify-center my-[50px] sm:mt-5 sm:mb-0' src="https://media.licdn.com/dms/image/v2/D4E03AQHm3YHSVPrgOw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1696147453955?e=1735171200&v=beta&t=v0NXFeq5YL_H38F3fwz3CnwPa1QOxhozHfIbthEiLak" alt="" />
 
           </div>
           <div className="contact flex flex-col text-3xl text-center text-tertiary font-semibold  items-center sm:items-start justify-start sm:justify-left sm:text-left">

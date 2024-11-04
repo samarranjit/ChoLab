@@ -5,7 +5,7 @@ import { allContexts } from '../../Context/AllContexts'
 function Research() {
   const {Data, showLoading, setShowLoading} = useContext(allContexts);
   const research_oneLine = Data?.intro?.research_oneLine;
-  console.log(research_oneLine);
+  // console.log(research_oneLine);
 
   return (
     <div className='h-full  p-[65px] flex justify-center items-center sm:flex-col  md:h-[full]  sm:h-full sm:p-7'>

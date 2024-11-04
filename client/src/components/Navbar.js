@@ -13,10 +13,10 @@ function Navbar() {
   return (
     <>
     
-    <div className="p-5 bg-[#007C92] flex flex-column justify-between h-[70px] align-middle sm:hidden">
-      <a href="/">
+    <div className="p-5 bg-[#007C92]   flex flex-column justify-between h-[70px] align-middle sm:hidden">
+      <Link to="/">
       <h2 className='text-primary text-xl font-semibold ml-4 align-middle cursor-pointer'>Cho Lab</h2>
-      </a>
+      </Link>
         
 
       <div className="nav-link text-xl text-primary flex font-open">
@@ -43,9 +43,9 @@ function Navbar() {
     <div className='hidden sm:inline z-[100] fixed w-[100vw] transition duration-300'>
     <div className="navbar-phone p-5 bg-[#007C92] flex flex-column justify-between h-[70px] align-middle lg:hidden sm:flex ">
       
-    <a href="/">
+    <Link to="/">
       <h2 className='text-primary text-xl font-semibold ml-4 align-middle cursor-pointer'>Cho Lab</h2>
-      </a>
+      </Link>
       {
         isOpen?
         <RxCross1 onClick={toggleMenu} className='text-primary border-[0.5px] p-1 rounded-[50%] font-semibold text-2xl border-primary'  />

@@ -19,7 +19,7 @@ function AdminLogin() {
                 alert(response.data.message);
             }
         } catch (error) {
-            alert(error.message);
+            alert("Login Failed");
             
         }
     }
