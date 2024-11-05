@@ -3,9 +3,8 @@ import Navbar from '../../components/Navbar'
 import { allContexts } from '../../Context/AllContexts'
 import Loader from '../../components/Loader'
 import Footer from '../Home/Footer'
-import ResearchCard from './ResearchCard'
 function Research() {
-  const {Data, showLoading, setShowLoading} = useContext(allContexts)
+  const { showLoading} = useContext(allContexts)
   return (
     <div>
       <Navbar></Navbar>

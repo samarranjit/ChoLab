@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { allContexts } from '../../Context/AllContexts';
 
 function AdminNews() {
-    const { Data, showLoading, setShowLoading } = useContext(allContexts);
+    const { Data, setShowLoading } = useContext(allContexts);
     const [editingNewsId, setEditingNewsId] = React.useState(null);
     const [addNewsBtn, setAddNewsBtn] = React.useState(false);
     const [paragraphs, setParagraphs] = React.useState([""]);

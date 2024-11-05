@@ -4,7 +4,7 @@ import NewsCard from '../../components/NewsCard'
 import Footer from '../Home/Footer'
 import { allContexts } from '../../Context/AllContexts'
 function News() {
-  const {Data, showLoading} = React.useContext(allContexts);
+  const {Data} = React.useContext(allContexts);
   
   return (
     <>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 function PublicationCard(props) {
-  const {key, title, details, link, linkTag} = props;
+  const {title, details, link, linkTag} = props;
   
   return (
     <div className="cursor-pointer p-6 sm:p-3 mb-5 border border-secondary bg-gradient-to-r from-secondary-50 to-secondary-100 rounded-lg shadow-lg transition-transform transform hover:translate-y-[-5px] duration-300">

@@ -84,6 +84,32 @@
       width: calc(108% + 1.3px);
       height: 56px;
   }
+
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: none;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: "";
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #F2994A;
+  }
+  
+  .loader-text-1{
+    animation: loader1 1s infinite;
+  }
+  .loader-text-2{
+    animation: loader2 1s infinite;
+  }
 }
 
 /* */

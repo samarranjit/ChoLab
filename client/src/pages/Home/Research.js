@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import { allContexts } from '../../Context/AllContexts'
 
 function Research() {
-  const {Data, showLoading, setShowLoading} = useContext(allContexts);
-  const research_oneLine = Data?.intro?.research_oneLine;
+  const {Data} = useContext(allContexts);
+  // const research_oneLine = Data?.intro?.research_oneLine;
   // console.log(research_oneLine);
 
   return (

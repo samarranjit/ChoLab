@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { allContexts } from '../../Context/AllContexts';
 
 function AdminPublication() {
-    const {Data, showLoading,setShowLoading }=  useContext(allContexts)
+    const {Data, setShowLoading }=  useContext(allContexts)
     const [addPublicationBtn, setAddPublicationBtn] = React.useState(false);
     const [editingPublicationId, setEditingPublicationId] = React.useState(null)
     const [publication, setPublication] = React.useState({

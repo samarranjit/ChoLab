@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 import NewsCard from '../../components/NewsCard'
 import { allContexts } from '../../Context/AllContexts';
 function News() {
-  const {Data, showLoading} = React.useContext(allContexts);
+  const {Data} = useContext(allContexts);
   return (
     <div className=' p-[65px] flex flex-col sm:p-7 sm:my-2'>
         <p className='text-tertiary text-xl '>Latest from the Lab</p>

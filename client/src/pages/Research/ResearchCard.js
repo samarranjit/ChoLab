@@ -2,11 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function ResearchCard(props) {
-//   const {_id, heading, body, mainImage, date} = props.prop;
-  const navigate = useNavigate();
   const handleReadMore =() =>{
 
-    // navigate(`/news/${_id}`);
     
   }
 
