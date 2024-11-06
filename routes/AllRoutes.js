@@ -3,7 +3,6 @@ const router = require("express").Router();
 const { Intro, TeamMember, News, Publication } = require("../models/memberModel.js");
 const User = require("../models/userModels.js");
 const JoinUs = require ("../models/formDetailsModel.js")
-// const { registerAdmin, loginAdmin } = require("../controllers/authController");
 
 
 
@@ -14,14 +13,13 @@ router.get('/getData', async (req, res) => {
         const teamMembers = await TeamMember.find();
         const news = await News.find();
         const publications = await Publication.find();
-        // //console.log(Intro);
-        //console.log(TeamMember)
         res.status(200).send({
             intro: intros[0],
             team: teamMembers,
             news: news,
             publication : publications
         })
+        // console.log(publications)
 
     } catch (error) {
         res.status(500).send(error)

@@ -58,8 +58,8 @@ function AdminNews() {
         console.log(news)
         setShowLoading(true);
         try {
-            const response = editingNewsId ? await axios.post(`http://localhost:8080/api/news/editNews/${editingNewsId}`, news)
-                                            : await axios.post("http://localhost:8080/api/news/addNews", news);
+            const response = editingNewsId ? await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/news/editNews/${editingNewsId}`, news)
+                                            : await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/news/addNews`, news);
 
             setShowLoading(false);
             if (response.data.success) {
@@ -85,7 +85,7 @@ function AdminNews() {
     const handleDelete = async (newsId) => {
         try {
             setShowLoading(true);
-            const response = await axios.delete(`http://localhost:8080/api/news/delNews/${newsId}`);
+            const response = await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/news/delNews/${newsId}`);
             setShowLoading(false);
             if (response.data.success) {
                 alert(response.data.message);

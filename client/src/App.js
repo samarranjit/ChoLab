@@ -13,11 +13,12 @@ import Research from "./pages/Research/index.js";
 function App() {
   const [Data, setData] = React.useState(null);
   const [showLoading, setShowLoading] = React.useState(false);
-  
+  const apiURL = process.env.REACT_APP_API_BASE_URL
+
   const getData = async () =>{
     setShowLoading(true)
     try {
-      const response= await axios.get('http://localhost:8080/api/getData');
+      const response= await axios.get(`${apiURL}/api/getData`);
       setData(response.data)
       setShowLoading(false)
     } catch (error) {
@@ -30,7 +31,7 @@ function App() {
       getData();
     }
 
-  }, [Data])
+  })
 
   
   return (

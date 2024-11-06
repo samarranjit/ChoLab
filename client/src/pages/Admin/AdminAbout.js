@@ -21,9 +21,9 @@ function AdminAbout() {
         try {
             let response;
             if (editingMemberId) {
-                response = await axios.post(`http://localhost:8080/api/team/editMember/${editingMemberId}`, member);
+                response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/team/editMember/${editingMemberId}`, member);
             } else {
-                response = await axios.post("http://localhost:8080/api/team/addMember", member);
+                response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/team/addMember`, member);
             }
             setShowLoading(false);
             if (response.data.success) {
@@ -54,7 +54,7 @@ function AdminAbout() {
     const handleDelete = async (memberId) => {
         try {
             setShowLoading(true);
-            const response = await axios.delete(`http://localhost:8080/api/team/DelMember/${memberId}`);
+            const response = await axios.delete(`${process.envREACT_APP_API_BASE_URL}/api/team/DelMember/${memberId}`);
             setShowLoading(false);
             if (response.data.success) {
                 alert(response.data.message);

@@ -44,9 +44,9 @@ function AdminPublication() {
         try {
             let response;
             if (editingPublicationId) {
-                response = await axios.post(`http://localhost:8080/api/publication/editPublication/${editingPublicationId}`, publication);
+                response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/publication/editPublication/${editingPublicationId}`, publication);
             } else {
-                response = await axios.post("http://localhost:8080/api/publication/addPublication", publication);
+                response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/publication/addPublication`, publication);
             }
             setShowLoading(false);
             if (response.data.success) {
@@ -66,7 +66,7 @@ function AdminPublication() {
         console.log(publicationId, "Deleted")
         try {
             setShowLoading(true)
-            const response = await axios.delete(`http://localhost:8080/api/publication/delPublication/${publicationId}`);
+            const response = await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/publication/delPublication/${publicationId}`);
             setShowLoading(false);
             if (response.data.success) {
                 alert(response.data.message);

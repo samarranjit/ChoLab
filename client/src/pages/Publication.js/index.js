@@ -39,20 +39,16 @@ function Publication() {
             In Review :
           </h2>
           <div className="w-[70%] publication-cards p-5 sm:p-1 sm:w-full">
-            {Data && Data.publication && Data.publication.reverse().map((item) => {
-              if (item.status === "Review") {
-                return (
-                  <PublicationCard 
+            {Data && Data.publication && Data.publication.reverse().map((item) => (
+              item.status === "Review" ? 
+                                  <PublicationCard 
                     key={item._id} 
                     sequence={item.publication_sequence}
                     title={item.title}
                     details={item.details}
                     link={item.link}
                     linkTag={item.linkTag}
-                  />
-                );
-              }
-            })}
+                  /> : <></>))}
           </div>
         </div>
         <div className='border-b-[2px] border-tertiary h-[5px]'> </div>
@@ -61,9 +57,9 @@ function Publication() {
             Published :
           </h2>
           <div className="publication-cards w-[70%] sm:w-full p-5">
-            {Data && Data.publication && Data.publication.reverse().map((item) => {
-              if (item.status === "Published") {
-                return (
+            {Data && Data.publication && Data.publication.reverse().map((item) =>(
+              item.status === "Published"?
+                
                   <PublicationCard 
                     key={item._id} 
                     sequence={item.publication_sequence}
@@ -71,10 +67,11 @@ function Publication() {
                     details={item.details}
                     link={item.link}
                     linkTag={item.linkTag}
-                  />
-                );
-              }
-            })}
+                  />: <></>
+                  
+                
+              
+            ))}
           </div>
         </div>
       </div>

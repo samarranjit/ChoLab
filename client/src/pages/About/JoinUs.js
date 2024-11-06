@@ -27,7 +27,7 @@ function JoinUs() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:8080/api/joinRequest/newJoinRequest", info);
+            const response = await axios.post("process.env.REACT_APP_API_BASE_URL/api/joinRequest/newJoinRequest", info);
             if (response.data.success) {
                 setMessage(response.data.message);
                 setSuccess(true);

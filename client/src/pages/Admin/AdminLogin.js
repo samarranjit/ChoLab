@@ -10,7 +10,7 @@ function AdminLogin() {
     const handleSubmit = async(e)=>{
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:8080/api/admin-login", user);
+            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/admin-login`, user);
             if(response.data.success){
                 alert(response.data.message)
                 localStorage.setItem('token', JSON.stringify(response.data))

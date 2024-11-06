@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
-mongoose.connect("mongodb://localhost:27017/ChoLab");
+mongoose.connect("mongodb+srv://samarranjit321:samarisaman@cholab.avmlm.mongodb.net/ChoLab?retryWrites=true&w=majority&appName=ChoLab/ChoLab", { useNewUrlParser: true, useUnifiedTopology: true, ssl: true });
+
 
 const connection = mongoose.connection;
 
