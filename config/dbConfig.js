@@ -1,18 +1,10 @@
-const mongoose = require('mongoose')
+// dbConfig.js
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-mongoose.connect("mongodb+srv://samarranjit321:samarisaman@cholab.avmlm.mongodb.net/ChoLab?retryWrites=true&w=majority&appName=ChoLab/ChoLab", { useNewUrlParser: true, useUnifiedTopology: true, ssl: true });
-
-
-const connection = mongoose.connection;
-
-connection.on('error', ()=>{
-    console.log("error connecting to db");
-
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 })
-
-connection.on('connected', ()=>{
-    console.log("connected to mongo db");
-})
-
-module.exports = connection;
-
+.then(() => console.log('connected to mongo db'))
+.catch((err) => console.log(err));
