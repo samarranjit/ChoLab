@@ -40,8 +40,7 @@ router.get('/getNewsArticle/:id', async (req, res) => {
 
 //updating intro data;
 
-router.post('/update-intro', async (req, res) => {
-    //console.log("Intro data: ", req.body);
+router.put('/update-intro', async (req, res) => {
     try {
         const intro = await Intro.findOneAndUpdate(
             { _id: req.body._id },
@@ -52,7 +51,6 @@ router.post('/update-intro', async (req, res) => {
             data: intro,
             success: true,
             message: "Data Changed Successfully"
-
         })
     } catch (error) {
         res.status(500).send(error)
