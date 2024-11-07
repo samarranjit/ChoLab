@@ -56,7 +56,7 @@ function AdminIntro() {
         e.preventDefault();
         try {
             setShowLoading(true);
-            const response = await axios.post(`/api/update-intro`, {
+            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/update-intro`, {
                 _id: Data.intro._id,
                 slogan:slogan,
                 research_oneLine : research.research_oneLine,

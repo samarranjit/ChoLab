@@ -40,7 +40,8 @@ router.get('/getNewsArticle/:id', async (req, res) => {
 
 //updating intro data;
 
-router.put('/update-intro', async (req, res) => {
+router.post('/update-intro', async (req, res) => {
+    console.log(req.body)
     try {
         const intro = await Intro.findOneAndUpdate(
             { _id: req.body._id },

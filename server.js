@@ -7,6 +7,17 @@ const cors = require("cors");
 const Data=require("./routes/AllRoutes");
 
 app.use(cors());
+
+// const corsOptions = {
+//     origin: process.env.REACT_APP_FRONTEND_URL, // Replace with your frontend URL
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     credentials: true,
+// };
+
+// app.use(cors(corsOptions));
+
+
+
 app.use(express.json());
 app.use("/api", Data);
 
