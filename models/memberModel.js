@@ -72,7 +72,12 @@ const publicationsSchema = new mongoose.Schema({
     status:{
         type : String,
         required: true
+    },
+    date:{
+        type:String,
+        required : false
     }
+
 });
 
 const newsSchema= new mongoose.Schema({

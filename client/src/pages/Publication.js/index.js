@@ -7,6 +7,25 @@ import Footer from "../Home/Footer";
 function Publication() {
   const { Data } = useContext(allContexts);
 
+  //Group publications by year
+  const groupedPublications = Data && Data.publication
+    ? Data.publication.reduce((acc, item) => {
+      // Only process items with a "Published" status
+      if (item.status === "Published" && item.date) {
+        const year = new Date(item.date).getFullYear(); // Extract year from date
+        if (!acc[year]) acc[year] = [];
+        acc[year].push(item);
+      }
+      return acc;
+    }, {})
+    : {};
+  console.log(Data.publication)
+  console.log(groupedPublications)
+  // Sort years in descending order
+  const sortedYears = Object.keys(groupedPublications).sort((a, b) => b - a);
+
+  console.log(sortedYears)
+
   return (
     <>
       <Navbar />
@@ -34,43 +53,49 @@ function Publication() {
             Eunsang Cho publications and links to papers
           </section>
         </h2>
-        <div className="in-revision p-7 flex mx-7 justify-center items-start flex-col-2 gap-5 sm:flex-col sm:m-2 sm:p-2">
+        <div className="in-revision p-8  mx-7 justify-center items-start sm:flex-col sm:m-2 sm:p-2">
           <h2 className=' w-[15%] sm:w-[100%] text-2xl sm:text-xl'>
-            In Review :
+            Under Review :
           </h2>
-          <div className="w-[70%] publication-cards p-5 sm:p-1 sm:w-full">
+          <div className="publication-cards p-5 sm:p-1 sm:w-full w-[75%] flex flex-col justify-center mx-auto">
             {Data && Data.publication && Data.publication.reverse().map((item) => (
-              item.status === "Review" ? 
-                                  <PublicationCard 
-                    key={item._id} 
-                    sequence={item.publication_sequence}
-                    title={item.title}
-                    details={item.details}
-                    link={item.link}
-                    linkTag={item.linkTag}
-                  /> : <></>))}
+              item.status === "Review" ?
+                <PublicationCard
+                  key={item._id}
+                  sequence={item.publication_sequence}
+                  title={item.title}
+                  details={item.details}
+                  link={item.link}
+                  linkTag={item.linkTag}
+                /> : <></>))}
           </div>
         </div>
         <div className='border-b-[2px] border-tertiary h-[5px]'> </div>
-        <div className="published p-7 mx-7 flex justify-center items-start sm:flex-col sm:px-0 sm:m-1">
-          <h2 className=' w-[15%] sm:w-[100%] text-2xl sm:text-xl'>
+        <div className="published p-7 mx-7  justify-center items-start sm:flex-col sm:px-0 sm:m-1">
+          <h2 className=' sm:w-[100%] text-2xl sm:text-xl'>
             Published :
           </h2>
-          <div className="publication-cards w-[70%] sm:w-full p-5">
-            {Data && Data.publication && Data.publication.reverse().map((item) =>(
-              item.status === "Published"?
-                
-                  <PublicationCard 
-                    key={item._id} 
-                    sequence={item.publication_sequence}
-                    title={item.title}
-                    details={item.details}
-                    link={item.link}
-                    linkTag={item.linkTag}
-                  />: <></>
-                  
-                
-              
+          <div className="publication-cards w-full sm:w-full p-5">
+            {sortedYears.map((year) => (
+              <div className=" justify-center item-center">
+
+                <div key={year} className="year-group mb-5 flex flex-col justify-center  pt-7">
+                  <h3 className="text-2xl font-semibold mb-3 w-[15%] items-center">{year} :</h3>
+                  <div className="publication-cards  w-[75%] flex flex-col justify-center mx-auto ">
+                    {groupedPublications[year].map((item) => (
+                      <PublicationCard
+                        key={item._id}
+                        sequence={item.publication_sequence}
+                        title={item.title}
+                        details={item.details}
+                        link={item.link}
+                        linkTag={item.linkTag}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <div className="h-[2.5px] inline-block ma-auto bg-gray-200 w-[80%] justify-center items-center"></div>
+              </div>
             ))}
           </div>
         </div>

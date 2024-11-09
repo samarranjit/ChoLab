@@ -13,10 +13,10 @@ function Research() {
         {showLoading ? <Loader /> :
           <div className=" h-[100vh] overflow-hidden sm:h-[80vh] bg-fixed  bg-[url('https://images.unsplash.com/photo-1669077411489-aecca1c06d92?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-bottom">
             <div className=' w-[100%] h-[100%] bg-opacity-15 flex items-center justify-left ml-[15%] sm:ml-0 sm:p-2 sm:justify-center '>
-              <div className="intro-text w-[30%] sm:w-[90%] p-10 gap-7 h-[60%] flex flex-col items-center justify-around bg-secondary bg-opacity-65 sm:gap-2 sm:p-4 ">
+              <div className="intro-text w-[30%] sm:w-[90%] p-10 gap-7  flex flex-col items-center justify-around bg-secondary bg-opacity-65 sm:gap-2 sm:p-4 ">
                 <p className=' text-2xl text-tertiary text-left w-full font-semibold align-left justify-left sm:text-lg'>Our Research</p>
-                <h1 className=' text-4xl md:text-4xl sm:text-2xl font-semibold text-primary  '>Advancing water resource systems to keep pace with change.</h1>
-                <p className='text-primary '>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur ullam, tempore recusandae nemo minima distinctio voluptatum ex vitae molestiae nostrum? ipsum, dolor sit.</p>
+                <h1 className=' text-4xl md:text-4xl sm:text-2xl font-semibold text-primary  '>Hydrology and Water Resources in a Changing Climate for a Sustainable Environment</h1>
+                <p className='text-primary '>We are building a dynamic team of undergraduate and graduate students and postdocs who share our passion to better understand hydrology and water resources in a changing climate for a sustainable environment. To achieve this, we use field observations from station data and field campaign, multiple remote sensing techniques, land surface hydrologic models, and climate models along with big-data and machine learning (ML) techniques.</p>
               </div>
             </div>
           </div>

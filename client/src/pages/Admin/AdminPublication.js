@@ -3,16 +3,18 @@ import React, { useContext } from 'react';
 import { allContexts } from '../../Context/AllContexts';
 
 function AdminPublication() {
-    const {Data, setShowLoading }=  useContext(allContexts)
+    const { Data, setShowLoading } = useContext(allContexts)
     const [addPublicationBtn, setAddPublicationBtn] = React.useState(false);
-    const [editingPublicationId, setEditingPublicationId] = React.useState(null)
+    const [editingPublicationId, setEditingPublicationId] = React.useState(null);
+    const [published, setPublished] = React.useState(false)
     const [publication, setPublication] = React.useState({
-        
+
         title: "",
         details: "",
         link: "",
         linkTag: "",
-        status: "Review"
+        status: "Review",
+        date: ""
     });
 
     const handleUnhide = () => {
@@ -28,17 +30,18 @@ function AdminPublication() {
         console.log(publication);
     };
 
-    const handleEdit = (pub)=>{
+    const handleEdit = (pub) => {
         setPublication(pub);
         setEditingPublicationId(pub._id);
         setAddPublicationBtn(true)
         console.log(pub._id)
         console.log(publication);
+        pub.date?setPublished(true):setPublished(false);
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
 
         setShowLoading(true);
         try {
@@ -52,7 +55,7 @@ function AdminPublication() {
             if (response.data.success) {
                 alert(response.data.message);
                 // Update the local Data to reflect the change
-        
+
                 resetForm();
             }
         } catch (error) {
@@ -62,7 +65,7 @@ function AdminPublication() {
     };
 
     const handleDelete = async (publicationId) => {
-        
+
         console.log(publicationId, "Deleted")
         try {
             setShowLoading(true)
@@ -85,11 +88,22 @@ function AdminPublication() {
             desc: "",
             email: "",
             linkedin: "",
-            img: ""
+            img: "",
+            date : ""
         });
         setEditingPublicationId(null);
         setAddPublicationBtn(false);
+        setPublished(true)
     };
+
+    const handlePublishedDate = (e) => {
+        if(e.target.value === "Review"){
+            setPublished(false)
+        }
+        else if(e.target.value === "Published"){
+            setPublished(true)
+        }
+    }
 
     return (
         <>
@@ -124,10 +138,21 @@ function AdminPublication() {
 
                         <div className="w-[40%] flex flex-col">
                             <label htmlFor="status" className='p-1'>Status</label>
-                            <select name="status" value={publication.status} className="bg-primary border-[2px] text-secondary border-secondary h-[30px] m-1 p-1" onChange={handleInputChange}>
+                            <select name="status" value={publication.status} className="bg-primary border-[2px] text-secondary border-secondary h-[30px] m-1 p-1" 
+                            onChange={(e) => {
+                                handleInputChange(e);
+                                handlePublishedDate(e);
+                            }}
+                            >
                                 <option value="Review">Review</option>
                                 <option value="Published">Published</option>
                             </select>
+                        </div>
+                        <div className={`w-[40%] flex flex-col ${published ? "inline" : "hidden"}`} >
+                            <label htmlFor="publishedDate" className='p-1'>Published Date</label>
+                            <input type="date" name="date" value={publication.date} className="bg-primary border-[2px] text-secondary border-secondary h-[30px] m-1 p-1" 
+                             onChange={handleInputChange}
+                             />
                         </div>
 
                         <button className='my-5 bg-tertiary p-3 rounded-[10px] hover:bg-primary  hover:border-tertiary hover:border-[2px] hover:border-b-[4px] hover:text-tertiary text-primary mx-auto w-[20%] transition duration-200' onClick={handleSubmit}>Submit</button>
@@ -140,9 +165,9 @@ function AdminPublication() {
                 {
                     Data && Data.publication && Data.publication.map(item => (
                         <div key={item._id} className='flex border-[1px] border-gray-150 my-5 p-5 hover:translate-y-[-4px] hover:shadow-xl'>
-                            <div  className='font-semibold w-[70%]  flex justify-center items-center text-left'> {item.title}</div>
+                            <div className='font-semibold w-[70%]  flex justify-center items-center text-left'> {item.title}</div>
                             <div className="btn w-[30%] flex items-end justify-around text-center my-5">
-                                <button onClick={()=>handleEdit(item)} className='text-center bg-secondary w-[25%] rounded-[10px] text-primary border-[2px] border-secondary  hover:bg-primary hover:text-secondary border-b-[5px]  border-secondary duration-200'>Edit  </button>
+                                <button onClick={() => handleEdit(item)} className='text-center bg-secondary w-[25%] rounded-[10px] text-primary border-[2px] border-secondary  hover:bg-primary hover:text-secondary border-b-[5px]  border-secondary duration-200'>Edit  </button>
                                 <button onClick={() => handleDelete(item._id)} className='text-center bg-tertiary w-[25%]   rounded-[10px] text-primary border-[2px] border-tertiary  hover:bg-primary hover:text-tertiary border-b-[5px]  border-tertiary duration-200y'>Delete </button>
                             </div>
 

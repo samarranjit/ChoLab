@@ -37,7 +37,7 @@ function Footer() {
                 </p>
                 <p className='p-2 sm:p-0 text-xl sm:text-sm sm:py-2'>
 
-                Bruce and Ingram, Room 5313
+                Bruce and Ingram, Room 5311
                 </p>
                 <p className='p-2 sm:p-0 text-xl sm:text-sm sm:py-2'>
                   Texas State University
@@ -63,8 +63,8 @@ function Footer() {
                 </a>
               </div>
           </div>
-          <div className="quick-links  flex-col  text-3xl text-center text-tertiary  font-semibold flex items-start  sm:w-[100%]  justify-start ">
-            <p className='block p-5 border-b-[2px] border-tertiary pb-2 mb-7 sm:text-2xl sm:flex sm:text-center  sm:justify-center sm:items-center'>
+          <div className="quick-links  flex-col  text-3xl text-center text-tertiary  font-semibold flex items-center  sm:w-[100%]  justify-start ">
+            <p className='block p-5 my-5 border-b-[2px] border-tertiary pb-2 mb-7 sm:text-2xl sm:flex sm:text-center  sm:justify-center sm:items-center'>
 
             Quick Links
             </p>
