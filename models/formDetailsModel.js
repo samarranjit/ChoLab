@@ -29,6 +29,10 @@ const joinUsSchema = new mongoose.Schema({
     expertise : {
         type : String,
         required: true
+    },
+    resumePath: { 
+        type: String, 
+        required: false 
     }
 })
 

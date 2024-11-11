@@ -1,9 +1,11 @@
 const router = require("express").Router();
 
-const { Intro, TeamMember, News, Publication } = require("../models/memberModel.js");
+const { Intro, TeamMember, News, Publication,  } = require("../models/memberModel.js");
 const User = require("../models/userModels.js");
 const JoinUs = require ("../models/formDetailsModel.js")
-
+const cloudinary = require("../cloudinary/cloudinary.js");
+const upload = require("../MiddleWare/multer.js");
+const authenticate = require("../MiddleWare/authMiddleware.js");
 
 
 //getting all data
@@ -13,6 +15,7 @@ router.get('/getData', async (req, res) => {
         const teamMembers = await TeamMember.find();
         const news = await News.find();
         const publications = await Publication.find();
+        
         res.status(200).send({
             intro: intros[0],
             team: teamMembers,
@@ -23,6 +26,19 @@ router.get('/getData', async (req, res) => {
 
     } catch (error) {
         res.status(500).send(error)
+    }
+})
+
+router.get("/joinRequest/newJoinRequest", async(req,res)=>{
+    try {
+        const joinUsReq = await JoinUs.find();
+
+        res.status(200).send({
+            joinUsReq
+        })
+    } catch (error) {
+        res.status(500).send(error)
+        
     }
 })
 
@@ -37,10 +53,21 @@ router.get('/getNewsArticle/:id', async (req, res) => {
     }
 })
 
+router.get('/admin-newMemberRequests/:id', async (req,res)=>{
+    try{
+        const article = await JoinUs.findById(req.params.id);
+        res.status(200).send({
+            joinReq : article
+        })
+    }catch (error){
+        res.status(500).send(error)
+    }
+})
+
 
 //updating intro data;
 
-router.post('/update-intro', async (req, res) => {
+router.post('/update-intro', authenticate, async (req, res) => {
     console.log(req.body)
     try {
         const intro = await Intro.findOneAndUpdate(
@@ -58,7 +85,7 @@ router.post('/update-intro', async (req, res) => {
     }
 })
 
-router.post('/publication/addPublication', async(req,res)=>{
+router.post('/publication/addPublication', authenticate, async(req,res)=>{
     try {
         const publication = new Publication(req.body);
         await publication.save();
@@ -75,8 +102,88 @@ router.post('/publication/addPublication', async(req,res)=>{
 })
 
 
+router.post("/adminPublication/sendImage", authenticate, upload.single("image"), (req,res)=>{
 
-router.post('/team/addMember', async (req, res) => {
+    cloudinary.uploader.upload(req.file.path, (err,results)=>{
+        if(err){
+            console.error("Cloudinary upload error:", err); // Log the error
+            console.log(err)
+            return res.status(500).json({
+                success :false,
+                message: "error"
+
+            })
+        }
+        else{
+
+            console.log("Cloudinary upload result", results); // Log the result
+        }
+        
+
+        return res.status(200).json({
+            success :true,
+            message: "Uploaded",
+            data: results
+
+        })
+    })
+})
+router.post("/adminAbout/sendImage", authenticate, upload.single("img"), (req,res)=>{
+
+    cloudinary.uploader.upload(req.file.path, (err,results)=>{
+        if(err){
+            console.error("Cloudinary upload error:", err); // Log the error
+            console.log(err)
+            return res.status(500).json({
+                success :false,
+                message: "error"
+
+            })
+        }
+        else{
+
+            console.log("Cloudinary upload result", results); // Log the result
+        }
+        
+
+        return res.status(200).json({
+            success :true,
+            message: "Uploaded",
+            data: results
+
+        })
+    })
+})
+router.post("/resume/send", authenticate, upload.single("resume"), (req,res)=>{
+
+    cloudinary.uploader.upload(req.file.path, (err,results)=>{
+        if(err){
+            console.error("Cloudinary upload error:", err); // Log the error
+            console.log(err)
+            return res.status(500).json({
+                success :false,
+                message: "error"
+
+            })
+        }
+        else{
+
+            console.log("Cloudinary upload result", results); // Log the result
+        }
+        
+
+        return res.status(200).json({
+            success :true,
+            message: "Uploaded",
+            data: results
+
+        })
+    })
+})
+
+
+
+router.post('/team/addMember', authenticate, async (req, res) => {
     try {
         const member = new TeamMember(req.body);
         await member.save();
@@ -90,7 +197,7 @@ router.post('/team/addMember', async (req, res) => {
         res.status(500).send(error)
     }
 })
-router.post('/news/addNews', async (req, res) => {
+router.post('/news/addNews', authenticate, async (req, res) => {
     try {
         const news = new News(req.body);
         await news.save();
@@ -105,7 +212,7 @@ router.post('/news/addNews', async (req, res) => {
     }
 })
 
-router.delete('/team/DelMember/:id', async (req, res) => {
+router.delete('/team/DelMember/:id', authenticate, async (req, res) => {
 
 
     try {
@@ -124,7 +231,7 @@ router.delete('/team/DelMember/:id', async (req, res) => {
     }
 })
 
-router.post('/team/editMember/:id', async (req, res) => {
+router.post('/team/editMember/:id', authenticate, async (req, res) => {
 
 
 
@@ -147,9 +254,22 @@ router.post('/team/editMember/:id', async (req, res) => {
        
     }
 });
-router.post('/joinRequest/newJoinRequest', async (req, res) => {
+router.post('/joinRequest/newJoinRequest', authenticate, async (req, res) => {
     try {
-        const joinRequest = new JoinUs(req.body);
+        const { fName, lName, email, contact, linkedin, message, expertise, resumeUrl } = req.body;
+        
+         // Save the form data, including the Cloudinary resume URL, to MongoDB
+         const joinRequest = new JoinUs({
+            fName,
+            lName,
+            email,
+            contact,
+            linkedin,
+            message,
+            expertise,
+            resumePath: resumeUrl, // Storing the Cloudinary URL of the resume
+        });
+
         await joinRequest.save();
         res.status(200).send({
             data: joinRequest,
@@ -161,7 +281,7 @@ router.post('/joinRequest/newJoinRequest', async (req, res) => {
         res.status(500).send(error)
     }
 });
-router.post('/publication/editPublication/:id', async (req, res) => {
+router.post('/publication/editPublication/:id', authenticate, async (req, res) => {
     try {
         const updatedPublication = await Publication.findByIdAndUpdate(
             { _id: req.body._id },
@@ -180,7 +300,7 @@ router.post('/publication/editPublication/:id', async (req, res) => {
        
     }
 });
-router.post('/news/editNews/:id', async (req, res) => {
+router.post('/news/editNews/:id', authenticate, async (req, res) => {
     try {
         const updatedNews = await News.findByIdAndUpdate(
             { _id: req.params.id },
@@ -202,7 +322,7 @@ router.post('/news/editNews/:id', async (req, res) => {
 
 
 
-router.delete('/publication/delPublication/:id', async (req, res) => {
+router.delete('/publication/delPublication/:id', authenticate, async (req, res) => {
 
 
     try {
@@ -221,7 +341,7 @@ router.delete('/publication/delPublication/:id', async (req, res) => {
     }
 })
 
-router.delete('/news/delNews/:id', async (req, res) => {
+router.delete('/news/delNews/:id',authenticate, async (req, res) => {
 
 
     try {
@@ -262,6 +382,6 @@ router.post('/admin-login', async (req, res) => {
         
     }
 })
-
+ 
 
 module.exports = router;

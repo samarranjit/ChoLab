@@ -19,8 +19,8 @@ function Publication() {
       return acc;
     }, {})
     : {};
-  console.log(Data.publication)
-  console.log(groupedPublications)
+  // console.log(Data.publication)
+  // console.log(groupedPublicationsx)
   // Sort years in descending order
   const sortedYears = Object.keys(groupedPublications).sort((a, b) => b - a);
 
@@ -66,7 +66,7 @@ function Publication() {
                   title={item.title}
                   details={item.details}
                   link={item.link}
-                  linkTag={item.linkTag}
+                  imgUrl={item.imgUrl}
                 /> : <></>))}
           </div>
         </div>
@@ -89,7 +89,7 @@ function Publication() {
                         title={item.title}
                         details={item.details}
                         link={item.link}
-                        linkTag={item.linkTag}
+                        imgUrl={item.imgUrl}
                       />
                     ))}
                   </div>

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useContext } from 'react';
 import { allContexts } from '../../Context/AllContexts';
+import axiosInstance from '../../axios/axiosInstance';
 
 function AdminNews() {
     const { Data, setShowLoading } = useContext(allContexts);
@@ -58,8 +59,8 @@ function AdminNews() {
         console.log(news)
         setShowLoading(true);
         try {
-            const response = editingNewsId ? await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/news/editNews/${editingNewsId}`, news)
-                                            : await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/news/addNews`, news);
+            const response = editingNewsId ? await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/news/editNews/${editingNewsId}`, news)
+                                            : await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/news/addNews`, news);
 
             setShowLoading(false);
             if (response.data.success) {
@@ -85,7 +86,7 @@ function AdminNews() {
     const handleDelete = async (newsId) => {
         try {
             setShowLoading(true);
-            const response = await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/news/delNews/${newsId}`);
+            const response = await axiosInstance.delete(`${process.env.REACT_APP_API_BASE_URL}/api/news/delNews/${newsId}`);
             setShowLoading(false);
             if (response.data.success) {
                 alert(response.data.message);

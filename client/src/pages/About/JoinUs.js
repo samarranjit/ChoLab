@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React from 'react';
+import axiosInstance from '../../axios/axiosInstance';
 
 function JoinUs() {
     const [info, setInfo] = React.useState({
@@ -12,30 +13,58 @@ function JoinUs() {
         expertise: ""
     });
     const [success, setSuccess] = React.useState(false);
+    const [resume, setResume] = React.useState(null)
     const [fail, setFail] = React.useState(false);
     const [message, setMessage] = React.useState(null);
 
     const handleInputChange = (e) => {
+        
         e.preventDefault();
         const { name, value } = e.target;
-        setInfo((prev) => ({
-            ...prev,
-            [name]: value
-        }));
+
+        if(name==="resume"){
+            setResume(e.target.files[0])
+        }
+        else{
+
+            setInfo((prev) => ({
+                ...prev,
+                [name]: value
+            }));
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append('resume', resume);  
         try {
-            const response = await axios.post("process.env.REACT_APP_API_BASE_URL/api/joinRequest/newJoinRequest", info);
-            if (response.data.success) {
-                setMessage(response.data.message);
-                setSuccess(true);
-                setFail(false);
-            } else {
-                setSuccess(false);
-                setFail(true);
-                setMessage("Data not inserted due to some error");
+            const res = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/resume/send`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            if (res.data.success) {
+                console.log(res.data)
+                const resumeUrl = res.data.data.secure_url;  // Get the Cloudinary URL of the uploaded resume
+
+                // Step 2: Send the form data including the resume URL to the backend
+                const response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/joinRequest/newJoinRequest`, {
+                    ...info,
+                    resumeUrl  // Include the resume URL in the form data
+                });
+
+                if (response.data.success) {
+                    setMessage(response.data.message);
+                    setSuccess(true);
+                    setFail(false);
+                    resetForm();
+                } else {
+                    setSuccess(false);
+                    setFail(true);
+                    setMessage("Data not inserted due to some error");
+                    resetForm();
+                }
             }
         } catch (error) {
             setSuccess(false);
@@ -43,6 +72,18 @@ function JoinUs() {
             setMessage("Data not inserted due to some error");
         }
     };
+    const resetForm= ()=>{
+        setInfo({
+            fName: "",
+            lName: "",
+            email: "",
+            contact: "",
+            linkedin: "",
+            message: "",
+            expertise: ""
+        })
+        setResume(null)
+    }
 
     return (
         <div className="p-8 sm:p-6 sm:pb-[10rem] mb-10">
@@ -65,6 +106,7 @@ function JoinUs() {
                                 type="text"
                                 placeholder="First Name"
                                 name="fName"
+                                value={info.fName}
                                 onChange={handleInputChange}
                                 className="w-full p-2 border rounded-lg"
                             />
@@ -75,6 +117,7 @@ function JoinUs() {
                                 type="text"
                                 placeholder="Last Name"
                                 name="lName"
+                                value={info.lName}
                                 onChange={handleInputChange}
                                 className="w-full p-2 border rounded-lg"
                             />
@@ -85,6 +128,7 @@ function JoinUs() {
                                 type="email"
                                 name="email"
                                 placeholder="Email"
+                                value={info.email}
                                 onChange={handleInputChange}
                                 className="w-full p-2 border rounded-lg"
                             />
@@ -94,6 +138,7 @@ function JoinUs() {
                             <input
                                 type="tel"
                                 name="contact"
+                                value={info.contact}
                                 placeholder="Phone Number"
                                 onChange={handleInputChange}
                                 className="w-full p-2 border rounded-lg"
@@ -104,6 +149,7 @@ function JoinUs() {
                             <input
                                 type="url"
                                 name="linkedin"
+                                value={info.linkedin}
                                 placeholder="LinkedIn Profile URL"
                                 onChange={handleInputChange}
                                 className="w-full p-2 border rounded-lg"
@@ -114,6 +160,7 @@ function JoinUs() {
                             <textarea
                                 placeholder="Tell us about yourself"
                                 name="message"
+                                value={info.message}
                                 onChange={handleInputChange}
                                 rows="6"
                                 className="w-full p-2 border rounded-lg"
@@ -123,9 +170,20 @@ function JoinUs() {
                             <label className="block text-sm font-semibold text-gray-700">Skills and Expertise</label>
                             <input
                                 type="text"
+                                value={info.expertise}
                                 placeholder="e.g., React, Data Analysis"
                                 name="expertise"
                                 onChange={handleInputChange}
+                                className="w-full p-2 border rounded-lg"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700">Upload Resume</label>
+                            <input
+                                type="file"
+                                placeholder=""
+                                onChange={handleInputChange}
+                                name="resume"
                                 className="w-full p-2 border rounded-lg"
                             />
                         </div>

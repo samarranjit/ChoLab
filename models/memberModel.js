@@ -65,10 +65,12 @@ const publicationsSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    linkTag: {
+    
+    imgUrl: {
         type: String,
-        required: false
+        required: true
     },
+    
     status:{
         type : String,
         required: true

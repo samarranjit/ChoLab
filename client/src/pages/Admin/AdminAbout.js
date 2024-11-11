@@ -1,29 +1,90 @@
 import React from 'react'
 import { allContexts } from '../../Context/AllContexts'
 import axios from 'axios';
+import { Link } from 'react-router-dom'
+import axiosInstance from '../../axios/axiosInstance';
 
 function AdminAbout() {
-    const { Data, setShowLoading } = React.useContext(allContexts);
+    const { Data, setData, setShowLoading } = React.useContext(allContexts);
     const [addMemberBtn, setAddMemberBtn] = React.useState(false);
     const [editingMemberId, setEditingMemberId] = React.useState(null);
+    const [img, setImg] = React.useState(null)
     const [member, setMember] = React.useState({
         name: "",
         position: "",
         desc: "",
         email: "",
         linkedin: "",
-        img: ""
     });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('img', img);
+
         setShowLoading(true);
         try {
             let response;
             if (editingMemberId) {
-                response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/team/editMember/${editingMemberId}`, member);
+
+                const res = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/adminAbout/sendImage`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                if (res.data.success) {
+                    console.log(res.data)
+                    const img = res.data.data.secure_url;  // Get the Cloudinary URL of the uploaded resume
+    
+                    // Step 2: Send the form data including the resume URL to the backend
+                    // const response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/publication/editPublication/${editingPublicationId}`, {
+                    const response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/team/editMember/${editingMemberId}`,{
+                        ...member,
+                        img  
+                    });
+    
+                    if (response.data.success) {
+                        setEditingMemberId(false);
+
+                        resetForm();
+                    } else {
+                        resetForm();
+                    }
+                }
+
+
+
+
+
             } else {
-                response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/team/addMember`, member);
+                const res = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/adminAbout/sendImage`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                console.log(res)
+                if (res.data.success) {
+                    console.log(res.data)
+                    const img = res.data.data.secure_url;  // Get the Cloudinary URL of the uploaded resume
+    
+                    // Step 2: Send the form data including the resume URL to the backend
+                        response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/team/addMember`, {
+                        ...member,
+                        img  // Include the resume URL in the form data
+                    });
+    
+                    if (response.data.success) {
+                       
+                        resetForm();
+                    } else {
+                        resetForm();
+                    }
+                }
+
+            setShowLoading(false);
+
+
             }
             setShowLoading(false);
             if (response.data.success) {
@@ -40,10 +101,19 @@ function AdminAbout() {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setMember((prevState) => ({
-            ...prevState,
-            [name]: value
-        }));
+
+        if(name==="img"){
+            setImg(e.target.files[0])
+        }
+        else{
+
+            setMember((prevState) => ({
+                ...prevState,
+                [name]: value
+            }));
+        }
+
+        
     };
 
     const handleUnhide = () => {
@@ -52,12 +122,17 @@ function AdminAbout() {
     };
 
     const handleDelete = async (memberId) => {
+        console.log(memberId)
         try {
             setShowLoading(true);
-            const response = await axios.delete(`${process.envREACT_APP_API_BASE_URL}/api/team/DelMember/${memberId}`);
+            const response = await axiosInstance.delete(`${process.env.REACT_APP_API_BASE_URL}/api/team/DelMember/${memberId}`);
             setShowLoading(false);
             if (response.data.success) {
                 alert(response.data.message);
+                setData((prevData) => ({
+                    ...prevData,
+                    team: prevData.team.filter(member => member._id !== memberId)
+                  }));
                 // Update the local Data to remove the deleted member
                 
             }
@@ -90,11 +165,18 @@ function AdminAbout() {
         <>
             <div className="addMemberBtn w-full flex justify-center items-center align-middle">
                 <button
-                    className="w-[15%] rounded-[15px] mx-auto align-middle bg-secondary border-[2px] p-2 text-primary hover:bg-primary hover:text-secondary border-b-[5px] border-secondary duration-200"
+                    className="w-[15%] flex items-center justify-center rounded-[15px] mx-auto align-middle  bg-secondary border-[2px] p-2 text-primary hover:bg-primary hover:text-secondary border-b-[5px] border-secondary duration-200"
                     onClick={handleUnhide}
                 >
                     {addMemberBtn ? "Hide" : "Add a member"}
                 </button>
+                <Link to="/admin-newMemberRequests" className='w-[100%] flex'>
+                <button
+                    className="w-[15%] rounded-[15px] mx-auto align-middle bg-secondary border-[2px] p-2 text-primary hover:bg-primary hover:text-secondary border-b-[5px] border-secondary duration-200"
+                    >
+                    See Form Requests
+                </button>
+                </Link>
             </div>
             {addMemberBtn && (
                 <div className="newMemberAdd flex justify-center items-center bg-secondary my-5 w-100% text-primary">
@@ -154,6 +236,16 @@ function AdminAbout() {
                         </div>
 
                         <div className="w-[40%] flex flex-col">
+                            <label htmlFor="img" className="p-1">Photo:</label>
+                            <input
+                                type="file"
+                                name="img"
+                                value={member.img}
+                                className="bg-primary border-[2px] text-secondary border-secondary  m-1 p-1"
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        {/* <div className="w-[40%] flex flex-col">
                             <label htmlFor="img" className="p-1">Photo Link:</label>
                             <input
                                 type="text"
@@ -162,7 +254,7 @@ function AdminAbout() {
                                 className="bg-primary border-[2px] text-secondary border-secondary h-[30px] m-1 p-1"
                                 onChange={handleInputChange}
                             />
-                        </div>
+                        </div> */}
 
                         <button
                             type="submit"

@@ -10,6 +10,10 @@ import Admin from "./pages/Admin/index.js";
 import NewsArticle from "./pages/News/NewsArticle.js";
 import AdminLogin from "./pages/Admin/AdminLogin.js";
 import Research from "./pages/Research/index.js";
+import NewJoinRequests from "./pages/Admin/AdminNewJoinRequests/NewJoinRequests.js";
+import JoinReqPage from "./pages/Admin/AdminNewJoinRequests/JoinReqPage.js";
+import ProtectedRoutes from "./axios/protectedRoutes.js";
+import { AuthProvider } from "./Context/AuthContext.js";
 function App() {
   const [Data, setData] = React.useState(null);
   const [showLoading, setShowLoading] = React.useState(false);
@@ -35,7 +39,9 @@ function App() {
 
   
   return (
-    <allContexts.Provider value={{Data,  showLoading, setShowLoading}} >
+    <allContexts.Provider value={{Data, setData, showLoading, setShowLoading}} >
+    <AuthProvider>
+
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />}></Route>
@@ -43,11 +49,15 @@ function App() {
         <Route path="/news" element={<News />} ></Route>
         <Route path="/publication" element={<Publication />} ></Route>
         <Route path="/research" element={<Research />} ></Route>
-        <Route path="/admin" element={<Admin />} ></Route>
+        <Route path="/admin" element={<ProtectedRoutes><Admin /></ProtectedRoutes>} ></Route>
         <Route path="/news/:id" element={<NewsArticle />} /> 
         <Route path="/admin-login" element={<AdminLogin />} /> 
+        <Route path="/admin-newMemberRequests" element={<NewJoinRequests />} /> 
+        <Route path="/admin-newMemberRequests/:id" element={<JoinReqPage />} /> 
+
       </Routes>
     </BrowserRouter>
+    </AuthProvider>
     </allContexts.Provider>
   );
 }

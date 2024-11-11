@@ -4,16 +4,28 @@ import AdminIntro from './AdminIntro'
 import AdminAbout from './AdminAbout'
 import AdminNews from './AdminNews'
 import AdminPublication from './AdminPublication'
+import axiosInstance from '../../axios/axiosInstance'
+import { useNavigate } from 'react-router-dom'
 
 function Admin() {
     const [toggleState, setToggleState] = React.useState('Intro')
-
+    const navigate = useNavigate();
 
     useEffect(() => {
       if(!localStorage.getItem('token')){
         window.location.href = '/admin-login'
       }
     }, [])
+
+    const logoutUser = async () => {
+        try {
+            await axiosInstance.get(`${process.env.REACT_APP_API_BASE_URL}/api/user/logout`);
+            alert("Logged Out Successful!");
+            navigate("/admin-login");
+        } catch (error) {
+            alert(error.message)
+        }
+    }
     
 
     return (
@@ -36,10 +48,7 @@ function Admin() {
                     <div className={`intro  cursor-pointer p-2 border-[#3395f1] ${ (toggleState === "News") ? "border-b-[2.5px]" : ""} transition duration-500`} onClick={() => setToggleState('News')}>News</div>
                     <div className={`intro  cursor-pointer p-2 border-[#3395f1] ${ (toggleState === "Publication") ? "border-b-[2.5px] border-b-w-[50%]" : ""} transition duration-500`} onClick={() => setToggleState('Publication')}>Publication</div>
                     <div className={`intro  cursor-pointer p-2 border-[#3395f1] transition duration-500`} 
-                            onClick={() => {
-                                localStorage.removeItem("token");
-                                window.location.href = "/admin-login"
-                                }}>Logout</div>
+                            onClick={logoutUser}>Logout</div>
                 </div>
                 <div className="edit-box p-10 w-full h-screen">
                     {

@@ -1,18 +1,19 @@
-import axios from 'axios';
 import React, { useContext } from 'react';
 import { allContexts } from '../../Context/AllContexts';
+import axiosInstance from '../../axios/axiosInstance';
 
 function AdminPublication() {
-    const { Data, setShowLoading } = useContext(allContexts)
+    const { Data, setData, setShowLoading } = useContext(allContexts)
     const [addPublicationBtn, setAddPublicationBtn] = React.useState(false);
     const [editingPublicationId, setEditingPublicationId] = React.useState(null);
     const [published, setPublished] = React.useState(false)
+    const [image, setImage] = React.useState(null)
     const [publication, setPublication] = React.useState({
 
         title: "",
         details: "",
         link: "",
-        linkTag: "",
+        // linkTag: "",
         status: "Review",
         date: ""
     });
@@ -22,12 +23,23 @@ function AdminPublication() {
     };
 
     const handleInputChange = (e) => {
+
         const { name, value } = e.target;
-        setPublication(prev => ({
-            ...prev,
-            [name]: value
-        }));
-        console.log(publication);
+
+        if(name==="image"){
+            setImage(e.target.files[0])
+        }
+        else{
+
+            setPublication(prev => ({
+                ...prev,
+                [name]: value
+            }));
+            console.log(publication);
+        }
+
+
+        
     };
 
     const handleEdit = (pub) => {
@@ -42,20 +54,71 @@ function AdminPublication() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-
+        const formData = new FormData();
+        formData.append('image', image);  
         setShowLoading(true);
+
         try {
             let response;
             if (editingPublicationId) {
-                response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/publication/editPublication/${editingPublicationId}`, publication);
+
+                const res = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/adminPublication/sendImage`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                if (res.data.success) {
+                    console.log(res.data)
+                    const imgUrl = res.data.data.secure_url;  // Get the Cloudinary URL of the uploaded resume
+    
+                    // Step 2: Send the form data including the resume URL to the backend
+                    const response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/publication/editPublication/${editingPublicationId}`, {
+                        ...publication,
+                        imgUrl,
+                         
+                    });
+    
+                    if (response.data.success) {
+                        setPublished(false);
+
+                        resetForm();
+                    } else {
+                        resetForm();
+                    }
+                }
+
             } else {
-                response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/publication/addPublication`, publication);
+                const res = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/adminPublication/sendImage`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                console.log(res)
+                if (res.data.success) {
+                    console.log(res.data)
+                    const imgUrl = res.data.data.secure_url;  // Get the Cloudinary URL of the uploaded resume
+    
+                    // Step 2: Send the form data including the resume URL to the backend
+                    const response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/publication/addPublication`, {
+                        ...publication,
+                        imgUrl  // Include the resume URL in the form data
+                    });
+    
+                    if (response.data.success) {
+                       
+                        resetForm();
+                    } else {
+                        resetForm();
+                    }
+                }
+
+            setShowLoading(false)
+
             }
             setShowLoading(false);
             if (response.data.success) {
                 alert(response.data.message);
                 // Update the local Data to reflect the change
-
                 resetForm();
             }
         } catch (error) {
@@ -69,12 +132,14 @@ function AdminPublication() {
         console.log(publicationId, "Deleted")
         try {
             setShowLoading(true)
-            const response = await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/publication/delPublication/${publicationId}`);
+            const response = await axiosInstance.delete(`${process.env.REACT_APP_API_BASE_URL}/api/publication/delPublication/${publicationId}`);
             setShowLoading(false);
             if (response.data.success) {
                 alert(response.data.message);
-                // Optionally: refresh data
-
+                setData((prevData) => ({
+                    ...prevData,
+                    team: prevData.publication.filter(member => member._id !== publicationId)
+                  }));
             }
         } catch (error) {
 
@@ -83,13 +148,12 @@ function AdminPublication() {
 
     const resetForm = () => {
         setPublication({
-            name: "",
-            position: "",
-            desc: "",
-            email: "",
-            linkedin: "",
-            img: "",
-            date : ""
+            title: "",
+            details: "",
+            link: "",
+            // linkTag: "",
+            status: "Review",
+            date: ""
         });
         setEditingPublicationId(null);
         setAddPublicationBtn(false);
@@ -131,10 +195,6 @@ function AdminPublication() {
                             <input type="text" name="link" value={publication.link} className="bg-primary border-[2px] text-secondary border-secondary h-[30px] m-1 p-1" onChange={handleInputChange} />
                         </div>
 
-                        <div className="w-[40%] flex flex-col">
-                            <label htmlFor="linkTag" className='p-1'>Link Tag</label>
-                            <input type="text" name="linkTag" value={publication.linkTag} className="bg-primary border-[2px] text-secondary border-secondary h-[30px] m-1 p-1" onChange={handleInputChange} />
-                        </div>
 
                         <div className="w-[40%] flex flex-col">
                             <label htmlFor="status" className='p-1'>Status</label>
@@ -148,9 +208,15 @@ function AdminPublication() {
                                 <option value="Published">Published</option>
                             </select>
                         </div>
-                        <div className={`w-[40%] flex flex-col ${published ? "inline" : "hidden"}`} >
+                        <div className={`w-[40%] flex flex-col `} >
                             <label htmlFor="publishedDate" className='p-1'>Published Date</label>
                             <input type="date" name="date" value={publication.date} className="bg-primary border-[2px] text-secondary border-secondary h-[30px] m-1 p-1" 
+                             onChange={handleInputChange}
+                             />
+                        </div>
+                        <div className={`w-[40%] flex flex-col `} >
+                            <label htmlFor="image" className='p-1'>Image</label>
+                            <input type="file" name="image"  className="bg-primary border-[2px] text-secondary border-secondary h-[full ] m-1 p-1" 
                              onChange={handleInputChange}
                              />
                         </div>
