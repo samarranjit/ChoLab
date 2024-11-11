@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import axiosInstance from '../../axios/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,6 +8,15 @@ function AdminLogin() {
         password : ""
     })
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const checkStatus = async () => {
+            const res = await axiosInstance.get(`${process.env.REACT_APP_API_BASE_URL}/api/user/status`);
+            if (res.data === true)
+            navigate("/admin")
+        }
+        checkStatus();
+    })
 
     const handleSubmit = async(e)=>{
         e.preventDefault();
