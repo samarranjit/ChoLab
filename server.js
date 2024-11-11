@@ -11,7 +11,7 @@ const cors = require("cors");
 const Data=require("./routes/AllRoutes");
 const cookieParser = require("cookie-parser");
 
-app.use(
+app.options('*',
     cors({
         origin: process.env.REACT_APP_FRONTEND_URL,  // Specify your frontend URL
         credentials: true,                // Allow credentials
