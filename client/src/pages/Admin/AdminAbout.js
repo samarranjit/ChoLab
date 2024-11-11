@@ -11,6 +11,7 @@ function AdminAbout() {
     const [member, setMember] = React.useState({
         name: "",
         position: "",
+        
         desc: "",
         email: "",
         linkedin: "",
