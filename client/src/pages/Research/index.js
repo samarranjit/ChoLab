@@ -24,6 +24,14 @@ function Research() {
         }
       </div>
 
+      <div className="themes bg-secondary h-[250px] ">
+        <div className="grid grid-cols-3 p-5 text-center font">
+          <div className="flex w-[25%]">Theme1</div>
+          <div className="flex w-[25%]">Theme2</div>
+          <div className="flex w-[25%]">Theme3</div>
+        </div>
+      </div>
+
       <div className="h-full p-[7rem] research-div bg-primary sm:p-4 sm:py-[4.5rem]">
         <h2 className='text-tertiary text-2xl sm:text-lg sm:font-semibold'>
           

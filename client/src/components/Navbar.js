@@ -15,7 +15,7 @@ function Navbar() {
       <div className="bg-[#007C92] flex items-center justify-between py-4 h-[70px] shadow-md sm:hidden px-7">
         {/* Logo Section */}
         <div className="flex items-center h-full space-x-5">
-          <img src={`${process.env.PUBLIC_URL}/txst-primary.png`} className="h-[120%] cursor-pointer" alt="TXST Logo" />
+          <img src={`${process.env.PUBLIC_URL}/txst-primary.png`} className="h-[200%] cursor-pointer" alt="TXST Logo" />
           <Link to="/" className="ml-4">
             <h2 className="text-primary text-2xl font-bold cursor-pointer">Cho Lab</h2>
           </Link>
