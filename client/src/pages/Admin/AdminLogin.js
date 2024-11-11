@@ -16,7 +16,7 @@ function AdminLogin() {
             navigate("/admin")
         }
         checkStatus();
-    })
+    }, [navigate])
 
     const handleSubmit = async(e)=>{
         e.preventDefault();
