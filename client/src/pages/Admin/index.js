@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import Navbar from '../../components/Navbar'
 import AdminIntro from './AdminIntro'
 import AdminAbout from './AdminAbout'
@@ -11,11 +11,11 @@ function Admin() {
     const [toggleState, setToggleState] = React.useState('Intro')
     const navigate = useNavigate();
 
-    useEffect(() => {
-      if(!localStorage.getItem('token')){
-        window.location.href = '/admin-login'
-      }
-    }, [])
+    // useEffect(() => {
+    //   if(!localStorage.getItem('token')){
+    //     window.location.href = '/admin-login'
+    //   }
+    // }, [])
 
     const logoutUser = async () => {
         try {

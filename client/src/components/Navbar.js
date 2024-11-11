@@ -23,11 +23,12 @@ function Navbar() {
 
         {/* Nav Links */}
         <div className="nav-link text-xl text-primary flex font-open space-x-8">
-          <Link to="/" className="hover:text-tertiary transition duration-200">Home</Link>
-          <Link to="/about" className="hover:text-tertiary transition duration-200">About</Link>
+          {/* <Link to="/" className="hover:text-tertiary transition duration-200">Home</Link> */}
+          <Link to="/about" className="hover:text-tertiary transition duration-200">People</Link>
+          <Link to="/research" className="hover:text-tertiary transition duration-200">Research</Link>
           <Link to="/news" className="hover:text-tertiary transition duration-200">News</Link>
           <Link to="/publication" className="hover:text-tertiary transition duration-200">Publication</Link>
-          <Link to="/research" className="hover:text-tertiary transition duration-200">Research</Link>
+          <Link to="/opportunities" className="hover:text-tertiary transition duration-200">Opportunities</Link>
         </div>
       </div>
 

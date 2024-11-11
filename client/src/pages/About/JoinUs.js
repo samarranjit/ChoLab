@@ -6,7 +6,7 @@ function JoinUs() {
         fName: "",
         lName: "",
         email: "",
-        contact: "",
+        // contact: "",
         linkedin: "",
         message: "",
         expertise: ""
@@ -76,7 +76,7 @@ function JoinUs() {
             fName: "",
             lName: "",
             email: "",
-            contact: "",
+            // contact: "",
             linkedin: "",
             message: "",
             expertise: ""
@@ -132,7 +132,7 @@ function JoinUs() {
                                 className="w-full p-2 border rounded-lg"
                             />
                         </div>
-                        <div>
+                        {/* <div>
                             <label className="block text-sm font-semibold text-gray-700">Contact Number</label>
                             <input
                                 type="tel"
@@ -142,7 +142,7 @@ function JoinUs() {
                                 onChange={handleInputChange}
                                 className="w-full p-2 border rounded-lg"
                             />
-                        </div>
+                        </div> */}
                         <div>
                             <label className="block text-sm font-semibold text-gray-700">LinkedIn Profile</label>
                             <input

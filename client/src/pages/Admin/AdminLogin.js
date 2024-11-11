@@ -13,7 +13,7 @@ function AdminLogin() {
         e.preventDefault();
         try {
             const response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/user/login`, user);
-            if(response.status=== 200){
+            if(response.status === 200){
                 // localStorage.setItem('token', JSON.stringify(response.data))
                 navigate("/admin")
             }else{

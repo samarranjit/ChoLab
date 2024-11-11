@@ -14,10 +14,6 @@ const joinUsSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    contact : {
-        type : String,
-        required: true
-    },
     linkedin : {
         type : String,
         required: true

@@ -14,6 +14,7 @@ import NewJoinRequests from "./pages/Admin/AdminNewJoinRequests/NewJoinRequests.
 import JoinReqPage from "./pages/Admin/AdminNewJoinRequests/JoinReqPage.js";
 import ProtectedRoutes from "./axios/protectedRoutes.js";
 import { AuthProvider } from "./Context/AuthContext.js";
+import Opportunities from "./pages/Opportunities/index.js";
 function App() {
   const [Data, setData] = React.useState(null);
   const [showLoading, setShowLoading] = React.useState(false);
@@ -49,6 +50,7 @@ function App() {
         <Route path="/news" element={<News />} ></Route>
         <Route path="/publication" element={<Publication />} ></Route>
         <Route path="/research" element={<Research />} ></Route>
+        <Route path="/opportunities" element={<Opportunities />} ></Route>
         <Route path="/admin" element={<ProtectedRoutes><Admin /></ProtectedRoutes>} ></Route>
         <Route path="/news/:id" element={<NewsArticle />} /> 
         <Route path="/admin-login" element={<AdminLogin />} /> 
