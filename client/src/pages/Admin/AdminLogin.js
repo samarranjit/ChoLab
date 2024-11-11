@@ -40,7 +40,7 @@ function AdminLogin() {
 
             <h1 className='text-2xl'> <section className='inline border-b-[2px] p-2'> Admin Login</section></h1>
             <div className="login-body flex flex-col gap-5 mt-7">
-                <input type="text" placeholder='Username' name='email' className='p-3 bg-secondary border-2 focus:border-b-[5px] focus:outline-none ' onChange={handleChange}/>
+                <input type="text" placeholder='Email' name='email' className='p-3 bg-secondary border-2 focus:border-b-[5px] focus:outline-none ' onChange={handleChange}/>
                 <input type="text" placeholder='Password' name='password' className='p-3 bg-secondary border-2 focus:border-b-[5px] focus:outline-none 'onChange={handleChange}/>
             </div>
             <button className='border-[1px] w-[12%] p-2 hover:bg-primary hover:text-secondary duration-200' onClick={handleSubmit}>Login</button>

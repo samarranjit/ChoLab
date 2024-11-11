@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 
 const multer  = require('multer')
@@ -34,7 +35,6 @@ app.use(cookieParser());
 app.use("/api", Data);
 app.use("/api/user", require("./routes/user.routes"))
 
-require("dotenv").config();
 
 const port = process.env.PORT  || 8081;
 
