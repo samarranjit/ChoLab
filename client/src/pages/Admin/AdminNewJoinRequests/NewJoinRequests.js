@@ -3,7 +3,6 @@ import Navbar from '../../../components/Navbar'
 import { allContexts } from '../../../Context/AllContexts'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import axiosInstance from '../../../axios/axiosInstance'
 
 function NewJoinRequests() {
     const { setShowLoading } = useContext(allContexts)

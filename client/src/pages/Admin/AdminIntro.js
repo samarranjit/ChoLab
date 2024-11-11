@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { allContexts } from '../../Context/AllContexts';
 import Loader from '../../components/Loader';
-import axios from 'axios';
 import axiosInstance from '../../axios/axiosInstance';
 
 function AdminIntro() {

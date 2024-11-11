@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import Navbar from '../../../components/Navbar';
@@ -64,7 +63,7 @@ function JoinReqPage() {
             </div>
             <div className="resume  flex flex-col">
                 Resume : <section className='font-semibold my-5'>
-                    <a href={request.resumePath} target='_blank'>
+                    <a href={request.resumePath} target='_blank' rel="noreferrer">
                     <img src={request.resumePath} alt="" className='border-[2px]  inline border-gray-200 h-[500px]'/>
 
                     </a>

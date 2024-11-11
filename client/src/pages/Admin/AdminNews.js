@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useContext } from 'react';
 import { allContexts } from '../../Context/AllContexts';
 import axiosInstance from '../../axios/axiosInstance';

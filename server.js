@@ -12,7 +12,7 @@ const cookieParser = require("cookie-parser");
 
 app.use(
     cors({
-        origin: 'http://localhost:3000',  // Specify your frontend URL
+        origin: process.env.REACT_APP_FRONTEND_URL,  // Specify your frontend URL
         credentials: true,                // Allow credentials
         methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow the HTTP methods you need
         allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
