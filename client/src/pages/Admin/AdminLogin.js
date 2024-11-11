@@ -13,10 +13,10 @@ function AdminLogin() {
         const checkStatus = async () => {
             const res = await axiosInstance.get(`${process.env.REACT_APP_API_BASE_URL}/api/user/status`);
             if (res.data === true)
-            navigate("/admin")
+                window.location.href = "/admin"
         }
         checkStatus();
-    }, [navigate])
+    }, [])
 
     const handleSubmit = async(e)=>{
         e.preventDefault();
