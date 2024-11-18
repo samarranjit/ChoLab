@@ -11,7 +11,6 @@ function AdminAbout() {
     const [member, setMember] = React.useState({
         name: "",
         position: "",
-        
         desc: "",
         email: "",
         linkedin: "",
@@ -26,75 +25,78 @@ function AdminAbout() {
         setShowLoading(true);
         try {
             let response;
+            let imgURL = member.img; // Use the existing image URL as the default
+    
+            if (editingMemberId && img) {
+                // If editing and a new image is provided, upload it
+                const formData = new FormData();
+                formData.append('img', img);
+    
+                const res = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/adminAbout/sendImage`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+    
+                if (res.data.success) {
+                    imgURL = res.data.data.secure_url; // Update imgURL with the new Cloudinary URL
+                } else {
+                    throw new Error('Image upload failed');
+                }
+            }
+    
             if (editingMemberId) {
-
-                const res = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/adminAbout/sendImage`, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
+                // Update member details
+                let response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/team/editMember/${editingMemberId}`, {
+                    ...member,
+                    img: imgURL // Use the new or existing image URL
                 });
-                if (res.data.success) {
-                    console.log(res.data)
-                    const img = res.data.data.secure_url;  // Get the Cloudinary URL of the uploaded resume
-    
-                    // Step 2: Send the form data including the resume URL to the backend
-                    // const response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/publication/editPublication/${editingPublicationId}`, {
-                    const response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/team/editMember/${editingMemberId}`,{
-                        ...member,
-                        img  
-                    });
-    
-                    if (response.data.success) {
-                        setEditingMemberId(false);
-
-                        resetForm();
-                    } else {
-                        resetForm();
-                    }
+                if (response.data.success) {
+                    alert(response.data.message);
+                    const updatedMember = response.data.member;
+                    resetForm();
+                } else {
+                    throw new Error('Failed to update member');
                 }
-
-
-
-
-
             } else {
-                const res = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/adminAbout/sendImage`, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                });
-                console.log(res)
-                if (res.data.success) {
-                    console.log(res.data)
-                    const img = res.data.data.secure_url;  // Get the Cloudinary URL of the uploaded resume
+                // Add a new member
+                if (img) {
+                    const formData = new FormData();
+                    formData.append('img', img);
     
-                    // Step 2: Send the form data including the resume URL to the backend
-                        response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/team/addMember`, {
-                        ...member,
-                        img  // Include the resume URL in the form data
+                    const res = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/adminAbout/sendImage`, formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
                     });
     
-                    if (response.data.success) {
-                       
-                        resetForm();
+                    if (res.data.success) {
+                        imgURL = res.data.data.secure_url;
                     } else {
-                        resetForm();
+                        throw new Error('Image upload failed');
                     }
                 }
-
-            setShowLoading(false);
-
-
+    
+                response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/team/addMember`, {
+                    ...member,
+                    img: imgURL
+                });
+                if (response.data.success) {
+                    setData((prevData) => ({
+                        ...prevData,
+                        team: [...prevData.team, member], // Append the new member to the team array
+                    }));
+                    alert(response.data.message);
+                    resetForm();
+                } else {
+                    throw new Error(response.data.message || 'Failed to save the member details');
+                }
             }
-            setShowLoading(false);
-            if (response.data.success) {
-                alert(response.data.message);
-                // Update the local Data to reflect the change
-        
-                resetForm();
-            }
+    
         } catch (error) {
             console.error(error);
+            alert('An error occurred. Please try again.');
+        } finally {
             setShowLoading(false);
         }
     };
@@ -240,7 +242,7 @@ function AdminAbout() {
                             <input
                                 type="file"
                                 name="img"
-                                value={member.img}
+                                // value={member.img}
                                 className="bg-primary border-[2px] text-secondary border-secondary  m-1 p-1"
                                 onChange={handleInputChange}
                             />

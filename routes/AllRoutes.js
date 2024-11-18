@@ -1,6 +1,5 @@
 const router = require("express").Router();
-
-const { Intro, TeamMember, News, Publication,  } = require("../models/memberModel.js");
+const { Intro, TeamMember, News, Publication, Research } = require("../models/memberModel.js");
 const User = require("../models/userModels.js");
 const JoinUs = require ("../models/formDetailsModel.js")
 const cloudinary = require("../cloudinary/cloudinary.js");
@@ -22,6 +21,17 @@ router.get('/getData', async (req, res) => {
             news: news,
             publication : publications
         })
+        // console.log(publications)
+
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+router.get('/getResearchData', async (req, res) => {
+    try {
+        const researches = await Research.find();
+        
+        res.status(200).send(researches);
         // console.log(publications)
 
     } catch (error) {
@@ -52,6 +62,16 @@ router.get('/getNewsArticle/:id', async (req, res) => {
         res.status(500).send(error)
     }
 })
+router.get('/getResearchArticle/:id', async (req, res) => {
+    try {
+        const research = await Research.findById(req.params.id);
+        res.status(200).send({
+            research: research
+        })
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
 
 router.get('/admin-newMemberRequests/:id', async (req,res)=>{
     try{
@@ -68,7 +88,7 @@ router.get('/admin-newMemberRequests/:id', async (req,res)=>{
 //updating intro data;
 
 router.post('/update-intro', authenticate, async (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     try {
         const intro = await Intro.findOneAndUpdate(
             { _id: req.body._id },
@@ -100,8 +120,52 @@ router.post('/publication/addPublication', authenticate, async(req,res)=>{
         
     }
 })
+router.post("/adminResearch/uploadImage",authenticate, upload.single("image"), async (req, res) => {
+        try {
+            const result = await cloudinary.uploader.upload(req.file.path);
+            res.status(200).json({
+                success: true,
+                message: "Image uploaded successfully",
+                data: result,
+            });
+        } catch (error) {
+            console.error("Error uploading image:", error);
+            res.status(500).json({
+                success: false,
+                message: "Failed to upload image",
+            });
+        }
+    }
+);
+router.post("/adminResearch/addResearch", authenticate, async (req, res) => {
+    try {
+        const { title, body, date, mainImage, otherImg } = req.body;
 
+        // const newResearch = new Research({
+        //     title,
+        //     body: body, // If body is sent as a JSON string
+        //     date,
+        //     mainImage,
+        //     otherImg: otherImg, // Save additional images as an array of URLs
+        // });
+        const newResearch = new Research(req.body);
+        // console.log(req.body)
 
+        const savedResearch = await newResearch.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Research added successfully",
+            data: savedResearch,
+        });
+    } catch (error) {
+        console.error("Error adding research:", error);
+        res.status(500).json({
+            success: false,
+            message: "Failed to add research",
+        });
+    }
+});
 router.post("/adminPublication/sendImage", authenticate, upload.single("image"), (req,res)=>{
 
     cloudinary.uploader.upload(req.file.path, (err,results)=>{

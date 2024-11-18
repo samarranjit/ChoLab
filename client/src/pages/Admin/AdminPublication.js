@@ -51,82 +51,60 @@ function AdminPublication() {
         pub.date?setPublished(true):setPublished(false);
     }
 
+    const uploadImage = async (imageFile) => {
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        const res = await axiosInstance.post(
+            `${process.env.REACT_APP_API_BASE_URL}/api/adminPublication/sendImage`, 
+            formData, 
+            { headers: { 'Content-Type': 'multipart/form-data' } }
+        );
+        if (res.data.success) {
+            return res.data.data.secure_url;
+        }
+        throw new Error('Image upload failed');
+    };
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const formData = new FormData();
-        formData.append('image', image);  
         setShowLoading(true);
-
         try {
+            let imgUrl = image ? await uploadImage(image) : publication.imageUrl;
+    
+            const payload = {
+                ...publication,
+                imgUrl
+            };
+    
             let response;
             if (editingPublicationId) {
-
-                const res = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/adminPublication/sendImage`, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                });
-                if (res.data.success) {
-                    console.log(res.data)
-                    const imgUrl = res.data.data.secure_url;  // Get the Cloudinary URL of the uploaded resume
-    
-                    // Step 2: Send the form data including the resume URL to the backend
-                    const response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/publication/editPublication/${editingPublicationId}`, {
-                        ...publication,
-                        imgUrl,
-                         
-                    });
-    
-                    if (response.data.success) {
-                        setPublished(false);
-
-                        resetForm();
-                    } else {
-                        resetForm();
-                    }
-                }
-
+                response = await axiosInstance.post(
+                    `${process.env.REACT_APP_API_BASE_URL}/api/publication/editPublication/${editingPublicationId}`, 
+                    payload
+                );
             } else {
-                const res = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/adminPublication/sendImage`, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                });
-                console.log(res)
-                if (res.data.success) {
-                    console.log(res.data)
-                    const imgUrl = res.data.data.secure_url;  // Get the Cloudinary URL of the uploaded resume
-    
-                    // Step 2: Send the form data including the resume URL to the backend
-                    const response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/publication/addPublication`, {
-                        ...publication,
-                        imgUrl  // Include the resume URL in the form data
-                    });
-    
-                    if (response.data.success) {
-                       
-                        resetForm();
-                    } else {
-                        resetForm();
-                    }
-                }
-
-            setShowLoading(false)
-
+                response = await axiosInstance.post(
+                    `${process.env.REACT_APP_API_BASE_URL}/api/publication/addPublication`, 
+                    payload
+                );
             }
-            setShowLoading(false);
+    
             if (response.data.success) {
                 alert(response.data.message);
-                // Update the local Data to reflect the change
+                
                 resetForm();
+            } else {
+                throw new Error(response.data.message || 'Submission failed');
             }
         } catch (error) {
             console.error(error);
+            alert('An error occurred while submitting the form.');
+        } finally {
             setShowLoading(false);
         }
     };
-
+    
     const handleDelete = async (publicationId) => {
 
         console.log(publicationId, "Deleted")
@@ -147,17 +125,17 @@ function AdminPublication() {
     }
 
     const resetForm = () => {
-        setPublication({
-            title: "",
-            details: "",
-            link: "",
-            // linkTag: "",
-            status: "Review",
-            date: ""
-        });
-        setEditingPublicationId(null);
-        setAddPublicationBtn(false);
-        setPublished(true)
+         setPublication({
+        title: "",
+        details: "",
+        link: "",
+        status: "Review",
+        date: ""
+    });
+    setEditingPublicationId(null);
+    setAddPublicationBtn(false);
+    setPublished(true);
+    setImage(null);
     };
 
     const handlePublishedDate = (e) => {
@@ -229,7 +207,7 @@ function AdminPublication() {
             <div className="memberList flex flex-col">
 
                 {
-                    Data && Data.publication && Data.publication.map(item => (
+                    Data && Data.publication && Data?.publication?.map(item => (
                         <div key={item._id} className='flex border-[1px] border-gray-150 my-5 p-5 hover:translate-y-[-4px] hover:shadow-xl'>
                             <div className='font-semibold w-[70%]  flex justify-center items-center text-left'> {item.title}</div>
                             <div className="btn w-[30%] flex items-end justify-around text-center my-5">

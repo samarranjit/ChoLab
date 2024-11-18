@@ -17,7 +17,7 @@ function Footer() {
         <div className="grid grid-cols-3 justify-between p-10   sm:grid-cols-1">
 
           <div className="Cho flex justify-center  items-center ">
-            <div className="ml-10 w-[70%] h-[70%] bg-white rounded-[50%] flex justify-center items-center shadow-rose-200 shadow-lg">
+            <div className="ml-10 w-[70%] h-[65%] bg-white rounded-[50%] flex justify-center items-center shadow-rose-200 shadow-lg">
 
               <img className='bg-white w-[80%] sm:w-[70%] flex items-center justify-center my-[50px] sm:mt-5 sm:mb-0' src={`${process.env.PUBLIC_URL}/ChoLabLogo.png`} alt="" />
             </div>

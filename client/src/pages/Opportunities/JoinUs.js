@@ -86,9 +86,9 @@ function JoinUs() {
 
     return (
         <div className="p-8 sm:p-6 sm:pb-[10rem] mb-10">
-            <h2 className="text-tertiary text-2xl sm:text-xl md:text-3xl text-left">Join our Team :</h2>
-            <h2 className="text-center text-3xl sm:text-xl my-5">Are you interested in what we do?</h2>
-            <h2 className="text-center text-2xl sm:text-sm md:text-xl font-semibold p-3 sm:p-4 md:p-5">Join Us to leave an impact</h2>
+             <h2 className="text-tertiary text-2xl sm:text-xl md:text-3xl text-center">Join our Team :</h2>
+            {/* <h2 className="text-center text-3xl sm:text-xl my-5">Are you interested in what we do?</h2> */}
+            {/* <h2 className="text-center text-2xl sm:text-sm md:text-xl font-semibold p-3 sm:p-4 md:p-5">Join Us to leave an impact</h2>  */}
 
             <div className="form">
                 <div className="bg-gray-100 p-4 sm:p-6 md:p-8 rounded-lg shadow-lg max-w-lg md:max-w-3xl lg:max-w-4xl mx-auto mt-4 sm:mt-6 md:mt-10">
@@ -178,6 +178,7 @@ function JoinUs() {
                         </div>
                         <div>
                             <label className="block text-sm font-semibold text-gray-700">Upload Resume</label>
+                            <p>Please upload in image format (jpg, jpeg)</p>
                             <input
                                 type="file"
                                 placeholder=""

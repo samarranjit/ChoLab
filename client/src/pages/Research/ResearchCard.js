@@ -1,27 +1,43 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function ResearchCard(props) {
-  const handleReadMore =() =>{
+function ResearchCard(research) {
+  const navigate = useNavigate()
+  // console.log(research.research._id)
+  const handleReadMore = (_id) => {
+    navigate(`/ourResearch/${_id}`);
+    window.scrollTo({ top: 0 });
 
-    
   }
 
   return (
     <>
-      <div className="bg-primary border-[5px] border-gray-150 my-10 p-7 justify-center items-center rounded-[12px] sm:my-5 relative">
-        {/* <div className="date bg-primary w-[35%] text-tertiary font-semibold text-center p-2 rounded-[5%] absolute top-7 right-7 border-[1px] border-primary shadow-md shadow-gray-500 sm:top-7 sm:right-3x sm:text-xs">{}</div> */}
-        <h3 className="p-5 text-2xl text-secondary font-semibold sm:text-xl sm:px-0">{"Title"}</h3>
-        <p className="px-5 justify-center sm:px-0">
-          {/* {body[0].length > 150 ? body[0].substring(0, 150) + "..." : body[0]} */}
-        </p>
-        <button className="m-5 border-tertiary border-[2px] px-5 py-4 rounded-[10px] w-[70%] sm:w-[50%] sm:p-2 sm:my-5 flex items-center mx-auto justify-center text-center font-semibold bg-tertiary text-primary text-xl sm:text-sm border-b-[5px] hover:text-tertiary hover:bg-primary hover:border-b-[5px] transition duration-500"
-        onClick={()=>handleReadMore()}  
-        >
-          Read More
-        </button>
+
+      <div className="body p-4 m-7">
+        <div className="relative">
+          <img
+            className="float-right w-[35%] mt-10 ml-4 my-5"
+            src={research.research.mainImage}
+            alt="Research"
+          />
+          <div className="">
+            <h2 className='text-2xl py-5   sm:text-xl '>{research.research.title}</h2>
+
+            <h2 className="text-md leading-8 sm:leading-normal sm:text-lg">
+              {research.research.body[0]}
+            </h2>
+          </div>
+        </div>
       </div>
-    
+      <button className=" border-tertiary border-[2px] px-5 my-5 py-4 rounded-[10px] w-[70%] sm:w-[50%] sm:p-2 sm:my-5 flex items-center mx-auto justify-center text-center font-semibold bg-tertiary text-primary text-xl sm:text-sm border-b-[5px] hover:text-tertiary hover:bg-primary hover:border-b-[5px] transition duration-500"
+        onClick={() => handleReadMore(research.research._id)}
+      >
+        Read More
+      </button>
+
+      <div className="h-[3px] my-10 bg-tertiary"></div>
+
+
     </>
   );
 }

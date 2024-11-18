@@ -23,7 +23,7 @@ const memberSchema =new mongoose.Schema({
     },
     img:{
         type: String,
-        required: true
+        required: false
     }
 
 })
@@ -68,7 +68,7 @@ const publicationsSchema = new mongoose.Schema({
     
     imgUrl: {
         type: String,
-        required: true
+        required: false
     },
     
     status:{
@@ -82,6 +82,8 @@ const publicationsSchema = new mongoose.Schema({
 
 });
 
+
+
 const newsSchema= new mongoose.Schema({
     heading : {
         type: String,
@@ -93,9 +95,34 @@ const newsSchema= new mongoose.Schema({
     },
     mainImage : {
         type: String,
-        required : true
+        required : false
     },
     otherImage :{
+
+        type : [String],
+        required : false
+    },
+    date:{
+        type: String,
+        required: true
+    }
+    
+})
+
+const researchSchema= new mongoose.Schema({
+    title : {
+        type: String,
+        required : true
+    },
+    body :{
+        type : [String],
+        required: true
+    },
+    mainImage : {
+        type: String,
+        required : false
+    },
+    otherImg :{
 
         type : [String],
         required : false
@@ -111,5 +138,6 @@ module.exports = {
     Intro : mongoose.model("intros", introSchema),
     TeamMember : mongoose.model("teamMembers",memberSchema ),
     News : mongoose.model("news", newsSchema),
-    Publication : mongoose.model("publications", publicationsSchema)
+    Publication : mongoose.model("publications", publicationsSchema),
+    Research : mongoose.model("researches", researchSchema)
 }

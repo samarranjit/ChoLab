@@ -29,6 +29,7 @@ function Navbar() {
           <Link to="/news" className="hover:text-tertiary transition duration-200">News</Link>
           <Link to="/publication" className="hover:text-tertiary transition duration-200">Publication</Link>
           <Link to="/opportunities" className="hover:text-tertiary transition duration-200">Opportunities</Link>
+          <Link to="/mentorship" className="hover:text-tertiary transition duration-200">Teaching & Mentorship</Link>
         </div>
       </div>
 
@@ -65,6 +66,9 @@ function Navbar() {
 
             <Link to="/Research" className='px-4  hover:text-tertiary duration-300'>
               <section>Research</section>
+            </Link>
+            <Link to="/Research" className='px-4  hover:text-tertiary duration-300'>
+              <section>Teaching and Mentorship</section>
             </Link>
           </div>
         }

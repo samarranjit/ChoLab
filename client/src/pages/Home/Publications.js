@@ -6,7 +6,7 @@ function Publications() {
     const { Data } = useContext(allContexts);
     // console.log(Data?.intro?.publication_desc);
     return (
-        <div className="h-[full] p-[65px] sm:p-7 bg-secondary flex justify-center items-center wave-top sm:h-full sm:flex-col relative">
+        <div className="h-[full] p-[65px] sm:p-7 bg-secondary flex justify-around items-center wave-top sm:h-full sm:flex-col relative">
             <div className="custom-shape-divider-top-1730584481 sm:translate-y-10 sm:rotate-180">
                 <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
                     <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
@@ -14,13 +14,14 @@ function Publications() {
                     <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
                 </svg>
             </div>
-            <div className="right w-[30%] sm:hidden">
+            <div className="right w-[30%] sm:hidden -translate-y-5">
 
-                <lottie-player src="https://lottie.host/d4376f48-0ec5-4610-b145-93b753ff97f1/PpU2an7jpl.json" background="transparent" speed="1" style={{ width: " 100%", height: "100%" }} loop autoplay></lottie-player>
+                {/* <lottie-player src="https://lottie.host/d4376f48-0ec5-4610-b145-93b753ff97f1/PpU2an7jpl.json" background="transparent" speed="1" style={{ width: " 100%", height: "100%" }} loop autoplay></lottie-player> */}
+                <img src={`${process.env.PUBLIC_URL}/StaticImages/PublicationsBgImage.jpg`} alt="" />
 
 
             </div>
-            <div className="left w-[65%] sm:w-[100%] ">
+            <div className="left w-[55%] sm:w-[100%] ">
                 <p className='text-tertiary text-2xl text-right font-semibold px-5 sm:p-0 sm:text-xl sm:text-left'>Publications</p>
                 <h2 className='py-5 text-3xl font-semibold text-[#f9f9f9] sm:text-xl '>
 

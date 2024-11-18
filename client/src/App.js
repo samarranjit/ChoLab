@@ -15,6 +15,8 @@ import JoinReqPage from "./pages/Admin/AdminNewJoinRequests/JoinReqPage.js";
 import ProtectedRoutes from "./axios/protectedRoutes.js";
 import { AuthProvider } from "./Context/AuthContext.js";
 import Opportunities from "./pages/Opportunities/index.js";
+import ResearchInfoPage from "./pages/Research/ResearchInfoPage.js";
+import Mentorship from "./pages/Mentorship"
 function App() {
   const [Data, setData] = React.useState(null);
   const [showLoading, setShowLoading] = React.useState(false);
@@ -56,6 +58,9 @@ function App() {
         <Route path="/admin-login" element={<AdminLogin />} /> 
         <Route path="/admin-newMemberRequests" element={<NewJoinRequests />} /> 
         <Route path="/admin-newMemberRequests/:id" element={<JoinReqPage />} /> 
+        <Route path="/admin-newMemberRequests/:id" element={<JoinReqPage />} /> 
+        <Route path="/ourResearch/:id" element={<ResearchInfoPage />} /> 
+        <Route path="/mentorship" element={<Mentorship />} /> 
 
       </Routes>
     </BrowserRouter>
