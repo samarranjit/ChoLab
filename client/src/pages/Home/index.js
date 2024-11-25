@@ -18,7 +18,7 @@ function Home() {
           <h2 className='text-2xl text-tertiary py-2 text-left justify-left'>Follow Dr. Cho on Linkedin: </h2>
           <div className="w-[80%] sm:w-[100%]">
 
-        <iframe src='https://widgets.sociablekit.com/linkedin-profile-posts/iframe/25488565' className='scroll-0 m-auto' frameborder='0' width='100%' height='1000'></iframe>
+        <iframe src='https://widgets.sociablekit.com/linkedin-profile-posts/iframe/25488565' className='scroll-none m-auto' frameborder='0' width='100%' height='1000'></iframe>
           </div>
         </div>
         <Footer />

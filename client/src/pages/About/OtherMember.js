@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import MemberCard from "../../components/MemberCard";
 import Loader from "../../components/Loader";
 import { allContexts } from "../../Context/AllContexts";
+
 function OtherMember() {
   const { Data, showLoading } = useContext(allContexts);
   console.log(Data?.team[0].img)
