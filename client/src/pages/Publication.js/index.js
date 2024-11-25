@@ -27,10 +27,10 @@ function Publication() {
   console.log(sortedYears)
 
   return (
-    <>
+    <div className='relative'>
       <Navbar />
-      <div className="header flex flex-col justify-center items-center h-[70vh] bg-fixed bg-top bg-secondary sm:h-[100vh]">
-        <section className='text-white font-semibold text-4xl sm:text-3xl'>
+      <div className="header flex flex-col justify-center items-center h-[70vh] bg-fixed bg-top bg-secondary sm:pt-[90px] relative">
+        <section className='text-white font-semibold text-4xl sm:text-3xl '>
           Publications
         </section>
         <div className=" h-[40vh] w-full sm:flex sm:flex-col">
@@ -53,7 +53,7 @@ function Publication() {
             Eunsang Cho publications and links to papers
           </section>
         </h2>
-        <div className="in-revision p-8  mx-7 justify-center items-start sm:flex-col sm:m-2 sm:p-2">
+        <div className="in-revision p-8  mx-7 justify-center items-start sm:flex-col sm:m-2 sm:p-2 ">
           <h2 className=' w-[15%] sm:w-[100%] text-2xl sm:text-xl'>
             Under Review :
           </h2>
@@ -75,13 +75,13 @@ function Publication() {
           <h2 className=' sm:w-[100%] text-2xl sm:text-xl'>
             Published :
           </h2>
-          <div className="publication-cards w-full sm:w-full p-5">
+          <div className="publication-cards w-full sm:w-full p-5 sm-p-0">
             {sortedYears.map((year) => (
               <div className=" justify-center item-center">
 
                 <div key={year} className="year-group mb-5 flex flex-col justify-center  pt-7">
-                  <h3 className="text-2xl font-semibold mb-3 w-[15%] items-center">{year} :</h3>
-                  <div className="publication-cards  w-[75%] flex flex-col justify-center mx-auto ">
+                  <h3 className="text-2xl font-semibold mb-3 w-[15%] items-center sm:w-full">{year} :</h3>
+                  <div className="publication-cards  w-[75%] flex flex-col justify-center mx-auto sm:w-full ">
                     {groupedPublications[year].map((item) => (
                       <PublicationCard
                         key={item._id}
@@ -101,7 +101,7 @@ function Publication() {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   )
 }
 

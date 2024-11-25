@@ -53,7 +53,7 @@ function Research() {
       <div className="themes bg-secondary h-full p-8 pb-10 ">
         <div className="title text-center text-tertiary font-semibold text-3xl my-5 mb-0">Themes in Our Work</div>
 
-        <div className="grid grid-cols-3 p-10 text-center gap-10  ">
+        <div className="grid grid-cols-3 p-10 text-center gap-10  sm:grid-cols-1 sm:px-3">
 
           <div className="flex w-[100%]   justify-center items-center text-center  text-primary">
             <div className=" flex justify-center items-center flex-col">

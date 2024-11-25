@@ -138,10 +138,9 @@ function AdminNews() {
 
                             <label htmlFor="mainImage" className="p-1">Main Photo:</label>
                             <input
-                                type="text"
+                                type="file"
                                 name="mainImage"
-                                value={news.mainImage}
-                                className="bg-primary border-[2px] text-secondary border-secondary h-[30px] m-1 p-1"
+                                className="bg-primary border-[2px] text-secondary border-secondary m-1 p-1"
                                 onChange={handleInputChange}
                             />
                         </div>
@@ -177,10 +176,9 @@ function AdminNews() {
                             {extraPhotos.map((photo, index) => (
                                 <input
                                     key={index}
-                                    type="text"
+                                    type="file"
                                     name={`otherImg-${index}`}
-                                    className="bg-primary border-[2px] text-secondary border-secondary h-[30px] m-1 p-1"
-                                    value={photo}
+                                    className="bg-primary border-[2px] text-secondary border-secondary m-1 p-1"
                                     onChange={(e) => handleInputChange(e, index)}
                                 />
                             ))}

@@ -28,7 +28,7 @@ function Publications() {
                     {Data && Data.intro && Data.intro.publication_oneLine}
 
                 </h2>
-                <p className='p-5 sm:p-1 text-primary text-right sm:text-left'>
+                <p className='p-5 sm:p-1 text-primary text-right sm:text-left sm:text-justify'>
 
                     {Data && Data.intro && Data.intro.publication_desc}
 

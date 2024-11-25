@@ -16,15 +16,31 @@ function ResearchCard(research) {
       <div className="body p-4 m-7">
         <div className="relative">
           <img
-            className="float-right w-[35%] mt-10 ml-4 my-5"
+            className="float-right w-[35%] mt-10 ml-4 my-5 sm:hidden"
             src={research.research.mainImage}
             alt="Research"
           />
+
           <div className="">
             <h2 className='text-2xl py-5   sm:text-xl '>{research.research.title}</h2>
+            <img
+              className={`hidden w-[100%]  my-5 sm:inline`}
+              src={research.research.mainImage}
+              alt="Research"
+            />
 
-            <h2 className="text-md leading-8 sm:leading-normal sm:text-lg">
+            <h2 className={`text-md leading-8 sm:leading-normal sm:text-lg sm:hidden`}>
               {research.research.body[0]}
+            </h2>
+            <h2 className={`text-md leading-8 sm:leading-normal sm:text-lg hidden sm:inline`}>
+              {/* {research.research.body[0].slice(0,500)}... */}
+              {(() => {
+                const text = research.research.body[0];
+                const words = text.split(" "); // Split the text into words
+                return words.length > 50
+                  ? words.slice(0, 50).join(" ") + "..." // Show first 50 words with ellipsis
+                  : text; // Show full text if 50 words or less
+              })()}
             </h2>
           </div>
         </div>

@@ -13,7 +13,7 @@ function Intro() {
       <div className="Intro-bg-img-div -z-10 ">
         {showLoading ? <Loader /> :
           <div
-            className=" h-[75vh] sm:h-[60vh] bg-fixed bg-cover bg-right-bottom"
+            className=" h-[75vh] sm:h-[60vh] bg-fixed bg-cover bg-right-bottom "
             style={{ backgroundImage: `url(${img})` }}
           >
             <div className="bg-secondary h-full w-full bg-opacity-[0.05]">
@@ -21,7 +21,8 @@ function Intro() {
 
               <div className='bg-secondary w-[100%] h-[100%] bg-opacity-15 items-center justify-center'>
                 <div className="intro-text w-[100%] h-[100%] flex flex-col items-center justify-center">
-                  <h1 className=' text-5xl md:text-4xl text-center sm:text-2xl lg:mt-[-90px] p-7 pt-[7rem] font-semibold text-primary  '>"{<Typewriter words={[`${Data?.intro?.slogan}`]} typeSpeed={50}>  </Typewriter>}"</h1>
+                  <h1 className=' text-5xl md:text-4xl text-center sm:text-2xl lg:mt-[-90px] p-7 pt-[7rem] font-semibold text-primary sm:hidden '>"{<Typewriter words={[`${Data?.intro?.slogan}`]} typeSpeed={50}>  </Typewriter>}"</h1>
+                  <h1 className=' text-5xl md:text-4xl text-center sm:text-2xl lg:mt-[-90px] p-7 pt-[7rem] font-semibold text-primary hidden sm:inline-block'>{Data?.intro?.slogan}</h1>
                   {/* <button className='p-3 z-2 w-[15%] sm:w-[50%] text-2xl text-[white]  text-black border-none bg-tertiary transition duration-500  hover:bg-primary hover:border-tertiary hover:text-tertiary rounded-[5%] border-[2px] '>
                   <section className=''>
                   Our Works

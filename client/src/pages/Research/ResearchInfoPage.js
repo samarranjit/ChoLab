@@ -14,7 +14,7 @@ const ResearchInfoPage = () => {
         const fetchArticle = async () => {
 
             try {
-                setShowLoading(true)
+                setShowLoading(true);
                 const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/getResearchArticle/${id}`)
                 setShowLoading(false)
                 setResearch(response.data.research)
@@ -31,11 +31,11 @@ const ResearchInfoPage = () => {
                 {
                     (!research && research.body )? <Loader /> :
                         <>
-                            <h1 className='font-bold text-2xl text-center'>
+                            <h1 className='font-bold text-2xl text-center mt-[70px]'>
                                 {research.title}
                             </h1>
                             <div className="flex align-center">
-                                <img src={research.mainImage} className='p-5 w-[50%] m-auto my-5' alt="" />
+                                <img src={research.mainImage} className='p-5 w-[50%] m-auto my-5 sm:w-[100%]' alt="" />
                             </div>
                             <div className="">
                                 {

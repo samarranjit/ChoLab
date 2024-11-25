@@ -15,7 +15,9 @@ function Navbar() {
       <div className="bg-[#007C92] flex items-center justify-between py-4 h-[70px] shadow-md sm:hidden px-7">
         {/* Logo Section */}
         <div className="flex items-center h-full space-x-5">
-          <img src={`${process.env.PUBLIC_URL}/txst-primary.png`} className="h-[200%] cursor-pointer" alt="TXST Logo" />
+          <Link to='https://www.txst.edu/' target='_blank' className="h-[200%] cursor-pointer">
+          <img src={`${process.env.PUBLIC_URL}/txst-primary.png`} className="h-[100%]" alt="TXST Logo" />
+          </Link>
           <Link to="/" className="ml-4">
             <h2 className="text-primary text-2xl font-bold cursor-pointer">Cho Lab</h2>
           </Link>
@@ -51,11 +53,11 @@ function Navbar() {
         {
           isOpen &&
           <div className="bg-[#007C92] flex w-[100vw] border-y-[3px] border-tertiary flex-col gap-5 fixed text-center justify-center items-center p-5 nav-link text-xl text-primary flex font-open  transition duration-300">
-            <Link to="/" className='px-4 hover:text-tertiary duration-300'>
-              <section>Home</section>
-            </Link>
             <Link to="/about" className='px-4  hover:text-tertiary duration-300 '>
-              <section>About</section>
+              <section>People</section>
+            </Link>
+            <Link to="/research" className='px-4 hover:text-tertiary duration-300'>
+              <section>Research</section>
             </Link>
             <Link to="/news" className='px-4  hover:text-tertiary duration-300'>
               <section>News</section>
@@ -64,10 +66,10 @@ function Navbar() {
               <section>Publication</section>
             </Link>
 
-            <Link to="/Research" className='px-4  hover:text-tertiary duration-300'>
-              <section>Research</section>
+            <Link to="/opportunities" className='px-4  hover:text-tertiary duration-300'>
+              <section>Opportunities</section>
             </Link>
-            <Link to="/Research" className='px-4  hover:text-tertiary duration-300'>
+            <Link to="/mentorship" className='px-4  hover:text-tertiary duration-300'>
               <section>Teaching and Mentorship</section>
             </Link>
           </div>

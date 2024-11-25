@@ -8,8 +8,8 @@ function Research() {
   // console.log(research_oneLine);
 
   return (
-    <div className='h-[70vh]  px-[50px] py-[20px]  flex justify-center items-center sm:flex-col  md:h-[full] justify-around  sm:h-full sm:p-7'>
-      <div className="left w-[55%] sm:w-[100%]">
+    <div className='h-[90vh] px-[50px] py-[50px]  flex justify-center items-center sm:flex-col  md:h-[full] justify-around sm:h-full sm:p-7'>
+      <div className="left w-[55%] sm:w-[100%] p-5 sm:p-1  ">
         <p className='text-tertiary text-2xl sm:text-xl '>About Our Research</p>
 
         <div className="right w-[50%] -z-2 sm:w-[100%] hidden sm:inline sm:my-1">
@@ -19,9 +19,17 @@ function Research() {
         </div>
 
         <h2 className='py-2  text-3xl sm:text-xl  font-semibold text-[#424242] '>{Data && Data.intro && Data.intro.research_oneLine}</h2>
-        <p className='p-5 sm:p-1'>
+        <div className="right w-[30%] sm:w-[100%] hidden sm:inline-block">
+
+          {/* <lottie-player src="https://lottie.host/33499152-b2e8-4197-bacb-a7c3022dc1b3/8J5ZDjrToX.json"  background="transparent"  speed="1"  style={{width:" 100%", height: "100%"}} loop className='animators sm:w-[100%]' autoplay></lottie-player> */}
+          <img alt='' src={`${process.env.PUBLIC_URL}/StaticImages/Home_ResearchBgImage.avif`} className='p-2 -translate-y-5 sm:translate-y-[0]' />
+
+
+        </div>
+        <p className='p-5 sm:p-1 sm:text-justify'>
           {Data && Data.intro.research_Desc}
         </p>
+        
         <Link to="/research">
 
           <button className='my-10 p-5 border-secondary border-[2px] rounded-[50px] text-secondary font-semibold text-1xl hover:text-primary hover:bg-secondary transition duration-500' >Our Researches</button>
@@ -30,7 +38,7 @@ function Research() {
       <div className="right w-[30%] -z-2 sm:w-[100%] sm:hidden">
 
         {/* <lottie-player src="https://lottie.host/33499152-b2e8-4197-bacb-a7c3022dc1b3/8J5ZDjrToX.json"  background="transparent"  speed="1"  style={{width:" 100%", height: "100%"}} loop className='animators sm:w-[100%]' autoplay></lottie-player> */}
-        <img src={`${process.env.PUBLIC_URL}/StaticImages/Home_ResearchBgImage.avif`} className='p-2 -translate-y-5' />
+        <img alt='' src={`${process.env.PUBLIC_URL}/StaticImages/Home_ResearchBgImage.avif`} className='p-2 -translate-y-5' />
 
 
       </div>
