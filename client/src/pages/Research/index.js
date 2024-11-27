@@ -10,7 +10,7 @@ import axiosInstance from '../../axios/axiosInstance'
 
 function Research() {
   const { showLoading,setShowLoading } = useContext(allContexts)
-  const bgImg= `${process.env.PUBLIC_URL}/StaticImages/ResearchBgImg.jpg`;
+  const bgImg= `${process.env.PUBLIC_URL}/StaticImages/researchBgImg.jpg`;
   const [researchData, setResearchData] = React.useState(null);
   const ResearchContext = createContext({})
   
