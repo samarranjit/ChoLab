@@ -5,7 +5,7 @@ import Loader from '../../components/Loader';
 
 function Intro() {
   const { Data, showLoading } = useContext(allContexts);
-  const img = `${process.env.PUBLIC_URL}/TxstNightTimeImage.jpg`;
+  const img = `${process.env.PUBLIC_URL}/StaticImages/HomeBgImg.jpg`;
 
 
   return (
@@ -13,10 +13,10 @@ function Intro() {
       <div className="Intro-bg-img-div -z-10 ">
         {showLoading ? <Loader /> :
           <div
-            className=" h-[75vh] sm:h-[60vh] bg-fixed bg-cover bg-right-bottom "
+            className=" h-[90vh] sm:h-[60vh] bg-fixed bg-cover bg-right-bottom "
             style={{ backgroundImage: `url(${img})` }}
           >
-            <div className="bg-secondary h-full w-full bg-opacity-[0.05]">
+            <div className="bg-secondary h-full w-full bg-opacity-[0.05] relative">
 
 
               <div className='bg-secondary w-[100%] h-[100%] bg-opacity-15 items-center justify-center'>
@@ -29,6 +29,11 @@ function Intro() {
                   </section>
                 </button> */}
                 </div>
+              </div>
+              <div class="custom-shape-divider-bottom-1732665275">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                  <path d="M598.97 114.72L0 0 0 120 1200 120 1200 0 598.97 114.72z" class="shape-fill"></path>
+                </svg>
               </div>
             </div>
           </div>
