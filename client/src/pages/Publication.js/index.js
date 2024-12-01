@@ -29,7 +29,7 @@ function Publication() {
   return (
     <div className='relative'>
       <Navbar />
-      <div className="header flex flex-col justify-center items-center h-[70vh] bg-fixed bg-top bg-secondary sm:pt-[90px] relative">
+      <div className="header flex flex-col justify-center items-center h-[70vh] bg-fixed bg-top bg-secondary sm:pt-[90px] relative ">
         <section className='text-white font-semibold text-4xl sm:text-3xl '>
           Publications
         </section>
