@@ -19,19 +19,19 @@ function Navbar() {
           <img src={`${process.env.PUBLIC_URL}/txst-primary.png`} className="h-[100%]" alt="TXST Logo" />
           </Link>
           <Link to="/" className="ml-4">
-            <h2 className="text-primary text-2xl font-bold cursor-pointer">Cho Lab</h2>
+            <h2 className="text-primary text-2xl  cursor-pointer">The Cho Lab</h2>
           </Link>
         </div>
 
         {/* Nav Links */}
         <div className="nav-link text-xl text-primary flex font-open space-x-8">
           {/* <Link to="/" className="hover:text-tertiary transition duration-200">Home</Link> */}
-          <Link to="/about" className="hover:text-tertiary transition duration-200">People</Link>
           <Link to="/research" className="hover:text-tertiary transition duration-200">Research</Link>
+          <Link to="/about" className="hover:text-tertiary transition duration-200">People</Link>
           <Link to="/news" className="hover:text-tertiary transition duration-200">News</Link>
           <Link to="/publication" className="hover:text-tertiary transition duration-200">Publication</Link>
-          <Link to="/opportunities" className="hover:text-tertiary transition duration-200">Opportunities</Link>
           <Link to="/mentorship" className="hover:text-tertiary transition duration-200">Teaching & Mentorship</Link>
+          <Link to="/opportunities" className="hover:text-tertiary transition duration-200">Opportunities</Link>
         </div>
       </div>
 
@@ -53,11 +53,11 @@ function Navbar() {
         {
           isOpen &&
           <div className="bg-[#007C92] flex w-[100vw] border-y-[3px] border-tertiary flex-col gap-5 fixed text-center justify-center items-center p-5 nav-link text-xl text-primary flex font-open  transition duration-300">
-            <Link to="/about" className='px-4  hover:text-tertiary duration-300 '>
-              <section>People</section>
-            </Link>
             <Link to="/research" className='px-4 hover:text-tertiary duration-300'>
               <section>Research</section>
+            </Link>
+            <Link to="/about" className='px-4  hover:text-tertiary duration-300 '>
+              <section>People</section>
             </Link>
             <Link to="/news" className='px-4  hover:text-tertiary duration-300'>
               <section>News</section>
@@ -65,12 +65,12 @@ function Navbar() {
             <Link to="/publication" className='px-4  hover:text-tertiary duration-300'>
               <section>Publication</section>
             </Link>
+            <Link to="/mentorship" className='px-4  hover:text-tertiary duration-300'>
+              <section>Teaching and Mentorship</section>
+            </Link>
 
             <Link to="/opportunities" className='px-4  hover:text-tertiary duration-300'>
               <section>Opportunities</section>
-            </Link>
-            <Link to="/mentorship" className='px-4  hover:text-tertiary duration-300'>
-              <section>Teaching and Mentorship</section>
             </Link>
           </div>
         }
