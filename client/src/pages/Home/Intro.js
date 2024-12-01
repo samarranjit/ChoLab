@@ -13,7 +13,7 @@ function Intro() {
       <div className="Intro-bg-img-div -z-10 ">
         {showLoading ? <Loader /> :
           <div
-            className=" h-[90vh] sm:h-[60vh] bg-fixed bg-cover bg-no-repeat bg-right-bottom  sm:bg-center sm:bg-contain sm:bg-scroll "
+            className=" h-[90vh] sm:h-[60vh] bg-fixed bg-cover bg-no-repeat bg-right-bottom  sm:bg-center sm:bg-scroll "
             style={{ backgroundImage: `url(${img})` }}
           >
             <div className="bg-secondary h-full w-full bg-opacity-[0.05] relative">
