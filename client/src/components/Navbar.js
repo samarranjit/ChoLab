@@ -12,7 +12,7 @@ function Navbar() {
   };
   return (
     <>
-      <div className="bg-[#007C92] flex items-center justify-between py-4 h-[70px] shadow-md sm:hidden px-7">
+      <div className="bg-[#007C92] flex items-center justify-between py-4 h-[70px] shadow-md md:hidden sm:hidden px-7">
         {/* Logo Section */}
         <div className="flex items-center h-full space-x-5">
           <Link to='https://www.txst.edu/' target='_blank' className="h-[200%] cursor-pointer">
@@ -36,11 +36,11 @@ function Navbar() {
       </div>
 
 
-      <div className='hidden sm:inline z-[100] fixed w-[100vw] transition duration-300'>
+      <div className='hidden  md:inline sm:inline z-[100] fixed w-[100vw] transition duration-300'>
         <div className="navbar-phone p-5 bg-[#007C92] flex flex-column justify-between h-[70px] align-middle lg:hidden sm:flex ">
 
           <Link to="/">
-            <h2 className='text-primary text-xl font-semibold ml-4 align-middle cursor-pointer'>Cho Lab</h2>
+            <h2 className='text-primary text-xl ml-4 align-middle cursor-pointer'>The Cho Lab</h2>
           </Link>
           {
             isOpen ?

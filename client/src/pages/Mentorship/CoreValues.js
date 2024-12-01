@@ -1,5 +1,5 @@
 import React from 'react'
-import { GiMaterialsScience, GiTalk } from 'react-icons/gi'
+import {  GiTalk } from 'react-icons/gi'
 import { PiFediverseLogoFill } from "react-icons/pi";
 import { ImFlickr2 } from 'react-icons/im'
 

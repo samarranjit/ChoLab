@@ -1,5 +1,5 @@
 import React from 'react'
-import JoinUs from './JoinUs'
+// import JoinUs from './JoinUs'
 import Navbar from '../../components/Navbar'
 import Footer from '../Home/Footer'
 import { FaHandHoldingWater } from "react-icons/fa";
@@ -39,6 +39,7 @@ function Opportunities() {
           Join our Team :
         </h2>
         <iframe
+          title='googleForm'
           src="https://docs.google.com/forms/d/e/1FAIpQLSfQrUXr6XuXEI8NLJYg4gU6UBsqndHmBcFtmYGsi_VxD5_mzw/viewform?embedded=true"
           frameborder="0"
           marginheight="0"

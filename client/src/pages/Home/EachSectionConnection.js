@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const EachSectionConnection = () => {
   return (
-    <div className='h-full p-7 py-[5rem] bg-secondary grid grid-cols-3 gap-[1rem] relative'>
+    <div className='h-full p-7 py-[5rem] bg-secondary grid grid-cols-3 gap-[1rem] relative sm:grid-cols-1'>
         <div className="custom-shape-divider-top-1730584481 sm:translate-y-10 sm:rotate-180">
                 <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
                     <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
@@ -19,7 +19,7 @@ const EachSectionConnection = () => {
             <div className="text-primary text-lg leading-9 text-center">
                 Members of the Cho Lab share a passion for advancing our understanding of hydrology and water resources in a changing climate, aiming to promote a sustainable environment by addressing critical questions.
             </div>
-            <Link to={'#'}>
+            <Link to="/about">
             <div className="btn border-tertiary border-2 rounded-full border-b-4 text-lg text-primary my-7 text-center w-fit px-7 py-5 hover:bg-tertiary hover:text-primary duration-500">Our Team</div>
             </Link>
         </div>
@@ -31,7 +31,7 @@ const EachSectionConnection = () => {
             <div className="text-primary text-lg leading-9 text-center">
             One of the best ways to grasp the scope of our work is to explore our research and previous findings. Here, you can browse our peer-reviewed publications and learn about the studies we have in progress.
             </div>
-            <Link to={'#'}>
+            <Link to={'/publication'}>
             <div className="btn border-tertiary border-2 rounded-full border-b-4 text-lg text-primary my-7 text-center w-fit px-7 py-5 hover:bg-tertiary hover:text-primary duration-500">
                 Our Publication
             </div>
@@ -45,7 +45,7 @@ const EachSectionConnection = () => {
             <div className="text-primary text-lg leading-9 text-center">
             We are building a dynamic team with diverse expertise and a shared passion for utilizing innovative tools and data sets to address critical challenges in water, climate, and environmental systems. Discover available positions in our lab here.
             </div>
-            <Link to={'#'}>
+            <Link to={'/opportunities'} >
             <div className="btn border-tertiary border-2 rounded-full border-b-4 text-lg text-primary my-7 text-center w-fit px-7 py-5 hover:bg-tertiary hover:text-primary duration-500">
                 Opportunities
             </div>
