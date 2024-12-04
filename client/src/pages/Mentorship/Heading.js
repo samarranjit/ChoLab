@@ -3,7 +3,7 @@ import React from 'react'
 const Heading = () => {
   return (
     <div className="">
-        <div style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/collaborationBgImg.jpg)` }} className=" h-[90vh] overflow-hidden sm:h-[80vh] bg-fixed  bg-cover bg-bottom -mb-2 sm:bg-center sm:bg-scroll ">
+        <div style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/StaticImages/AlkekLib.jpg)` }} className=" h-[90vh] overflow-hidden sm:h-[80vh] bg-fixed  bg-cover bg-top -mb-2 sm:bg-center sm:bg-scroll ">
         <div className=' w-[100%] h-[100%] bg-opacity-15 flex items-center justify-center  sm:ml-0 sm:p-2 sm:justify-center '>
               <div className="collaboration-call w-[40%] sm:w-[90%] p-10 gap-7  flex flex-col items-center justify-center bg-secondary bg-opacity-65 sm:gap-2 sm:p-4 ">
                 <p className=' text-2xl text-tertiary text-center w-full font-semibold align-center justify-center sm:text-lg'>Teaching and Mentorship</p>

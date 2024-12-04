@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import Navbar from '../../components/Navbar'
 import { allContexts } from '../../Context/AllContexts'
 import Loader from '../../components/Loader'
@@ -6,31 +6,16 @@ import Footer from '../Home/Footer'
 import { ImFlickr2 } from "react-icons/im";
 import { GiComputerFan, GiMaterialsScience } from 'react-icons/gi'
 import ResearchCard from './ResearchCard'
-import axiosInstance from '../../axios/axiosInstance'
+// import axiosInstance from '../../axios/axiosInstance'
+import { useResearchContext } from '../../Context/ResearchContext'
 
 function Research() {
-  const { showLoading,setShowLoading } = useContext(allContexts)
+  const { showLoading } = useContext(allContexts)
   const bgImg= `${process.env.PUBLIC_URL}/StaticImages/researchBgImg.jpg`;
-  const [researchData, setResearchData] = React.useState(null);
-  const ResearchContext = createContext({})
+  const {researchData} = useResearchContext();
+  // const ResearchContext = createContext({})
   
-  const getResearchData=async()=>{
-    setShowLoading(true)
-    try {
-      const response= await axiosInstance.get(`${process.env.REACT_APP_API_BASE_URL}/api/getResearchData`);
-      setResearchData(response.data)
-      setShowLoading(false)
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
-
-  useEffect(()=>{
-    if(!researchData){
-      getResearchData();
-    }
-  })
 
   return (
     <div>
@@ -96,10 +81,9 @@ function Research() {
       <div className="h-full p-[5rem] research-div bg-primary sm:p-4 sm:py-[4.5rem]">
         <h2 className='text-tertiary text-2xl sm:text-lg sm:font-semibold'>
 
-          Few of Our Researches:
+          Our Research Projects:
         </h2>
-        <div className="h-[3px] my-5 bg-tertiary"></div>
-        <ResearchContext.Provider value={{researchData}}>
+        <div className="h-[3px] mt-5 mb-0 bg-tertiary"></div>
 
         {
           researchData && researchData.map(item=>(
@@ -107,7 +91,6 @@ function Research() {
 
           ))
         }
-        </ResearchContext.Provider>
       </div>
 
 

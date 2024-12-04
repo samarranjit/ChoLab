@@ -1,19 +1,24 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import axiosInstance from '../../axios/axiosInstance';
+import { useResearchContext } from '../../Context/ResearchContext';
+import { allContexts } from '../../Context/AllContexts';
 
 
 const AdminResearch = () => {
+    const {setShowLoading} = useContext(allContexts)
     const [addResearchBtn, setAddResearchBtn] = React.useState(false)
     const [paragraphs, setParagraphs] = React.useState([""]);
+    const { researchData, setResearchData } = useResearchContext();
     const [research, setResearch] = React.useState({
         title: "",
         body: [""],
-       date:"",
-       mainImage:"",
-       otherImg: ""
+        date: "",
+        mainImage: "",
+        otherImg: [""]
     })
     const [mainImage, setMainImage] = React.useState(null)
     const [otherImg, setOtherImg] = React.useState([''])
+    const [editingResearchId, setEditingResearchId] = React.useState(null)
 
     const handleUnhide = () => {
         setAddResearchBtn(!addResearchBtn)
@@ -31,10 +36,9 @@ const AdminResearch = () => {
             const updatedPhotos = [...otherImg];
             updatedPhotos[index] = e.target.files[0];
             setOtherImg(updatedPhotos);
-            
-        } else if(name === "mainImage")
-        {
-            setMainImage( e.target.files[0])
+
+        } else if (name === "mainImage") {
+            setMainImage(e.target.files[0])
             // console.log(mainImage)
         }
         else {
@@ -43,69 +47,69 @@ const AdminResearch = () => {
         console.log(research)
     }
 
+   
+
+    const uploadImage = async (imageFile) => {
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        const res = await axiosInstance.post(
+            `${process.env.REACT_APP_API_BASE_URL}/api/adminResearch/sendImage`,
+            formData,
+            { headers: { 'Content-Type': 'multipart/form-data' } }
+        );
+        if (res.data.success) {
+            console.log(res.data.data.secure_url)
+            return res.data.data.secure_url;
+        }
+        throw new Error('Image upload failed');
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
-    
+        setShowLoading(true);
         try {
-            // Upload the main image to Cloudinary
-            if (mainImage) {
-                formData.append('image', mainImage);
-                const mainImgRes = await axiosInstance.post(
-                    `${process.env.REACT_APP_API_BASE_URL}/api/adminResearch/uploadImage`,
-                    formData,
-                    {
-                        headers: { 'Content-Type': 'multipart/form-data' },
-                    }
-                );
-    
-                if (mainImgRes.data.success) {
-                    const mainImgUrl = mainImgRes.data.data.secure_url;
-                    research.mainImage = mainImgUrl; // Save main image URL in research data
-                }
-            }
-    
-            // Upload additional images to Cloudinary
-            const uploadedOtherImg = [];
+            const mainImgUrl = mainImage ? await uploadImage(mainImage) : research.mainImageUrl;
+
+            // Handle multiple image uploads for otherImages
+            const otherImgUrls = [];
             for (let i = 0; i < otherImg.length; i++) {
-                if (otherImg[i]) {
-                    formData.set('image', otherImg[i]); // Replace the file for each iteration
-                    const extraImgRes = await axiosInstance.post(
-                        `${process.env.REACT_APP_API_BASE_URL}/api/adminResearch/uploadImage`,
-                        formData,
-                        {
-                            headers: { 'Content-Type': 'multipart/form-data' },
-                        }
-                    );
-    
-                    if (extraImgRes.data.success) {
-                        uploadedOtherImg.push(extraImgRes.data.data.secure_url);
-                    }
-                }
+                const imgUrl = await uploadImage(otherImg[i]);
+                otherImgUrls.push(imgUrl);
             }
-    
-            research.otherImg = uploadedOtherImg; // Save extra image URLs in research data
-    
-            // Submit the form data to the backend, including the Cloudinary URLs
-            const response = await axiosInstance.post(
-                `${process.env.REACT_APP_API_BASE_URL}/api/adminResearch/addResearch`,
-                {
-                    ...research,
-                }
-            );
-    
+
+            const payload = {
+                ...research,
+                mainImage: mainImgUrl,
+                otherImg: otherImgUrls, // Updated to store multiple image URLs
+            };
+
+            let response;
+            if (editingResearchId) {
+                response = await axiosInstance.post(
+                    `${process.env.REACT_APP_API_BASE_URL}/api/adminResearch/updateResearch/${editingResearchId}`,
+                    payload
+                );
+            } else {
+                response = await axiosInstance.post(
+                    `${process.env.REACT_APP_API_BASE_URL}/api/research/addResearch`,
+                    payload
+                );
+            }
+
             if (response.data.success) {
-                alert('Research added successfully!');
+                alert(response.data.message);
                 resetForm();
             } else {
-                alert('Failed to add research.');
+                throw new Error(response.data.message || 'Submission failed');
             }
         } catch (error) {
-            console.error('Error uploading image or saving data:', error);
-            alert('An error occurred. Please try again.');
+            console.error(error);
+            alert('An error occurred while submitting the form.');
+        } finally {
+            setShowLoading(false);
         }
     };
+    
 
     const handleAddParagraph = (e) => {
         e.preventDefault();
@@ -123,11 +127,43 @@ const AdminResearch = () => {
             body: [''],
             date: '',
             mainImage: '',
+            otherImg: [''],
         });
         setMainImage(null);
         setOtherImg(['']);
         setParagraphs(['']);
+        setEditingResearchId(null);
+        setAddResearchBtn(false);
     };
+
+    console.log(researchData)
+
+    const handleEdit = (editingResearch) => {
+        setResearch(editingResearch);
+        setEditingResearchId(editingResearch._id);
+        setParagraphs(editingResearch.body);
+        setOtherImg(editingResearch.otherImg); // Retain current additional images
+        setMainImage(null); // Set null to indicate no new main image
+        setAddResearchBtn(true);
+    };
+    
+
+    const handleDelete = async (researchId) =>{
+        console.log(researchId, "Delete Initiated")
+        try {
+            setShowLoading(true);
+            const response = await axiosInstance.delete(`${process.env.REACT_APP_API_BASE_URL}/api/research/delResearch/${researchId}`);
+            setShowLoading(false);
+            if (response.data.success) {
+                alert(response.data.message);
+                setResearchData((prevData) => (
+                    prevData.filter(member => member._id !== researchId)
+                  ));
+            }
+        } catch (error) {
+
+        }
+    }
     return (
         <>
             <div className="addPublicationBtn w-full flex justify-center items-center align-middle">
@@ -211,6 +247,21 @@ const AdminResearch = () => {
                     </form>
                 </div>
             )}
+            <div className="flex flex-col">
+                <h2 className='text-xl font-semibold'>Researches:</h2>
+                <div className="inline-block">
+                    {researchData && researchData?.map(research =>(
+                        <div className="p-5" key={research._id}>
+                            
+                        <div className="">{research.title}</div>
+                        <div className="flex gap-4 py-5 justify-self-end">
+                            <div className="button edit bg-secondary flex p-2 text-primary px-5 cursor-pointer" onClick={() => handleEdit(research)}>Edit</div>
+                            <div className="button edit bg-tertiary flex p-2 text-primary px-5 cursor-pointer" onClick={() => handleDelete(research._id)}>Delete</div>
+                        </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </>
     )
 }

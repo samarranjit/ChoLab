@@ -39,6 +39,27 @@ router.get('/getResearchData', async (req, res) => {
     }
 })
 
+
+router.delete('/research/delResearch/:id', authenticate, async (req, res) => {
+
+
+    try {
+        await Research.findByIdAndDelete(req.params.id);
+        // //console.log(req.params)
+        res.status(200).send({
+            success: true,
+            message: "Research Deleted Successfully"
+        });
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: 'Failed to delete research',
+            error: error.message
+        });
+    }
+})
+
+
 router.get("/joinRequest/newJoinRequest", async(req,res)=>{
     try {
         const joinUsReq = await JoinUs.find();
@@ -120,23 +141,60 @@ router.post('/publication/addPublication', authenticate, async(req,res)=>{
         
     }
 })
-router.post("/adminResearch/uploadImage",authenticate, upload.single("image"), async (req, res) => {
-        try {
-            const result = await cloudinary.uploader.upload(req.file.path);
-            res.status(200).json({
-                success: true,
-                message: "Image uploaded successfully",
-                data: result,
-            });
-        } catch (error) {
-            console.error("Error uploading image:", error);
-            res.status(500).json({
-                success: false,
-                message: "Failed to upload image",
-            });
+router.post("/adminResearch/sendImage",authenticate, upload.single("image"), async (req, res) => {
+        
+    cloudinary.uploader.upload(req.file.path, (err,results)=>{
+        if(err){
+            console.error("Cloudinary upload error:", err); // Log the error
+            console.log(err)
+            return res.status(500).json({
+                success :false,
+                message: "error"
+
+            })
         }
-    }
+        else{
+
+            console.log("Cloudinary upload result", results); // Log the result
+        }
+        
+
+        return res.status(200).json({
+            success :true,
+            message: "Uploaded",
+            data: results
+
+        })
+    })}
 );
+
+router.post("/adminPublication/sendImage", authenticate, upload.single("image"), (req,res)=>{
+
+    cloudinary.uploader.upload(req.file.path, (err,results)=>{
+        if(err){
+            console.error("Cloudinary upload error:", err); // Log the error
+            console.log(err)
+            return res.status(500).json({
+                success :false,
+                message: "error"
+
+            })
+        }
+        else{
+
+            console.log("Cloudinary upload result", results); // Log the result
+        }
+        
+
+        return res.status(200).json({
+            success :true,
+            message: "Uploaded",
+            data: results
+
+        })
+    })
+})
+
 router.post("/adminResearch/addResearch", authenticate, async (req, res) => {
     try {
         const { title, body, date, mainImage, otherImg } = req.body;
@@ -166,32 +224,35 @@ router.post("/adminResearch/addResearch", authenticate, async (req, res) => {
         });
     }
 });
-router.post("/adminPublication/sendImage", authenticate, upload.single("image"), (req,res)=>{
 
-    cloudinary.uploader.upload(req.file.path, (err,results)=>{
-        if(err){
-            console.error("Cloudinary upload error:", err); // Log the error
-            console.log(err)
-            return res.status(500).json({
-                success :false,
-                message: "error"
+router.post("/adminResearch/updateResearch/:id", authenticate, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updatedData = req.body;
 
-            })
-        }
-        else{
+        const updatedResearch = await Research.findByIdAndUpdate(
+            id,
+            updatedData,
+            { new: true }
+        );
 
-            console.log("Cloudinary upload result", results); // Log the result
-        }
-        
+        res.status(200).json({
+            success: true,
+            message: "Research updated successfully",
+            data: updatedResearch,
+        });
+    } catch (error) {
+        console.error("Error updating research:", error);
+        res.status(500).json({
+            success: false,
+            message: "Failed to update research",
+        });
+    }
+});
 
-        return res.status(200).json({
-            success :true,
-            message: "Uploaded",
-            data: results
 
-        })
-    })
-})
+
+
 router.post("/adminAbout/sendImage", authenticate, upload.single("img"), (req,res)=>{
 
     cloudinary.uploader.upload(req.file.path, (err,results)=>{

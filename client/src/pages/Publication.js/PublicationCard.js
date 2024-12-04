@@ -20,9 +20,15 @@ function PublicationCard(props) {
   };
 
   return (
+    <Link
+    href={link}
+    target="_blank"
+    rel="noreferrer"
+    className=" font-semibold hover:underline text-sm sm:text-sm p-2 rounded-sm text-primary"
+  >
     <div className="cursor-pointer p-6 sm:p-2 mb-5 border-[1px] border-gray-200 bg-gradient-to-r from-secondary-50 to-secondary-100 rounded-lg shadow-lg transition-transform transform hover:translate-y-[-5px] duration-300 flex sm:flex-col sm:w-full gap-8">
       {/* Image container */}
-      <div className="w-[20%] sm:w-full sm:my-2 sm:px-9">
+      <div className="w-[10%] sm:w-full sm:my-2 sm:px-9">
         <img
           src={imgUrl}
           alt=""
@@ -52,6 +58,7 @@ function PublicationCard(props) {
         </div>
       </div>
     </div>
+    </Link>
   );
 }
 

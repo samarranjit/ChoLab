@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const CurrrentCourses = () => {
     return (
         <div className='h-full p-[4rem] sm:px-3'>
-            <h1 className='text-3xl mt-5 font-semibold'>Current Courses Dr. Cho is Teaching</h1>
+            <h1 className='text-3xl mt-5 font-semibold'>Courses Dr. Cho is Teaching</h1>
             <div className="h-[2px] my-7 bg-tertiary "></div>
             <div className="grid grid-cols-3  gap-7 sm:grid-cols-1 items-stretch h-full">
                 <div className=" p-5 flex flex-col flex-grow h-full">

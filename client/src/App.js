@@ -17,6 +17,8 @@ import { AuthProvider } from "./Context/AuthContext.js";
 import Opportunities from "./pages/Opportunities/index.js";
 import ResearchInfoPage from "./pages/Research/ResearchInfoPage.js";
 import Mentorship from "./pages/Mentorship"
+import { ResearchProvider } from './Context/ResearchContext.js';
+
 function App() {
   const [Data, setData] = React.useState(null);
   const [showLoading, setShowLoading] = React.useState(false);
@@ -44,7 +46,7 @@ function App() {
   return (
     <allContexts.Provider value={{Data, setData, showLoading, setShowLoading}} >
     <AuthProvider>
-
+    <ResearchProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />}></Route>
@@ -64,6 +66,7 @@ function App() {
 
       </Routes>
     </BrowserRouter>
+    </ResearchProvider>
     </AuthProvider>
     </allContexts.Provider>
   );

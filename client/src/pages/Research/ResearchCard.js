@@ -13,7 +13,7 @@ function ResearchCard(research) {
   return (
     <>
 
-      <div className="body p-4 m-7">
+      <div className="body p-2 m-0">
         <div className="relative">
           <img
             className="float-right w-[35%] mt-10 ml-4 my-5 sm:hidden"
