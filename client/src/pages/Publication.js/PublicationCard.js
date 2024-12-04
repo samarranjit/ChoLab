@@ -45,7 +45,7 @@ function PublicationCard(props) {
           {/* {details} | */}
           {renderFormattedText(details)}
         </p>
-        <div className="p-2  sm:mb-5 ">
+        <div className="p-2 flex justify-left  sm:mb-5 ">
 
         <Link
           href={link}
