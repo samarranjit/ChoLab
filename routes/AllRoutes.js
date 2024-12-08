@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Intro, TeamMember, News, Publication, Research } = require("../models/memberModel.js");
+const { Intro, TeamMember, News, Publication, Research, OpportunitiesAnnouncement } = require("../models/memberModel.js");
 const User = require("../models/userModels.js");
 const JoinUs = require ("../models/formDetailsModel.js")
 const cloudinary = require("../cloudinary/cloudinary.js");
@@ -14,12 +14,14 @@ router.get('/getData', async (req, res) => {
         const teamMembers = await TeamMember.find();
         const news = await News.find();
         const publications = await Publication.find();
+        const opporutunitiesAnnouncement = await OpportunitiesAnnouncement.find();
         
         res.status(200).send({
             intro: intros[0],
             team: teamMembers,
             news: news,
-            publication : publications
+            publication : publications,
+            opporutunitiesAnnouncement : opporutunitiesAnnouncement
         })
         // console.log(publications)
 
@@ -437,6 +439,24 @@ router.post('/news/editNews/:id', authenticate, async (req, res) => {
             data: updatedNews,
             success: true,
             message: `News ${req.body._id} Updated Successfully`
+        });
+
+    } catch (error) {
+        console.error(error);
+       
+    }
+});
+router.post('/admin/adminOpportunities/updateAnnouncement', authenticate, async (req, res) => {
+    try {
+        const updatedAnnouncement = await OpportunitiesAnnouncement.findOneAndUpdate(
+            { _id: req.body._id },
+            req.body
+        );  
+
+        res.status(200).send({
+            data: updatedAnnouncement,
+            success: true,
+            message: `Announcement Updated Successfully`
         });
 
     } catch (error) {

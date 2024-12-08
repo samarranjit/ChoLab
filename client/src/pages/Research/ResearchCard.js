@@ -16,7 +16,7 @@ function ResearchCard(research) {
       <div className="body p-2 m-0">
         <div className="relative">
           <img
-            className="float-right w-[35%] mt-10 ml-4 my-5 sm:hidden"
+            className="float-right w-[35%] mt-8 ml-4 my-5 sm:hidden"
             src={research.research.mainImage}
             alt="Research"
           />
@@ -29,29 +29,35 @@ function ResearchCard(research) {
               alt="Research"
             />
 
-            <h2 className={`text-md leading-8 sm:leading-normal sm:text-lg sm:hidden`}>
+            {/* <h2 className={`text-md leading-8 sm:leading-normal sm:text-lg sm:hidden`}>
               {research.research.body[0]}
-            </h2>
-            <h2 className={`text-md leading-8 sm:leading-normal sm:text-lg hidden sm:inline`}>
-              {/* {research.research.body[0].slice(0,500)}... */}
+            </h2> */}
+            <h2 className={`text-md leading-8 sm:leading-normal sm:text-lg  `}>
               {(() => {
-                const text = research.research.body[0];
-                const words = text.split(" "); // Split the text into words
-                return words.length > 50
-                  ? words.slice(0, 50).join(" ") + "..." // Show first 50 words with ellipsis
-                  : text; // Show full text if 50 words or less
+                const text = research.research.body[0]; // Get the first paragraph
+                const words = text.split(" "); // Split into words
+                if (words.length > 120){
+                  return words.slice(0, 120).join(" ") + "..." // Show only the first 10 words with ellipsis
+
+                }else{
+                  return text; // If there are 10 or fewer words, show the full text
+
+                }
               })()}
             </h2>
           </div>
         </div>
       </div>
-      <button className=" border-tertiary border-[2px] px-5 my-5 py-4 rounded-[10px] w-[70%] sm:w-[50%] sm:p-2 sm:my-5 flex items-center mx-auto justify-center text-center font-semibold bg-tertiary text-primary text-xl sm:text-sm border-b-[5px] hover:text-tertiary hover:bg-primary hover:border-b-[5px] transition duration-500"
+      <div className="">
+
+      <button className=" border-tertiary border-[2px]  mx-auto my-9 py-2 rounded-[10px] w-[70%]  sm:w-[50%] sm:p-2 sm:my-5 flex items-center  justify-center text-center font-semibold bg-tertiary text-primary text-xl sm:text-sm border-b-[5px] hover:text-tertiary hover:bg-primary hover:border-b-[5px] transition duration-500"
         onClick={() => handleReadMore(research.research._id)}
       >
         Read More
       </button>
+      </div>
 
-      <div className="h-[3px] my-10 bg-tertiary"></div>
+      <div className="h-[3px] mt-10 bg-tertiary"></div>
 
 
     </>

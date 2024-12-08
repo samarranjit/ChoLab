@@ -38,14 +38,14 @@ function PublicationCard(props) {
       
       {/* Content container */}
       <div className="flex-1 flex flex-col sm:items-center sm:text-center sm:px-3">
-        <p className="text-gray-900 font-semibold mb-2 text-lg sm:text-md sm:text-justify">
+        <p className="text-gray-900 font-semibold mb-2 text-lg sm:text-md sm:text-justify text-left">
           {title}
         </p>
         <p className="text-gray-700 font-normal mb-2 text-sm sm:text-sm text-justify">
           {/* {details} | */}
           {renderFormattedText(details)}
         </p>
-        <div className="p-2 flex justify-left  sm:mb-5 ">
+        <div className="p-2 flex justify-left sm:mb-5 ">
 
         <Link
           href={link}

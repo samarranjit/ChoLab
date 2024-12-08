@@ -12,7 +12,7 @@ function OtherMember() {
         <Loader />
       ) : (
         <div className="bg-secondary p-9 sm:py-7 sm:px-5">
-          <h1 className="flex justify-center items-center text-primary text-4xl font-semibold sm:text-2xl">
+          <h1 className="flex justify-center items-center text-primary text-2xl font-semibold sm:text-2xl">
             Other Team Members:
           </h1>
           <div className="membercards_team_members grid grid-cols-3 gap-7 sm:gap-2 sm:grid-cols-1">

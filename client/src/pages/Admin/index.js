@@ -7,6 +7,7 @@ import AdminPublication from './AdminPublication'
 import axiosInstance from '../../axios/axiosInstance'
 import { useNavigate } from 'react-router-dom'
 import AdminResearch from './AdminResearch'
+import AdminOpportunities from './AdminOpportunities'
 
 function Admin() {
     const [toggleState, setToggleState] = React.useState('Intro')
@@ -48,6 +49,7 @@ function Admin() {
                         <div className={`intro  cursor-pointer p-2 border-[#3395f1] ${(toggleState === "News") ? "border-b-[2.5px]" : ""} transition duration-500`} onClick={() => setToggleState('News')}>News</div>
                         <div className={`intro  cursor-pointer p-2 border-[#3395f1] ${(toggleState === "Publication") ? "border-b-[2.5px] border-b-w-[50%]" : ""} transition duration-500`} onClick={() => setToggleState('Publication')}>Publication</div>
                         <div className={`intro  cursor-pointer p-2 border-[#3395f1] ${(toggleState === "Research") ? "border-b-[2.5px] border-b-w-[50%]" : ""} transition duration-500`} onClick={() => setToggleState('Research')}>Research</div>
+                        <div className={`intro  cursor-pointer p-2 border-[#3395f1] ${(toggleState === "Opportunities") ? "border-b-[2.5px] border-b-w-[50%]" : ""} transition duration-500`} onClick={() => setToggleState('Opportunities')}>Opportunities</div>
                         <div className={`intro  cursor-pointer p-2 border-[#3395f1] transition duration-500`}
                             onClick={logoutUser}>Logout</div>
                     </div>
@@ -68,6 +70,9 @@ function Admin() {
                         }
                         {
                             (toggleState === "Research") ? <AdminResearch /> : ""
+                        }
+                        {
+                            (toggleState === "Opportunities") ? <AdminOpportunities /> : ""
                         }
 
                     </div>

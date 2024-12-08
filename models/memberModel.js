@@ -131,7 +131,15 @@ const researchSchema= new mongoose.Schema({
         type: String,
         required: true
     }
+
     
+})
+
+const OpportunitiesAnnouncementSchema= new mongoose.Schema({
+    announcementStatus: Boolean,
+    title: String,
+    body:String,
+    link:String
 })
 
 module.exports = {
@@ -139,5 +147,6 @@ module.exports = {
     TeamMember : mongoose.model("teamMembers",memberSchema ),
     News : mongoose.model("news", newsSchema),
     Publication : mongoose.model("publications", publicationsSchema),
-    Research : mongoose.model("researches", researchSchema)
+    Research : mongoose.model("researches", researchSchema),
+    OpportunitiesAnnouncement : mongoose.model("OpportunitiesAnnouncement", OpportunitiesAnnouncementSchema)
 }
