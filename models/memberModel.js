@@ -130,6 +130,16 @@ const researchSchema= new mongoose.Schema({
     date:{
         type: String,
         required: true
+    },
+    period:{
+        type: String,
+    },
+    sponsors:{
+        type: String,
+        
+    },
+    collaborators:{
+        type: String,
     }
 
     

@@ -70,6 +70,17 @@ function AdminPublication() {
         e.preventDefault();
         setShowLoading(true);
         try {
+            if (!editingPublicationId && (publication.title === "" || publication.details.length === 0 || !image || publication.date === "" || publication.link === "")) {
+                alert("One or more important fields are missing. Please note that all fields are important for adding new publication.");
+                return;
+            }
+    
+            if (editingPublicationId && (publication.title === "" || publication.details.length === 0 || publication.date === "" || publication.link === "")) {
+                alert("One or more important fields are missing. Please note that all fields except setting a new image are important for editing.");
+                return;
+            }
+
+
             let imgUrl = image ? await uploadImage(image) : publication.imageUrl;
     
             const payload = {

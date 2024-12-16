@@ -14,7 +14,10 @@ const AdminResearch = () => {
         body: [""],
         date: "",
         mainImage: "",
-        otherImg: []
+        otherImg: [],
+        period: "",
+        sponsors: "",
+        collaborators:""
     })
     const [mainImage, setMainImage] = React.useState(null)
     const [otherImg, setOtherImg] = React.useState([])
@@ -211,6 +214,7 @@ const AdminResearch = () => {
                                 onChange={handleInputChange}
                             />
                         </div>
+                        
 
                         <div className="flex flex-col w-[40%]">
                             <label htmlFor="body" className="p-1">Body:</label>
@@ -245,6 +249,39 @@ const AdminResearch = () => {
                                 name="date"
                                 className="bg-primary border-[2px] text-secondary border-secondary m-1 w-[30%] p-1"
                                 value={research.date}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+
+                        <div className="flex flex-col w-[40%]">
+                            <label htmlFor="heading" className="p-1 text-left">Period:</label>
+                            <input
+                                type="text"
+                                name="period"
+                                value={research.period}
+                                className="bg-primary border-[2px] text-secondary border-secondary h-[30px] m-1 p-1"
+                                onChange={handleInputChange}
+                            />
+                        </div>
+
+                        <div className="flex flex-col w-[40%]">
+                            <label htmlFor="heading" className="p-1 text-left">Sponsors:</label>
+                            <input
+                                type="text"
+                                name="sponsors"
+                                value={research.sponsors}
+                                className="bg-primary border-[2px] text-secondary border-secondary h-[30px] m-1 p-1"
+                                onChange={handleInputChange}
+                            />
+                        </div>
+
+                        <div className="flex flex-col w-[40%]">
+                            <label htmlFor="heading" className="p-1 text-left">Collaborators:</label>
+                            <input
+                                type="text"
+                                name="collaborators"
+                                value={research.collaborators}
+                                className="bg-primary border-[2px] text-secondary border-secondary h-[30px] m-1 p-1"
                                 onChange={handleInputChange}
                             />
                         </div>

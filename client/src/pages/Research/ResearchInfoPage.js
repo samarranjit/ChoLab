@@ -27,7 +27,7 @@ const ResearchInfoPage = () => {
     return (
         <>
             <Navbar></Navbar>
-            <div className="body p-7">
+            <div className="body px-7 pt-5 pb-0 mb-0">
                 {
                     (!research && research.body )? <Loader /> :
                         <>
