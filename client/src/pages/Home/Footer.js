@@ -7,24 +7,24 @@ import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
-    <div className='relative mt-2'>
-      <div className='p-5 bg-secondary text-primary flex flex-col justify-left relative   items-center  sm:text-center sm:p-0 text-left  '>
+    <div className='relative mt-2 pt-[5rem] '>
+      <div className='py-5 bg-secondary text-primary flex flex-col justify-left relative   items-center  sm:text-center sm:p-0 text-left  border-secondary md:p-1'>
         <div className="custom-shape-divider-top-1730592413 ">
-          <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <svg className='z-[100]  ' data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
           </svg>
         </div>
-        <div className="grid grid-cols-3 justify-between p-10   sm:grid-cols-1">
+        <div className="grid grid-cols-3 justify-between p-10 border-secondary  md:grid-cols-2 sm:grid-cols-1 md:p-1 sm:pt-5">
 
           <div className="Cho flex justify-center  items-center ">
-            <div className="ml-10 w-[70%] aspect-square overflow-hidden sm:h-full bg-white rounded-full flex justify-center items-center shadow-rose-200 shadow-lg">
+            <div className="ml-10 w-[70%] aspect-square overflow-hidden sm:h-full bg-white rounded-full flex justify-center items-center  shadow-lg sm:w-[55%] " >
 
-              <img className='bg-white w-full h-full object-contain flex items-center justify-center my-[50px] sm:mt-5 sm:mb-0 ' src={`${process.env.PUBLIC_URL}/ChoLabLogo.png`} alt="" />
+              <img className='bg-white w-full h-full object-contain flex items-center justify-center my-[50px] sm:mt-5 sm:mb-0  ' src={`${process.env.PUBLIC_URL}/ChoLabLogo.png`} alt="" />
             </div>
 
           </div>
-          <div className="contact flex flex-col text-3xl text-center text-tertiary font-semibold  items-center sm:items-start justify-start sm:justify-left sm:text-left">
-            <p className='block p-5  sm:p-0 pb-2 mb-3 text-left items-start sm:text-2xl sm:text-center sm:w-full my-5'>
+          <div className="contact flex flex-col text-3xl text-center text-tertiary font-semibold  items-center  justify-start ">
+            <p className='block p-5  sm:p-0 pb-2 mb-3 text-left items-start sm:text-[2rem] sm:text-center sm:w-full my-5'>
               <section className=' border-b-[2px] border-tertiary w-full inline text-center'>
 
                 Contact
@@ -63,13 +63,13 @@ function Footer() {
               </a>
             </div>
           </div>
-          <div className="quick-links  flex-col  text-3xl text-center text-tertiary  font-semibold flex items-center  sm:w-[100%]  justify-start ">
+          <div className="quick-links  flex-col  text-3xl text-center text-tertiary font-semibold flex items-center md:w-[100%] justify-center md:jusitfy-around  md:col-span-2 sm:col-span-1">
             <p className='block p-5 my-5 border-b-[2px] border-tertiary pb-2 mb-7 sm:text-2xl sm:flex sm:text-center  sm:justify-center sm:items-center'>
 
               Quick Links
             </p>
 
-            <div className="links text-xl text-left flex flex-col sm:grid sm:grid-cols-3 gap-x-7 text-primary sm:text-sm">
+            <div className="links text-xl  flex flex-col md:grid md:grid-cols-3 gap-x-7 text-primary sm:text-sm md:mx-auto text-center md:w-[100%] justify-center items-center md:col-span-2">
               <Link to="/about" className='p-2 sm:p-1 font-light  my-2  hover:border-b-2 hover:border-tertiary transition duration-150'>PEOPLE</Link>
               <Link to="/news" className='p-2 sm:p-1 font-light  my-2  hover:border-b-2 hover:border-tertiary transition duration-150'>LATEST NEWS</Link>
               <Link to="/publication" className='p-2 sm:p-1 font-light   my-2 hover:border-b-2 hover:border-tertiary transition duration-150'>PUBLICATIONS</Link>

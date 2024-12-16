@@ -29,25 +29,8 @@ function Publication() {
   return (
     <div className='relative'>
       <Navbar />
-      {/* <div className="header flex flex-col justify-center items-center h-[70vh] bg-fixed bg-top bg-secondary sm:pt-[90px] relative ">
-        <section className='text-white font-semibold text-4xl sm:text-3xl '>
-          Publications
-        </section>
-        <div className=" h-[40vh] w-full sm:flex sm:flex-col">
-          <h2 className='items-center text-primary justify-center text-center p-10 text-2xl w-full sm:text-xl sm:p-2'>
-            Follow Dr. Cho on :
-          </h2>
-          <div className="cards flex flex-wrap my-5 justify-evenly sm:flex-col sm:gap-y-5 sm:justify-center sm:items-center">
-            <a target='_blank' rel="noreferrer" href="https://scholar.google.co.kr/citations?user=G6CX5wsAAAAJ&hl=en" className='className="google-scholar p-2 py-5 text-primary cursor-pointer rounded-[10px] border-primary border-[2.5px] flex w-[35%] sm:w-[70%] justify-center font-semibold  hover:bg-primary hover:text-secondary transition duration-500 sm:p-3  '>
-              Google Scholar
-            </a>
-            <a target='_blank' rel="noreferrer" href="https://www.researchgate.net/profile/Eunsang-Cho" className='research-gate p-2 py-5 text-tertiary cursor-pointer rounded-[10px] border-tertiary border-[2.5px] flex w-[35%] sm:w-[70%] justify-center font-semibold hover:bg-tertiary hover:text-primary transition duration-500 sm:p-3  '>
-              Research Gate
-            </a>
-          </div>
-        </div>
-      </div> */}
-      <div className="publications-div bg-primary text-secondary p-7 sm:p-5">
+      
+      <div className="publications-div relative bg-primary text-secondary p-7 sm:p-5 md:top-[60px]">
         <h2 className='flex justify-center text-center p-3 text-secondary text-2xl sm:p-2'>
           <section className='inline border-b-[2px] font-semibold border-tertiary sm:text-xl sm:p-2 sm:font-semibold pb-3'>
             Eunsang Cho publications and links to papers
@@ -67,10 +50,11 @@ function Publication() {
           </div>
         </div>
         <div className="in-revision pt-8  mx-7 justify-center items-start sm:flex-col sm:m-2 sm:p-2 text-center ">
-          <h2 className=' w-[15%] sm:w-[100%] text-2xl sm:text-xl text-center mx-auto border-b-[2px] border-b-secondary  '>
+          <h2 className=' w-[15%] md:w-[100%] text-2xl sm:text-xl text-center mx-auto  '>
             Under Review :
           </h2>
-          <div className="publication-cards p-5 sm:p-1 sm:w-full w-[90%] flex flex-col justify-center mx-auto">
+          <div className=" border-b-[2px] border-b-secondary w-[15%] mx-auto md:w-[35%] sm:w-[50%]"></div>
+          <div className="publication-cards p-5 sm:p-1 sm:w-full w-[90%] flex flex-col justify-center mx-auto md:px-0">
             {Data && Data.publication && Data.publication.reverse().map((item) => (
               item.status === "Review" ?
                 <PublicationCard
@@ -84,11 +68,12 @@ function Publication() {
           </div>
         </div>
         <div className='border-b-[2px] border-tertiary h-[5px]'> </div>
-        <div className="published py-5 px-8 mx-7  justify-center items-start sm:flex-col sm:px-0 sm:m-1">
-          <h2 className='w-[12%] sm:w-[100%] text-2xl sm:text-xl mx-auto text-center border-b-[2px] border-b-secondary p-2'>
+        <div className="published py-5 px-8  mx-7  justify-center items-start sm:flex-col md:px-0 sm:m-1">
+          <h2 className='w-[12%] md:w-[100%] text-2xl sm:text-xl mx-auto text-center'>
             Published :
           </h2>
-          <div className="publication-cards w-full sm:w-full px-5 sm-p-0">
+          <div className=" border-b-[2px] border-b-secondary w-[15%] mx-auto md:w-[35%] sm:w-[50%]"></div>
+          <div className="publication-cards w-full md:w-full px-5 md-px-0">
             {sortedYears.map((year) => (
               <div className=" justify-center item-center">
 

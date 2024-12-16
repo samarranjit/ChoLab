@@ -14,10 +14,10 @@ const AdminResearch = () => {
         body: [""],
         date: "",
         mainImage: "",
-        otherImg: [""]
+        otherImg: []
     })
     const [mainImage, setMainImage] = React.useState(null)
-    const [otherImg, setOtherImg] = React.useState([''])
+    const [otherImg, setOtherImg] = React.useState([])
     const [editingResearchId, setEditingResearchId] = React.useState(null)
 
     const handleUnhide = () => {
@@ -50,6 +50,7 @@ const AdminResearch = () => {
    
 
     const uploadImage = async (imageFile) => {
+        console.log("Now uploading image")
         const formData = new FormData();
         formData.append('image', imageFile);
         const res = await axiosInstance.post(
@@ -59,7 +60,11 @@ const AdminResearch = () => {
         );
         if (res.data.success) {
             console.log(res.data.data.secure_url)
+            console.log(res.data.message)
             return res.data.data.secure_url;
+        }
+        else{
+            console.log(res.data.message)
         }
         throw new Error('Image upload failed');
     };
@@ -68,19 +73,38 @@ const AdminResearch = () => {
         e.preventDefault();
         setShowLoading(true);
         try {
-            const mainImgUrl = mainImage ? await uploadImage(mainImage) : research.mainImageUrl;
+            let mainImgUrl;
+             if(mainImage) { 
+                console.log("Main image found, now uploading it");
+                mainImgUrl = await uploadImage(mainImage);
+                console.log("Main image uploaded")
+            }
+            else
+            {
+                console.log("Main image not found, now using the same main image as already we have : ", research.mainImage)
+                mainImgUrl = research.mainImage;
+            }
 
             // Handle multiple image uploads for otherImages
             const otherImgUrls = [];
-            for (let i = 0; i < otherImg.length; i++) {
-                const imgUrl = await uploadImage(otherImg[i]);
-                otherImgUrls.push(imgUrl);
+            console.log(otherImg.length)
+            if(otherImg){
+
+                for (let i = 0; i < otherImg.length; i++) {
+                    console.log("Uploading the side images")
+                    const imgUrl = await uploadImage(otherImg[i]);
+                    otherImgUrls.push(imgUrl);
+                    console.log("otherImg uploaded")
+                }
+            }
+            else{
+                console.log("No other images found, so no need to upload any otherImages")
             }
 
             const payload = {
                 ...research,
                 mainImage: mainImgUrl,
-                otherImg: otherImgUrls, // Updated to store multiple image URLs
+                otherImg: otherImgUrls, 
             };
 
             let response;
@@ -90,8 +114,10 @@ const AdminResearch = () => {
                     payload
                 );
             } else {
+                console.log("Image Uploaded, now entering the data into database")
+                console.log('Data to send', payload)
                 response = await axiosInstance.post(
-                    `${process.env.REACT_APP_API_BASE_URL}/api/research/addResearch`,
+                    `${process.env.REACT_APP_API_BASE_URL}/api/adminResearch/addResearch`,
                     payload
                 );
             }
@@ -127,7 +153,7 @@ const AdminResearch = () => {
             body: [''],
             date: '',
             mainImage: '',
-            otherImg: [''],
+            otherImg: [],
         });
         setMainImage(null);
         setOtherImg(['']);

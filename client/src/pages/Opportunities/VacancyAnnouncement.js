@@ -14,7 +14,7 @@ const VacancyAnnouncement = (props) => {
                 </h2>
 
                 <div className="announcement text-left w-full">
-                    <h2 className="text-tertiary font-semibold text-xl ">Announcement:</h2>
+                    {/* <h2 className="text-tertiary font-semibold text-xl text-center">Announcement:</h2> */}
                     <p className=" heading font-semibold py-5 text-lg">{Data.title}</p>
                     <p className=" ">{Data.body}</p>
                     <div className="flex text-primary my-5">

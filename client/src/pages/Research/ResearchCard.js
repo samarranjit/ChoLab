@@ -11,23 +11,32 @@ function ResearchCard(research) {
   }
 
   return (
-    <>
+    <div className='bg-primary my-5  shadow-tertiary drop-shadow-lg shadow-sm'>
 
-      <div className="body p-2 m-0">
-        <div className="relative">
-          <img
-            className="float-right w-[35%] mt-8 ml-4 my-5 sm:hidden"
+      <div className="body p-2 m-0 ">
+        <div style={{ backgroundImage: `url(${research.research.mainImage})` }} className="w-[90%] min-h-[full] h-[18rem] mt-8 ml-4 my-5  bg-cover"></div>
+          {/* <img
+            className="w-[90%] min-h-[full] max-h-[25rem] mt-8 ml-4 my-5 sm:hidden"
             src={research.research.mainImage}
             alt="Research"
-          />
+          /> */}
+        <div className="px-3 flex mx-auto">
 
-          <div className="">
-            <h2 className='text-2xl py-5   sm:text-xl '>{research.research.title}</h2>
-            <img
-              className={`hidden w-[100%]  my-5 sm:inline`}
-              src={research.research.mainImage}
-              alt="Research"
-            />
+          <div className="flex flex-col items-center justify-center">
+            <h2 className='text-lg py-5   sm:text-xl min-h-[7.5rem] '>{
+            (() => {
+              const text = research.research.title; // Get the first paragraph
+              const words = text.split(" "); // Split into words
+              if (words.length > 12){
+                return words.slice(0, 12).join(" ") + "..." // Show only the first 10 words with ellipsis
+
+              }else{
+                return text; // If there are 10 or fewer words, show the full text
+
+              }
+            })()
+            }</h2>
+            
 
             {/* <h2 className={`text-md leading-8 sm:leading-normal sm:text-lg sm:hidden`}>
               {research.research.body[0]}
@@ -36,8 +45,8 @@ function ResearchCard(research) {
               {(() => {
                 const text = research.research.body[0]; // Get the first paragraph
                 const words = text.split(" "); // Split into words
-                if (words.length > 120){
-                  return words.slice(0, 120).join(" ") + "..." // Show only the first 10 words with ellipsis
+                if (words.length > 10){
+                  return words.slice(0, 10).join(" ") + "..." // Show only the first 10 words with ellipsis
 
                 }else{
                   return text; // If there are 10 or fewer words, show the full text
@@ -57,10 +66,10 @@ function ResearchCard(research) {
       </button>
       </div>
 
-      <div className="h-[3px] mt-10 bg-tertiary"></div>
+      <div className="h-[3px] mt-10 bg-tertiary bg-opacity-15  "></div>
 
 
-    </>
+    </div>
   );
 }
 

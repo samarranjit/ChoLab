@@ -7,12 +7,13 @@ function AdminNews() {
     const [editingNewsId, setEditingNewsId] = React.useState(null);
     const [addNewsBtn, setAddNewsBtn] = React.useState(false);
     const [paragraphs, setParagraphs] = React.useState([""]);
-    const [extraPhotos, setExtraPhotos] = React.useState([""]);
+    const [mainImage, setMainImage] = React.useState(null);
+    const [otherImg, setOtherImg] = React.useState([]);
     const [news, setNews] = React.useState({
         heading: "",
         body: [""],
         mainImage: "",
-        otherImage: [""],
+        otherImage: [],
         date: ""
     });
 
@@ -27,11 +28,15 @@ function AdminNews() {
             updatedParagraphs[index] = value;
             setParagraphs(updatedParagraphs);
             setNews(prev => ({ ...prev, body: updatedParagraphs }));
-        } else if (name.startsWith("otherImg-")) {
-            const updatedPhotos = [...extraPhotos];
-            updatedPhotos[index] = value;
-            setExtraPhotos(updatedPhotos);
-            setNews(prev => ({ ...prev, otherImage: updatedPhotos }));
+        }
+        else if (name.startsWith("otherImg-")) {
+            const updatedPhotos = [...otherImg];
+            updatedPhotos[index] = e.target.files[0];
+            setOtherImg(updatedPhotos);
+
+        } else if (name === "mainImage") {
+            setMainImage(e.target.files[0])
+            // console.log(mainImage)
         } else {
             setNews(prev => ({ ...prev, [name]: value }));
         }
@@ -40,36 +45,98 @@ function AdminNews() {
     const handleEdit = (item) => {
         setAddNewsBtn(true);
         setEditingNewsId(item._id);
-
-        setNews({
-            heading: item.heading,
-            body: item.body,
-            mainImage: item.mainImage,
-            otherImage: item.otherImage,
-            date: item.date
-        });
-
+        setNews(item);
         setParagraphs(item.body);
-        setExtraPhotos(item.otherImage || [""]);
+        setOtherImg(item.otherImage || [""]);
+    };
+
+    const uploadImage = async(imageFile)=>{
+        console.log("we are inside the function to upload image")
+        const formData = new FormData();
+        formData.append('image', imageFile);
+
+        const res = await axiosInstance.post(
+            `${process.env.REACT_APP_API_BASE_URL}/api/adminNews/sendImage`,
+            formData, 
+            { headers: { 'Content-Type': 'multipart/form-data' } }
+        );
+        if(res.data.success){
+            console.log(res.data.data.secure_url)
+            return res.data.data.secure_url
+        }
+        throw new Error('Image Uploading Failed')
+
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(news)
         setShowLoading(true);
-        try {
-            const response = editingNewsId ? await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/news/editNews/${editingNewsId}`, news)
-                                            : await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/news/addNews`, news);
 
-            setShowLoading(false);
-            if (response.data.success) {
+        
+        // ---------------------New Code for Submission ---------------------------------------------
+        try {
+            console.log("Checking if main Images is present");
+
+            let mainImageUrl;
+            if(mainImage){
+                console.log("We have a main Image, we are uploading it now")
+
+                mainImageUrl =     await uploadImage(mainImage);
+                console.log("Main Image Uploaded")
+
+            } 
+            else{
+                console.log("Main image is not found so now we are gonna take the same main image as we had")
+                mainImageUrl = news.mainImage
+            }
+
+            
+            const otherImageUrls = [];
+            if(otherImg){
+
+                for (let i = 0; i < otherImg.length; i++) {
+                    console.log("We have found one otherimage, we are uploading other image ", i)
+                    const imgUrl = await uploadImage(otherImg[i]);
+                    otherImageUrls.push(imgUrl);
+                }
+                    console.log("We have uploded all the other images ")
+            }
+
+            const DataToSend={
+                ...news,
+                mainImage : mainImageUrl,
+                otherImage : otherImageUrls
+            }
+            let response;
+            if(editingNewsId){
+                console.log("We are now inserting the edited info")
+                response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/news/editNews/${editingNewsId}`, DataToSend);
+                console.log("donw with editing the doc in the database")
+
+            }
+            else{
+                console.log("we are now adding the new doc in the database")
+                response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/news/addNews`, DataToSend);
+                console.log("We are done inserting the new doc in the database")
+            }
+
+            if(response.data.success){
                 alert(response.data.message);
                 resetForm();
             }
+            else{
+                throw new Error(response.data.message || "Submission Failed!");
+            }
         } catch (error) {
-            console.error("Error:", error);
+            console.error(error);
+            alert('An error occurred while submitting the form.');
+        } finally {
             setShowLoading(false);
         }
+
+
+        // -----------------------------------------------------------------------------------------
     };
 
     const handleAddParagraph = (e) => {
@@ -79,7 +146,7 @@ function AdminNews() {
 
     const handleAddPhoto = (e) => {
         e.preventDefault();
-        setExtraPhotos([...extraPhotos, ""]);
+        setOtherImg([...otherImg, ""]);
     };
 
     const handleDelete = async (newsId) => {
@@ -107,7 +174,7 @@ function AdminNews() {
             date: "10/27/2024"
         });
         setParagraphs([""]);
-        setExtraPhotos([""]);
+        setOtherImg([""]);
         setEditingNewsId(null);
         setAddNewsBtn(false);
     };
@@ -173,7 +240,7 @@ function AdminNews() {
 
                         <div className="w-[40%] flex flex-col">
                             <label htmlFor="Position" className="p-1">Other Photo Link: (Optional)</label>
-                            {extraPhotos.map((photo, index) => (
+                            {otherImg.map((photo, index) => (
                                 <input
                                     key={index}
                                     type="file"

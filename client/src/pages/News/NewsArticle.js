@@ -28,7 +28,7 @@ function NewsArticle() {
     {
         !article ? <Loader/>:
     <div className="w-[80%] m-auto h-screen ">
-        <div className='text-center text-2xl my-5 '><section className='border-b-[2px] border-tertiary inline p-3'>    
+        <div className='text-center text-2xl  '><section className='border-b-[2px] border-tertiary inline p-3'>    
             {article?.heading}
             </section>
         </div>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const EachSectionConnection = () => {
   return (
-    <div className='h-full p-7 py-[5rem] bg-secondary grid grid-cols-3 gap-[1rem] relative sm:grid-cols-1'>
+    <div className='h-full p-7 py-[5rem] bg-secondary grid grid-cols-3 gap-[1rem] relative sm:grid-cols-1 '>
         <div className="custom-shape-divider-top-1730584481 sm:translate-y-10 sm:rotate-180">
                 <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
                     <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
@@ -16,7 +16,7 @@ const EachSectionConnection = () => {
                 Our Team
             </h2>
             <div className="h-[1.5px] bg-tertiary my-5"></div>
-            <div className="text-primary text-lg leading-9 text-center">
+            <div className="text-primary text-lg leading-9 text-center ">
                 Members of the Cho Lab share a passion for advancing our understanding of hydrology and water resources in a changing climate, aiming to promote a sustainable environment by addressing critical questions.
             </div>
             <Link to="/about">

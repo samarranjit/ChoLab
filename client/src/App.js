@@ -18,6 +18,7 @@ import Opportunities from "./pages/Opportunities/index.js";
 import ResearchInfoPage from "./pages/Research/ResearchInfoPage.js";
 import Mentorship from "./pages/Mentorship"
 import { ResearchProvider } from './Context/ResearchContext.js';
+import ScrollToTop from "./components/ScrollToTop.js";
 
 function App() {
   const [Data, setData] = React.useState(null);
@@ -48,6 +49,7 @@ function App() {
     <AuthProvider>
     <ResearchProvider>
     <BrowserRouter>
+    <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/about" element={<About />} ></Route>

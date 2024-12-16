@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const CurrrentCourses = () => {
     return (
-        <div className='h-full p-[4rem] sm:px-3'>
+        <div className='h-full px-[4rem] pt-[3rem] sm:px-3 md:px-5'>
             <h1 className='text-3xl mt-5 font-semibold'>Courses Dr. Cho is Teaching</h1>
             <div className="h-[2px] my-7 bg-tertiary "></div>
             <div className="grid grid-cols-3  gap-7 sm:grid-cols-1 items-stretch h-full">
@@ -34,7 +34,7 @@ const CurrrentCourses = () => {
                     <Link to="#">
                     <button className="border-2 border-tertiary my-2 rounded-full py-5 px-7 font-semibold cursor-pointer text-tertiary  hover:text-primary hover:bg-tertiary duration-300 border-b-4">View Syllabus</button>
                     </Link>
-                    <div className="bg-tertiary h-[1px] my-9"></div>
+                    <div className="bg-tertiary h-[1px] mt-9"></div>
 
                 </div>
             </div>

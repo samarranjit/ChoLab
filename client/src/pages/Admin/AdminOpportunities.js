@@ -100,7 +100,7 @@ const AdminOpportunities = () => {
                         </div>
                     </div>
                 }
-                        <div className="flex flex-col header gap-5">
+                        <div className="flex flex-col header gap-5 my-5">
                             <button className='bg-tertiary mx-5  text-primary p-2 hover:text-primary hover:bg-secondary hover:border-2 hover:border-primary hover:border-b-[5px]' onClick={()=>handleSubmit()}> Submit</button>
                         </div>
             </form>
