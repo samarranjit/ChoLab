@@ -7,7 +7,7 @@ function MemberCard(props) {
   const {name, img, position, email, linkedin, desc}= props;
   return (
     <>
-      <div className="bg-[#005B96] my-10 py-5 flex flex-col  justify-center items-center border-[3px] border-gray-500 border-opacity-10 sm:border-gray-250 sm:border-[1px] sm:text-left  shadow-md shadow-gray-200 sm:my-5 md:my-5 ">
+      <div className="bg-[#005B96] mt-10 py-5 flex flex-col  justify-center items-center border-[3px] border-gray-500 border-opacity-10 sm:border-gray-250 sm:border-[1px] sm:text-left  shadow-md shadow-gray-200 sm:my-5 md:my-5 ">
         <div
           style={{ backgroundImage: `url(${img})` }}
           className="w-[200px] rounded-[50%] overflow-hidden bg-no-repeat bg-cover  h-[200px] border-black border-[1px]"

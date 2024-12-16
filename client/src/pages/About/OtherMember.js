@@ -15,7 +15,7 @@ function OtherMember() {
           <h1 className="flex justify-center items-center text-primary text-2xl font-semibold sm:text-2xl">
             Other Team Members:
           </h1>
-          <div className="membercards_team_members grid grid-cols-3 md:grid-cols-2 sm:gap-2 sm:grid-cols-1 gap-[5rem] md:gap-[1rem]">
+          <div className="membercards_team_members grid grid-cols-3 md:grid-cols-2 sm:gap-2 sm:grid-cols-1 gap-[2.5rem] md:gap-[1rem]">
             {
               Data && Data.team && Data.team.map(item => (
                 <MemberCard key={item.id} name={item.name} img={item.img} position={item.position} email={item.email} linkedin={item.linkedin} desc={item.desc}/>

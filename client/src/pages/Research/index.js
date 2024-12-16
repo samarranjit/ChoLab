@@ -3,10 +3,12 @@ import Navbar from '../../components/Navbar'
 import { allContexts } from '../../Context/AllContexts'
 import Loader from '../../components/Loader'
 import Footer from '../Home/Footer'
-import { ImFlickr2 } from "react-icons/im";
+// import { ImFlickr2 } from "react-icons/im";
 import { GiComputerFan, GiMaterialsScience } from 'react-icons/gi'
 import ResearchCard from './ResearchCard'
 // import axiosInstance from '../../axios/axiosInstance'
+import { FaSatelliteDish } from "react-icons/fa";
+
 import { useResearchContext } from '../../Context/ResearchContext'
 
 function Research() {
@@ -40,16 +42,19 @@ function Research() {
 
         <div className="grid grid-cols-3 p-10 text-center gap-10  sm:grid-cols-1 sm:px-3">
 
-          <div className="flex w-[100%]   justify-center items-center text-center  text-primary">
+
+        <div className="flex w-[100%]   justify-center items-center text-center  text-primary">
             <div className=" flex justify-center items-center flex-col">
               <div className="bg-tertiary p-4 my-5 text-secondary text-4xl rounded-full">
-                <ImFlickr2></ImFlickr2>
+              <GiMaterialsScience/>
+
               </div>
-              <div className="my-4 text-2xl mb-5">Interdisciplinary Research</div>
-              <h2 className='text-center p-3q'>We use computational engineering tools and integrate hydrology, data science, and policy analysis.</h2>
+              <div className="my-4 text-2xl mb-5">Impact Driven Science</div>
+              <h2 className='text-center p-3q'> Our research addresses real-world challenges in water resources, climate change, and extreme events to drive meaningful societal and environmental impacts.</h2>
 
             </div>
           </div>
+
 
           <div className="flex w-[100%]   justify-center items-center text-center  text-primary">
             <div className=" flex justify-center items-center flex-col">
@@ -58,7 +63,7 @@ function Research() {
 
               </div>
               <div className="my-4 text-2xl mb-5">Computational Modeling</div>
-              <h2 className='text-center p-3q'>We use computational experiments to build socio-ecological systems theory around why solutions work in some contexts but not others.</h2>
+              <h2 className='text-center p-3q'>We apply advanced computational tools and AI/ML-driven models to simulate complex hydrological, cryosphere, and agricultural systems for informed decision-making. </h2>
 
             </div>
           </div>
@@ -66,14 +71,14 @@ function Research() {
           <div className="flex w-[100%]   justify-center items-center text-center  text-primary">
             <div className=" flex justify-center items-center flex-col">
               <div className="bg-tertiary p-4 my-5 text-secondary text-4xl rounded-full">
-              <GiMaterialsScience/>
-
+              <FaSatelliteDish />
               </div>
-              <div className="my-4 text-2xl mb-5">Impact Driven Science</div>
-              <h2 className='text-center p-3q'>We choose questions to support decision-making around critical environmental challenges, like climate change. </h2>
+              <div className="my-4 text-2xl mb-5">Remote Sensing</div>
+              <h2 className='text-center p-3q'>Using satellite and UAV-based remote sensing, we collect high-resolution data to monitor and analyze Earth's dynamic water systems.</h2>
 
             </div>
           </div>
+          
 
         </div>
       </div>
