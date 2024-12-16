@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 function PublicationCard(props) {
   const { title, details, link, imgUrl } = props;
+  console.log(link)
 
   const renderFormattedText = (text) => {
     const parts = text.split(/(\*.*?\*)/); // Split text into segments with and without *
@@ -21,7 +22,7 @@ function PublicationCard(props) {
 
   return (
     <Link
-    href={link}
+    to={link}
     target="_blank"
     rel="noreferrer"
     className=" font-semibold hover:underline text-sm sm:text-sm p-2 rounded-sm text-primary"
@@ -48,7 +49,7 @@ function PublicationCard(props) {
         <div className="p-2 flex justify-left sm:mb-5 ">
 
         <Link
-          href={link}
+          to={link}
           target="_blank"
           rel="noreferrer"
           className=" font-semibold hover:underline text-sm sm:text-sm bg-tertiary p-2 rounded-sm text-primary"

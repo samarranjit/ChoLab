@@ -157,7 +157,7 @@ router.post("/adminResearch/sendImage", authenticate, upload.single("image"), as
         }
         else {
 
-            console.log("Cloudinary upload result", results); // Log the result
+            console.log("Cloudinary uploaded image"); // Log the result
         }
 
 
@@ -202,15 +202,8 @@ router.post("/adminResearch/addResearch", authenticate, async (req, res) => {
     try {
         const { title, body, date, mainImage, otherImg } = req.body;
 
-        // const newResearch = new Research({
-        //     title,
-        //     body: body, // If body is sent as a JSON string
-        //     date,
-        //     mainImage,
-        //     otherImg: otherImg, // Save additional images as an array of URLs
-        // });
+         
         const newResearch = new Research(req.body);
-        // console.log(req.body)
 
         const savedResearch = await newResearch.save();
 

@@ -16,6 +16,7 @@ function Publication() {
         if (!acc[year]) acc[year] = [];
         acc[year].push(item);
       }
+      console.log(new Date(item.date))
       return acc;
     }, {})
     : {};
@@ -30,7 +31,7 @@ function Publication() {
     <div className='relative'>
       <Navbar />
       
-      <div className="publications-div relative bg-primary text-secondary p-7 sm:p-5 md:top-[60px]">
+      <div className="publications-div relative bg-white text-secondary p-7 sm:p-5 md:top-[60px]">
         <h2 className='flex justify-center text-center p-3 text-secondary text-2xl sm:p-2'>
           <section className='inline border-b-[2px] font-semibold border-tertiary sm:text-xl sm:p-2 sm:font-semibold pb-3'>
             Eunsang Cho publications and links to papers
