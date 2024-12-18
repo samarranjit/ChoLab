@@ -38,7 +38,7 @@ function ResearchCard(research) {
             }</h2>
             <div className="text-xs w-[100%] text-opacity-2  grid grid-cols-5 md:grid-cols-1 sm:grid-cols-5 gap-x-2 items-stretch justify-center align-center text-left">
               {
-                research && (research.research.period != "") &&
+                research && (research.research.period !== "") &&
               <div className="period my-2 flex flex-col col-span-2 break-all flex-wrap ">
                 <p className='font-semibold mr-2 mb-2 text-left'>
 
@@ -50,7 +50,7 @@ function ResearchCard(research) {
             
 
               {
-                research && (research.research.sponsors != "") &&
+                research && (research.research.sponsors !== "") &&
                 <div className="sponsor my-2 flex flex-col col-span-3 break-all flex-wrap ">
                   <p className='font-semibold mr-2  mb-2 text-left'>
 
@@ -62,7 +62,7 @@ function ResearchCard(research) {
               }
 
               {
-                research && (research.research.collaborators != "") &&
+                research && (research.research.collaborators !== "") &&
 
                 <div className="collaborators my-2 text-left flex flex-col col-span-5 break-all flex-wrap ">
                   <p className='font-semibold mr-2  mb-2 text-left'>

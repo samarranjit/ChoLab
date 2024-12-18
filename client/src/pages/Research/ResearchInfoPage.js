@@ -6,6 +6,7 @@ import { allContexts } from '../../Context/AllContexts';
 import Loader from '../../components/Loader';
 import Footer from '../Home/Footer';
 
+
 const ResearchInfoPage = () => {
     const { id } = useParams();
     const [research, setResearch] = React.useState({})

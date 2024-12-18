@@ -1,10 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { allContexts } from '../../Context/AllContexts'
+import DOMPurify from 'dompurify';
 
 const VacancyAnnouncement = (props) => {
     const { Data } = props;
     console.log(Data)
+
+    const sanitizedBody = Data? DOMPurify.sanitize(Data.body) : "";
+
 
     return (
         <div className='py-7 px-[4rem]'>
@@ -15,17 +19,8 @@ const VacancyAnnouncement = (props) => {
 
                 <div className="announcement text-left w-full">
                     {/* <h2 className="text-tertiary font-semibold text-xl text-center">Announcement:</h2> */}
-                    <p className=" heading font-semibold py-2 text-lg">{Data.title}</p>
-
-                    <p
-                        className=""
-                        dangerouslySetInnerHTML={{
-                            __html: Data.body.replace(/\n/g, "<br>"),
-                        }}
-                    ></p>
-
-
-                    {/* <p className=" ">{Data.body}</p> */}
+                    <p className=" heading font-semibold py-5 text-lg">{Data.title}</p>
+                    <p className=" " dangerouslySetInnerHTML={{__html: sanitizedBody }}></p>
                     <div className="flex text-primary my-5">
                         <Link to={Data.link} >
                             <button className='bg-tertiary px-5 py-2'>More info</button>
@@ -39,8 +34,9 @@ const VacancyAnnouncement = (props) => {
                     frameborder="0"
                     marginheight="0"
                     marginwidth="0"
+                    height={"100vh"}
                     className="w-full h-fit overflow-scroll"
-                    style={{ minHeight: "0", flex: "1", scrollbarWidth: "0" }}
+                    style={{ minHeight: "50vh", flex: "1", scrollbarWidth: "0" }}
                 >
                     Loading…
                 </iframe>

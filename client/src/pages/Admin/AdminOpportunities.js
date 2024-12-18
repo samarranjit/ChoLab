@@ -2,27 +2,30 @@ import React from 'react';
 import { useEffect } from 'react';
 import { allContexts } from '../../Context/AllContexts';
 import axiosInstance from '../../axios/axiosInstance';
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css';
+
 
 const AdminOpportunities = () => {
     // const [displayAnnouncement, setDisplayAnnouncement] = React.useState();
-    const {Data, setShowLoading} = React.useContext(allContexts)
+    const { Data, setShowLoading } = React.useContext(allContexts)
     // console.log("Display Announcement: ", displayAnnouncement);
     const [announcement, setAnnouncement] = React.useState({
-        announcementStatus : null,
-        title:"",
-        body :"",
-        link : ""
+        announcementStatus: null,
+        title: "",
+        body: "",
+        link: ""
     });
 
 
-    const toggleDisplayAnnouncement = async()=>{
+    const toggleDisplayAnnouncement = async () => {
         // console.log(typeof(announcementStatus));
 
-        setAnnouncement(prev=>({
+        setAnnouncement(prev => ({
             ...prev,
             announcementStatus: !(announcement.announcementStatus)
         }))
-        
+
 
     }
 
@@ -34,10 +37,10 @@ const AdminOpportunities = () => {
         }
     };
 
-    const handleInputChange = (e)=>{
-        const {name, value} = e.target;
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
 
-        setAnnouncement(prev=>({
+        setAnnouncement(prev => ({
             ...prev,
             [name]: value
         }))
@@ -47,17 +50,25 @@ const AdminOpportunities = () => {
 
     }
 
-    const handleSubmit = async() =>{
+    const handleQuillChange = (value) => {
+        setAnnouncement(prev => ({
+            ...prev,
+            body: value // Update the `body` field directly with Quill's value
+        }));
+        console.log(announcement.body)
+    };
+
+    const handleSubmit = async () => {
         try {
             setShowLoading(true);
-            const response =await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/admin/adminOpportunities/updateAnnouncement`, announcement)
-            console.log("Response" , response.data);
+            const response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/admin/adminOpportunities/updateAnnouncement`, announcement)
+            console.log("Response", response.data);
             if (response.data.success) {
                 alert(response.data.message);
                 console.log("Changed");
                 // Optionally: refresh data
             }
-            else{
+            else {
                 console.log("Unable to change")
             }
         } catch (error) {
@@ -66,12 +77,12 @@ const AdminOpportunities = () => {
         }
     }
 
-    useEffect(() => { 
-        
+    useEffect(() => {
+
         // Data && Data.opporutunitiesAnnouncement  && setDisplayAnnouncement(Number(Data.opporutunitiesAnnouncement[0].announcementStatus)); // Store as 0 or 1
         loadAnnouncement()
     }, [Data])
-    
+
 
     return (
         <div>
@@ -80,7 +91,7 @@ const AdminOpportunities = () => {
                 <div className="flex gap-5 my-5">
 
                     <h2>Display Announcements?</h2>
-                    <input type="checkbox" name="" id=""  checked={( announcement.announcementStatus)} className='font-2xl' onClick={() => toggleDisplayAnnouncement()} />
+                    <input type="checkbox" name="" id="" checked={(announcement.announcementStatus)} className='font-2xl' onClick={() => toggleDisplayAnnouncement()} />
                 </div>
 
                 {
@@ -92,7 +103,14 @@ const AdminOpportunities = () => {
                         </div>
                         <div className="flex flex-col header gap-5">
                             <h2>Text :</h2>
-                            <textarea rows={5} name='body' value={announcement.body} onChange={handleInputChange} className='bg-primary w-full  text-secondary p-2' />
+                            <ReactQuill
+                                theme='snow'
+                                className='editor-input bg-primary w-full  text-secondary p-2'
+                                name='body'
+                                value={announcement.body}
+                                 onChange={handleQuillChange} 
+                            />
+                            {/* <textarea rows={5} name='body' value={announcement.body} onChange={handleInputChange} className='bg-primary w-full  text-secondary p-2' /> */}
                         </div>
                         <div className="flex flex-col header gap-5">
                             <h2>Link :</h2>
@@ -100,10 +118,11 @@ const AdminOpportunities = () => {
                         </div>
                     </div>
                 }
-                        <div className="flex flex-col header gap-5 my-5">
-                            <button className='bg-tertiary mx-5  text-primary p-2 hover:text-primary hover:bg-secondary hover:border-2 hover:border-primary hover:border-b-[5px]' onClick={()=>handleSubmit()}> Submit</button>
-                        </div>
+                <div className="flex flex-col header gap-5 my-5">
+                    <button className='bg-tertiary mx-5  text-primary p-2 hover:text-primary hover:bg-secondary hover:border-2 hover:border-primary hover:border-b-[5px]' onClick={() => handleSubmit()}> Submit</button>
+                </div>
             </form>
+
         </div>
     )
 }
