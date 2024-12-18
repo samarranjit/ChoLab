@@ -11,7 +11,7 @@ const VacancyAnnouncement = (props) => {
 
 
     return (
-        <div className='py-7 px-[4rem]'>
+        <div className='py-7 px-[4rem] sm:px-5'>
             <div className="min-h-screen flex flex-col justify-center items-center">
                 <h2 className="text-tertiary text-2xl sm:text-xl md:text-3xl text-center pb-7">
                     Join our Team :
