@@ -71,7 +71,7 @@ function AdminNews() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(news);
-        
+
         setShowLoading(true);
 
         if (!editingNewsId && (news.heading === "" || news.body.length === 0 || !mainImage || news.date === "")) {
@@ -87,60 +87,60 @@ function AdminNews() {
 
         // ---------------------New Code for Submission ---------------------------------------------
         try {
-           
-                console.log("Checking if main Images is present");
 
-                let mainImageUrl;
-                if (mainImage) {
-                    console.log("We have a main Image, we are uploading it now")
+            console.log("Checking if main Images is present");
 
-                    mainImageUrl = await uploadImage(mainImage);
-                    console.log("Main Image Uploaded")
+            let mainImageUrl;
+            if (mainImage) {
+                console.log("We have a main Image, we are uploading it now")
 
+                mainImageUrl = await uploadImage(mainImage);
+                console.log("Main Image Uploaded")
+
+            }
+            else {
+                console.log("Main image is not found so now we are gonna take the same main image as we had")
+                mainImageUrl = news.mainImage
+            }
+
+
+            const otherImageUrls = [];
+            if (otherImg) {
+
+                for (let i = 0; i < otherImg.length; i++) {
+                    console.log("We have found one otherimage, we are uploading other image ", i)
+                    const imgUrl = await uploadImage(otherImg[i]);
+                    otherImageUrls.push(imgUrl);
                 }
-                else {
-                    console.log("Main image is not found so now we are gonna take the same main image as we had")
-                    mainImageUrl = news.mainImage
-                }
+                console.log("We have uploded all the other images ")
+            }
 
+            const DataToSend = {
+                ...news,
+                mainImage: mainImageUrl,
+                otherImage: otherImageUrls
+            }
+            let response;
+            if (editingNewsId) {
+                console.log("We are now inserting the edited info")
+                response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/news/editNews/${editingNewsId}`, DataToSend);
+                console.log("donw with editing the doc in the database")
 
-                const otherImageUrls = [];
-                if (otherImg) {
+            }
+            else {
+                console.log("we are now adding the new doc in the database")
+                response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/news/addNews`, DataToSend);
+                console.log("We are done inserting the new doc in the database")
+            }
 
-                    for (let i = 0; i < otherImg.length; i++) {
-                        console.log("We have found one otherimage, we are uploading other image ", i)
-                        const imgUrl = await uploadImage(otherImg[i]);
-                        otherImageUrls.push(imgUrl);
-                    }
-                    console.log("We have uploded all the other images ")
-                }
+            if (response.data.success) {
+                alert(response.data.message);
+                resetForm();
+            }
+            else {
+                throw new Error(response.data.message || "Submission Failed!");
+            }
 
-                const DataToSend = {
-                    ...news,
-                    mainImage: mainImageUrl,
-                    otherImage: otherImageUrls
-                }
-                let response;
-                if (editingNewsId) {
-                    console.log("We are now inserting the edited info")
-                    response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/news/editNews/${editingNewsId}`, DataToSend);
-                    console.log("donw with editing the doc in the database")
-
-                }
-                else {
-                    console.log("we are now adding the new doc in the database")
-                    response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/news/addNews`, DataToSend);
-                    console.log("We are done inserting the new doc in the database")
-                }
-
-                if (response.data.success) {
-                    alert(response.data.message);
-                    resetForm();
-                }
-                else {
-                    throw new Error(response.data.message || "Submission Failed!");
-                }
-            
         } catch (error) {
             console.error(error);
             alert('An error occurred while submitting the form.');
@@ -162,21 +162,73 @@ function AdminNews() {
         setOtherImg([...otherImg, ""]);
     };
 
-    const handleDelete = async (newsId) => {
+    const deleteImages = async (imageUrls) => {
         try {
-            setShowLoading(true);
-            const response = await axiosInstance.delete(`${process.env.REACT_APP_API_BASE_URL}/api/news/delNews/${newsId}`);
-            setShowLoading(false);
-            if (response.data.success) {
-                alert(response.data.message);
-                console.log(newsId, "Deleted");
-                // Optionally: refresh data
-            }
+            console.log("Image URL inside delete function:", imageUrls);
+            const deleteImgResponse = await axiosInstance.post(
+                `${process.env.REACT_APP_API_BASE_URL}/api/admin/delete-image`,
+                { imageUrls }
+            );
+            return deleteImgResponse.data; // Return the data from the response
         } catch (error) {
-            console.error("Error:", error);
-            setShowLoading(false);
+            console.error("Error deleting image:", error);
+            throw error; // Propagate the error to be handled in the caller
         }
     };
+    
+    const handleDelete = async (newsId) => {
+        const newsToDelete = Data?.news.find((news) => news._id === newsId);
+        console.log("News to delete:", newsToDelete);
+    
+        if (!newsToDelete) {
+            console.error("News not found");
+            return;
+        }
+    
+        try {
+            setShowLoading(true);
+    
+            // Delete main image
+            let deleteImgResponse = await deleteImages(newsToDelete.mainImage);
+            
+            if (deleteImgResponse.success) {
+                console.log("Main image deleted successfully.");
+    
+                // Delete other images if they exist
+                if (newsToDelete.otherImage.length > 0) {
+                    if (newsToDelete.otherImage.length > 0) {
+                        console.log("Deleting other images...");
+                        newsToDelete.otherImage.map((url) => (
+                            deleteImages(url)
+                        ));
+                        console.log("Other images deleted successfully.");
+                    }
+                }
+    
+                // Delete the news data from the database
+
+                
+                const response = await axiosInstance.delete(
+                    `${process.env.REACT_APP_API_BASE_URL}/api/news/delNews/${newsId}`
+                );
+    
+                if (response.data.success) {
+                    alert(response.data.message);
+                    console.log(`News with ID ${newsId} deleted successfully.`);
+                    // Optionally refresh the data state here
+                } else {
+                    console.error("Failed to delete news data:", response.data.message);
+                }
+            } else {
+                console.error("Failed to delete main image:", deleteImgResponse.message);
+            }
+        } catch (error) {
+            console.error("Error during deletion process:", error);
+        } finally {
+            setShowLoading(false); // Ensure loading state is reset
+        }
+    };
+    
 
     const resetForm = () => {
         setNews({

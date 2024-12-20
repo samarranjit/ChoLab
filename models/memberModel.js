@@ -14,8 +14,7 @@ const memberSchema =new mongoose.Schema({
         required: true
     },
     email :{
-        type: String,
-        required: true
+        type: String
     },
     linkedin:{
         type: String

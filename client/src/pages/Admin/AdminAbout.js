@@ -27,7 +27,7 @@ function AdminAbout() {
         setShowLoading(true);
         try {
 
-            if (member.name === "" || member.position === "" || member.desc === "" || member.email === "" || member.linkedin === "") {
+            if (member.name === "" || member.position === "" || member.desc === "" ) {
                 alert("Please enter all the values. Do not leave field(s) blanks");
             }
             else {
@@ -134,26 +134,50 @@ function AdminAbout() {
         setAddMemberBtn(!addMemberBtn);
     };
 
-    const handleDelete = async (memberId) => {
-        console.log(memberId)
+    const handleDelete = async (memberId, imageUrls) => {
+        console.log(memberId, imageUrls);
         try {
             setShowLoading(true);
-            const response = await axiosInstance.delete(`${process.env.REACT_APP_API_BASE_URL}/api/team/DelMember/${memberId}`);
-            setShowLoading(false);
-            if (response.data.success) {
-                alert(response.data.message);
-                setData((prevData) => ({
-                    ...prevData,
-                    team: prevData.team.filter(member => member._id !== memberId)
-                }));
-                // Update the local Data to remove the deleted member
-
+    
+            // Step 1: Delete the images from Cloudinary
+            console.log("Deleting images from Cloudinary...");
+            const deleteImagesResponse = await axiosInstance.post(
+                `${process.env.REACT_APP_API_BASE_URL}/api/admin/delete-image`,
+                { imageUrls }
+            );
+    
+            if (deleteImagesResponse.data.success) {
+                console.log("Images deleted successfully from Cloudinary. Now deleting member...");
+    
+                // Step 2: If image deletion is successful, delete the member from the database
+                const response = await axiosInstance.delete(
+                    `${process.env.REACT_APP_API_BASE_URL}/api/team/DelMember/${memberId}`
+                );
+    
+                if (response.data.success) {
+                    alert('Member and associated images deleted successfully.');
+    
+                    // Step 3: Update the local state to reflect the changes
+                    setData((prevData) => ({
+                        ...prevData,
+                        team: prevData.team.filter((member) => member._id !== memberId),
+                    }));
+                } else {
+                    alert('Failed to delete member from the database.');
+                }
+            } else {
+                alert('Failed to delete images from Cloudinary.');
             }
+    
+            setShowLoading(false);
         } catch (error) {
-            console.error(error);
+            console.error('Error during deletion:', error);
+            alert('An error occurred during deletion.');
             setShowLoading(false);
         }
     };
+    
+    
 
     const handleEdit = (member) => {
         setMember(member);
@@ -258,16 +282,6 @@ function AdminAbout() {
                                 onChange={handleInputChange}
                             />
                         </div>
-                        {/* <div className="w-[40%] flex flex-col">
-                            <label htmlFor="img" className="p-1">Photo Link:</label>
-                            <input
-                                type="text"
-                                name="img"
-                                value={member.img}
-                                className="bg-primary border-[2px] text-secondary border-secondary h-[30px] m-1 p-1"
-                                onChange={handleInputChange}
-                            />
-                        </div> */}
 
                         <button
                             type="submit"
@@ -293,7 +307,7 @@ function AdminAbout() {
                                     Edit
                                 </button>
                                 <button
-                                    onClick={() => handleDelete(item._id)}
+                                    onClick={() => handleDelete(item._id, item.img)}
                                     className="text-center bg-tertiary w-[25%] rounded-[10px] text-primary border-[2px] border-tertiary hover:bg-primary hover:text-tertiary border-b-[5px] border-tertiary duration-200"
                                 >
                                     Delete

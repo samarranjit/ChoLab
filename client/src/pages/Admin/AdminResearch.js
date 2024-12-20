@@ -176,23 +176,67 @@ const AdminResearch = () => {
         setAddResearchBtn(true);
     };
     
-
-    const handleDelete = async (researchId) =>{
-        console.log(researchId, "Delete Initiated")
+    const deleteImages = async (imageUrls) => {
         try {
-            setShowLoading(true);
+            console.log("Image URL inside delete function:", imageUrls);
+            const deleteImgResponse = await axiosInstance.post(
+                `${process.env.REACT_APP_API_BASE_URL}/api/admin/delete-image`,
+                { imageUrls }
+            );
+            return deleteImgResponse.data; // Return the data from the response
+        } catch (error) {
+            console.error("Error deleting image:", error);
+            throw error; // Propagate the error to be handled in the caller
+        }
+    };
+    
+    const handleDelete = async (researchId) => {
+        setShowLoading(true);
+        const researchToDelete = researchData.find((research) => research._id === researchId);
+        console.log("Research to delete:", researchToDelete);
+    
+        if (!researchToDelete) {
+            console.error("Research not found");
+            setShowLoading(false);
+            return;
+        }
+    
+        console.log(researchId, "Delete Initiated");
+        try {
+            // Delete main image
+            let deleteImgResponse = await deleteImages(researchToDelete.mainImage);
+    
+            if (deleteImgResponse.success) {
+                console.log("Main Image Deleted, Checking if there are other images");
+    
+                if (researchToDelete.otherImg.length > 0) {
+                    console.log("Deleting other images...");
+                    // Use Promise.all to wait for all image deletions
+                    await Promise.all(
+                        researchToDelete.otherImg?.map(async (url) => {
+                            await deleteImages(url);
+                        })
+                    );
+                    console.log("Other images deleted successfully.");
+                }
+            }
+    
+            // Now, delete the data in the database
+            console.log("Deleted the photos now deleting the data in the database");
+    
             const response = await axiosInstance.delete(`${process.env.REACT_APP_API_BASE_URL}/api/research/delResearch/${researchId}`);
             setShowLoading(false);
+    
             if (response.data.success) {
                 alert(response.data.message);
-                setResearchData((prevData) => (
-                    prevData.filter(member => member._id !== researchId)
-                  ));
+                setResearchData((prevData) => prevData.filter(research => research._id !== researchId));
             }
         } catch (error) {
-
+            console.error("Error deleting research:", error);
+            setShowLoading(false);
         }
-    }
+    };
+    
     return (
         <>
             <div className="addPublicationBtn w-full flex justify-center items-center align-middle">
@@ -247,7 +291,7 @@ const AdminResearch = () => {
                             <input
                                 type="date"
                                 name="date"
-                                className="bg-primary border-[2px] text-secondary border-secondary m-1 w-[30%] p-1"
+                                className="bg-primary border-[2px] text-secondary border-secondary m-1 w-[100%] p-1"
                                 value={research.date}
                                 onChange={handleInputChange}
                             />

@@ -21,13 +21,16 @@ function MemberCard(props) {
           </p>
           <div className="flex justify-around text-4xl sm:my-5 lg:px-[3rem]">
 
-            <p className='p-5 text-primary sm:p-0 sm:text-left sm:justify-left'>
-              <Link to={`mailto:${email}`}>
-                <section className="font-bold   sm:p-1">
-                  <IoMail />
-                </section>
-              </Link>
-            </p>
+          {email?
+          <p className='p-5 text-primary sm:p-0 sm:text-left sm:justify-left'>
+          <Link to={`mailto:${email}`}>
+            <section className="font-bold   sm:p-1">
+              <IoMail />
+            </section>
+          </Link>
+        </p>
+          :""}
+            
             {linkedin ?
               <p className='p-5 text-primary sm:px-0 sm:text-left sm:justify-left font-bold   sm:p-1 break-all'>
                 <Link target='_blank' to={`${linkedin}`}>

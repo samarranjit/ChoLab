@@ -26,10 +26,10 @@ function AdminPublication() {
 
         const { name, value } = e.target;
 
-        if(name==="image"){
+        if (name === "image") {
             setImage(e.target.files[0])
         }
-        else{
+        else {
 
             setPublication(prev => ({
                 ...prev,
@@ -39,7 +39,7 @@ function AdminPublication() {
         }
 
 
-        
+
     };
 
     const handleEdit = (pub) => {
@@ -48,15 +48,15 @@ function AdminPublication() {
         setAddPublicationBtn(true)
         console.log(pub._id)
         console.log(publication);
-        pub.date?setPublished(true):setPublished(false);
+        pub.date ? setPublished(true) : setPublished(false);
     }
 
     const uploadImage = async (imageFile) => {
         const formData = new FormData();
         formData.append('image', imageFile);
         const res = await axiosInstance.post(
-            `${process.env.REACT_APP_API_BASE_URL}/api/adminPublication/sendImage`, 
-            formData, 
+            `${process.env.REACT_APP_API_BASE_URL}/api/adminPublication/sendImage`,
+            formData,
             { headers: { 'Content-Type': 'multipart/form-data' } }
         );
         if (res.data.success) {
@@ -74,7 +74,7 @@ function AdminPublication() {
                 alert("One or more important fields are missing. Please note that all fields are important for adding new publication.");
                 return;
             }
-    
+
             if (editingPublicationId && (publication.title === "" || publication.details.length === 0 || publication.date === "" || publication.link === "")) {
                 alert("One or more important fields are missing. Please note that all fields except setting a new image are important for editing.");
                 return;
@@ -82,28 +82,28 @@ function AdminPublication() {
 
 
             let imgUrl = image ? await uploadImage(image) : publication.imageUrl;
-    
+
             const payload = {
                 ...publication,
                 imgUrl
             };
-    
+
             let response;
             if (editingPublicationId) {
                 response = await axiosInstance.post(
-                    `${process.env.REACT_APP_API_BASE_URL}/api/publication/editPublication/${editingPublicationId}`, 
+                    `${process.env.REACT_APP_API_BASE_URL}/api/publication/editPublication/${editingPublicationId}`,
                     payload
                 );
             } else {
                 response = await axiosInstance.post(
-                    `${process.env.REACT_APP_API_BASE_URL}/api/publication/addPublication`, 
+                    `${process.env.REACT_APP_API_BASE_URL}/api/publication/addPublication`,
                     payload
                 );
             }
-    
+
             if (response.data.success) {
                 alert(response.data.message);
-                
+
                 resetForm();
             } else {
                 throw new Error(response.data.message || 'Submission failed');
@@ -115,45 +115,64 @@ function AdminPublication() {
             setShowLoading(false);
         }
     };
-    
-    const handleDelete = async (publicationId) => {
 
+    const handleDelete = async (publicationId) => {
+        let imageUrls = Data?Data.publication.find(pub=>pub._id === publicationId).imgUrl:"";
         console.log(publicationId, "Deleted")
         try {
-            setShowLoading(true)
-            const response = await axiosInstance.delete(`${process.env.REACT_APP_API_BASE_URL}/api/publication/delPublication/${publicationId}`);
-            setShowLoading(false);
-            if (response.data.success) {
-                alert(response.data.message);
-                setData((prevData) => ({
-                    ...prevData,
-                    team: prevData.publication.filter(member => member._id !== publicationId)
-                  }));
-            }
-        } catch (error) {
+            setShowLoading(true);
+            let deleteImagesResponse;
+            if(imageUrls){
 
+                console.log("Deleting images from Cloudinary...");
+                deleteImagesResponse = await axiosInstance.post(
+                    `${process.env.REACT_APP_API_BASE_URL}/api/admin/delete-image`,
+                    { imageUrls }
+                );
+            }
+            else{
+                alert("Image deletion failed ")
+                return;
+            }
+
+            if (deleteImagesResponse) {
+                console.log("Deleted Image from cloudinary, now deleting the details in database")
+                const response = await axiosInstance.delete(`${process.env.REACT_APP_API_BASE_URL}/api/publication/delPublication/${publicationId}`);
+                setShowLoading(false);
+                if (response.data.success) {
+                    alert(response.data.message);
+                    setData((prevData) => ({
+                        ...prevData,
+                        team: prevData.publication.filter(member => member._id !== publicationId)
+                    }));
+                }
+            }
+
+
+        } catch (error) {
+            console.log(error)
         }
     }
 
     const resetForm = () => {
-         setPublication({
-        title: "",
-        details: "",
-        link: "",
-        status: "Review",
-        date: ""
-    });
-    setEditingPublicationId(null);
-    setAddPublicationBtn(false);
-    setPublished(true);
-    setImage(null);
+        setPublication({
+            title: "",
+            details: "",
+            link: "",
+            status: "Review",
+            date: ""
+        });
+        setEditingPublicationId(null);
+        setAddPublicationBtn(false);
+        setPublished(true);
+        setImage(null);
     };
 
     const handlePublishedDate = (e) => {
-        if(e.target.value === "Review"){
+        if (e.target.value === "Review") {
             setPublished(false)
         }
-        else if(e.target.value === "Published"){
+        else if (e.target.value === "Published") {
             setPublished(true)
         }
     }
@@ -187,11 +206,11 @@ function AdminPublication() {
 
                         <div className="w-[40%] flex flex-col">
                             <label htmlFor="status" className='p-1'>Status</label>
-                            <select name="status" value={publication.status} className="bg-primary border-[2px] text-secondary border-secondary h-[30px] m-1 p-1" 
-                            onChange={(e) => {
-                                handleInputChange(e);
-                                handlePublishedDate(e);
-                            }}
+                            <select name="status" value={publication.status} className="bg-primary border-[2px] text-secondary border-secondary h-[30px] m-1 p-1"
+                                onChange={(e) => {
+                                    handleInputChange(e);
+                                    handlePublishedDate(e);
+                                }}
                             >
                                 <option value="Review">Review</option>
                                 <option value="Published">Published</option>
@@ -199,15 +218,15 @@ function AdminPublication() {
                         </div>
                         <div className={`w-[40%] flex flex-col `} >
                             <label htmlFor="publishedDate" className='p-1'>Published Date</label>
-                            <input type="date" name="date" value={publication.date} className="bg-primary border-[2px] text-secondary border-secondary h-[30px] m-1 p-1" 
-                             onChange={handleInputChange}
-                             />
+                            <input type="date" name="date" value={publication.date} className="bg-primary border-[2px] text-secondary border-secondary h-[30px] m-1 p-1"
+                                onChange={handleInputChange}
+                            />
                         </div>
                         <div className={`w-[40%] flex flex-col `} >
                             <label htmlFor="image" className='p-1'>Image</label>
-                            <input type="file" name="image"  className="bg-primary border-[2px] text-secondary border-secondary h-[full ] m-1 p-1" 
-                             onChange={handleInputChange}
-                             />
+                            <input type="file" name="image" className="bg-primary border-[2px] text-secondary border-secondary h-[full ] m-1 p-1"
+                                onChange={handleInputChange}
+                            />
                         </div>
 
                         <button className='my-5 bg-tertiary p-3 rounded-[10px] hover:bg-primary  hover:border-tertiary hover:border-[2px] hover:border-b-[4px] hover:text-tertiary text-primary mx-auto w-[20%] transition duration-200' onClick={handleSubmit}>Submit</button>
