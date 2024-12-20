@@ -26,7 +26,7 @@ function DrCho() {
 
             Meet the PI
             </p>
-            <div className="flex items-baseline gap-3 border-b-[2.5px] border-b-[50%] mb-5 border-b-tertiary p-2 sm:text-xl sm:p-1 sm:pl-0 sm:mb-5 md:flex-col">
+            <div className="flex items-baseline gap-3 border-b-[2.5px] border-b-[50%] mb-5 border-b-tertiary p-2 ml-0 pl-0 sm:text-xl sm:p-1 sm:pl-0 sm:mb-5 md:flex-col">
 
             <h1 className='text-2xl '>Dr. Eunsang Cho</h1>
             <h2 className='text-xl  '>(Assistant Professor)</h2>

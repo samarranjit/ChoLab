@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 function Footer() {
   return (
     <div className='relative mt-2 pt-[5rem] '>
-      <div className='py-5 bg-secondary text-primary flex flex-col justify-left relative   items-center  sm:text-center sm:p-0 text-left  border-secondary md:p-1'>
+      <div className='py-5 bg-secondary text-primary flex flex-col justify-left relative   items-center  sm:text-center sm:p-0 text-left  border-secondary md:p-1 pb-[5px]'>
         <div className="custom-shape-divider-top-1730592413 ">
           <svg className='z-[100]  ' data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
@@ -16,14 +16,14 @@ function Footer() {
         </div>
         <div className="grid grid-cols-3 justify-between p-10 border-secondary  md:grid-cols-2 sm:grid-cols-1 md:p-1 sm:pt-5">
 
-          <div className="Cho flex justify-center  items-center ">
-            <div className="ml-10 w-[70%] aspect-square overflow-hidden sm:h-full bg-white rounded-full flex justify-center items-center  shadow-lg sm:w-[55%] " >
+          <div className="Cho flex justify-center m-auto items-center w-[90%] sm:w-[70%] ">
+            <div className="ml-10 sm:ml-0 w-[70%] p-[1.5rem] sm:p-[0.75rem] aspect-square overflow-hidden sm:h-full bg-white rounded-full flex justify-center items-center  shadow-lg sm:w-[55%] " >
 
-              <img className='bg-white w-full h-full object-contain flex items-center justify-center my-[50px] sm:mt-5 sm:mb-0  ' src={`${process.env.PUBLIC_URL}/ChoLabLogo.png`} alt="" />
+              <img className='bg-white w-full h-full object-contain flex items-center justify-center my-[50px]   ' src={`${process.env.PUBLIC_URL}/ChoLabLogo.png`} alt="" />
             </div>
 
           </div>
-          <div className="contact flex flex-col text-3xl text-center text-tertiary font-semibold  items-center  justify-start ">
+          <div className="contact flex flex-col text-3xl text-center text-tertiary font-semibold  items-center  justify-start sm:col-span-1 ">
             <p className='block p-5  sm:p-0 pb-2 mb-3 text-left items-start sm:text-[2rem] sm:text-center sm:w-full my-5'>
               <section className=' border-b-[2px] border-tertiary w-full inline text-center'>
 
@@ -80,9 +80,12 @@ function Footer() {
           </div>
 
         </div>
-        <div className="copyright border-t-2 sm:text-sm sm:pb-5 sm:w-[80%] border-tertiary w-full text-center p-3 text-xl pt-5">
+        <div className="copyright border-t-2 sm:text-sm sm:pb-5 sm:w-[80%] border-tertiary w-full text-center p-3 pb-0 mb-0 text-xl pt-5">
 
           <p>Copyright &copy; 2024 Eunsang Cho. All rights Reserved.</p>
+          <Link to={`https://samarranjit.com.np`} target='_blank'>
+          <p className='pt-5 text-sm'>Designed by Samar Ranjit</p>
+          </Link>
         </div>
       </div>
     </div>

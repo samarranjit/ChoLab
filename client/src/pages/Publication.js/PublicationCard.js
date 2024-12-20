@@ -21,6 +21,9 @@ function PublicationCard(props) {
   };
 
   return (
+    <>
+    <div class='altmetric-embed' data-badge-type='donut' data-doi="10.1038/nature.2012.9872"></div>
+
     <Link
     to={link}
     target="_blank"
@@ -56,10 +59,14 @@ function PublicationCard(props) {
         >
           Link to Paper
         </Link>
+        
         </div>
       </div>
     </div>
     </Link>
+
+
+    </>
   );
 }
 

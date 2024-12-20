@@ -18,8 +18,7 @@ const memberSchema =new mongoose.Schema({
         required: true
     },
     linkedin:{
-        type: String,
-        required: true
+        type: String
     },
     img:{
         type: String,
