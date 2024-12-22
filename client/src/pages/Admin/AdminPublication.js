@@ -104,6 +104,28 @@ function AdminPublication() {
             if (response.data.success) {
                 alert(response.data.message);
 
+                if (!editingPublicationId) {
+                    console.log("Set to add new Publication to the dashbaord")
+                    console.log("Here are the existing publications", Data.publication)
+                    console.log("we are inserting this publication: ", response.data.data);
+                    setData((prevData) => ({
+                        ...prevData,
+                        publication: [...prevData.publication, response.data.data],
+
+                    }));
+                    console.log("we just entered a new publication")
+                    console.log("THis is how the new publications array looks like", Data.publication)
+                } else {
+                    setData((prevData) => ({
+                        ...prevData,
+                        publication: prevData.publication.map((item) =>
+                            item._id === editingPublicationId ? response.data.data : item
+                        )
+                    }));
+                }
+
+
+
                 resetForm();
             } else {
                 throw new Error(response.data.message || 'Submission failed');
@@ -143,7 +165,7 @@ function AdminPublication() {
                     alert(response.data.message);
                     setData((prevData) => ({
                         ...prevData,
-                        team: prevData.publication.filter(member => member._id !== publicationId)
+                        publication: prevData.publication.filter(member => member._id !== publicationId)
                     }));
                 }
             }

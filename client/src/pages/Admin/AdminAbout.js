@@ -1,13 +1,13 @@
-import React from 'react'
-import { allContexts } from '../../Context/AllContexts'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { allContexts } from '../../Context/AllContexts';
+import { Link } from 'react-router-dom';
 import axiosInstance from '../../axios/axiosInstance';
 
 function AdminAbout() {
     const { Data, setData, setShowLoading } = React.useContext(allContexts);
     const [addMemberBtn, setAddMemberBtn] = React.useState(false);
     const [editingMemberId, setEditingMemberId] = React.useState(null);
-    const [img, setImg] = React.useState(null)
+    const [img, setImg] = React.useState(null);
     const [member, setMember] = React.useState({
         name: "",
         position: "",
@@ -16,172 +16,137 @@ function AdminAbout() {
         linkedin: "",
     });
 
+    const uploadImage = async (imageFile) => {
+
+        console.log("trying to upload image")
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        const res = await axiosInstance.post(
+            `${process.env.REACT_APP_API_BASE_URL}/api/adminAbout/sendImage`,
+            formData,
+            { headers: { 'Content-Type': 'multipart/form-data' } }
+        );
+        console.log("Image Uploaded");
+        console.log(res)
+
+        if (res.data.success) {
+            return res.data.data.secure_url;
+        }
+        throw new Error('Image upload failed');
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const formData = new FormData();
-        formData.append('img', img);
-
-
+        if (member.name==="" || member.position === "" || member.desc === "") {
+            alert("Please fill in all required fields.");
+            return;
+        }
 
         setShowLoading(true);
         try {
+            const imgURL = img ? await uploadImage(img) : member.img;
 
-            if (member.name === "" || member.position === "" || member.desc === "" ) {
-                alert("Please enter all the values. Do not leave field(s) blanks");
-            }
-            else {
+            const dataToSend = {
+                ...member,
+                img: imgURL,
+            };
 
+            const response = editingMemberId
+                ? await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/team/editMember/${editingMemberId}`, dataToSend)
+                : await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/team/addMember`, dataToSend);
 
+            if (response.data.success) {
+                alert(response.data.message);
 
-                let response;
-                let imgURL = member.img; // Use the existing image URL as the default
+                if (!editingMemberId) {
+                    console.log("Set to add new member")
+                    console.log("Here are the existing memebrs", Data.team)
+                    console.log("we are inserting this member: ", response.data.data);
+                    setData((prevData) => ({
+                        ...prevData,
+                        team: [...prevData.team, response.data.data],
 
-                if (editingMemberId && img) {
-                    // If editing and a new image is provided, upload it
-                    const formData = new FormData();
-                    formData.append('img', img);
-
-                    const res = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/adminAbout/sendImage`, formData, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    });
-
-                    if (res.data.success) {
-                        imgURL = res.data.data.secure_url; // Update imgURL with the new Cloudinary URL
-                    } else {
-                        throw new Error('Image upload failed');
-                    }
-                }
-
-                if (editingMemberId) {
-                    // Update member details
-                    let response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/team/editMember/${editingMemberId}`, {
-                        ...member,
-                        img: imgURL // Use the new or existing image URL
-                    });
-                    if (response.data.success) {
-                        alert(response.data.message);
-                        // const updatedMember = response.data.member;
-                        resetForm();
-                    } else {
-                        throw new Error('Failed to update member');
-                    }
+                    }));
+                    console.log("we just entered a new member")
+                    console.log("THis is how the new team array looks like", Data.team)
                 } else {
-                    // Add a new member
-                    if (img) {
-                        const formData = new FormData();
-                        formData.append('img', img);
-
-                        const res = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/adminAbout/sendImage`, formData, {
-                            headers: {
-                                'Content-Type': 'multipart/form-data'
-                            }
-                        });
-
-                        if (res.data.success) {
-                            imgURL = res.data.data.secure_url;
-                        } else {
-                            throw new Error('Image upload failed');
-                        }
-                    }
-
-                    response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/team/addMember`, {
-                        ...member,
-                        img: imgURL
-                    });
-                    if (response.data.success) {
-                        setData((prevData) => ({
-                            ...prevData,
-                            team: [...prevData.team, member], // Append the new member to the team array
-                        }));
-                        alert(response.data.message);
-                        resetForm();
-                    } else {
-                        throw new Error(response.data.message || 'Failed to save the member details');
-                    }
+                    setData((prevData) => ({
+                        ...prevData,
+                        team: prevData.team.map((item) =>
+                            item._id === editingMemberId ? response.data.data : item
+                        ),
+                    }));
                 }
-            }
 
+                resetForm();
+            } else {
+                throw new Error(response.data.message || 'Submission failed');
+            }
         } catch (error) {
-            console.error(error);
-            alert('An error occurred. Please try again.');
+            console.error('Error:', error);
+            alert('An error occurred while submitting the form.');
         } finally {
             setShowLoading(false);
         }
     };
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value, files } = e.target;
 
-        if (name === "img") {
-            setImg(e.target.files[0])
-        }
-        else {
-
+        if (name === "img" && files?.length) {
+            setImg(files[0]);
+        } else {
             setMember((prevState) => ({
                 ...prevState,
-                [name]: value
+                [name]: value,
             }));
         }
-
-
     };
 
     const handleUnhide = () => {
         resetForm();
-        setAddMemberBtn(!addMemberBtn);
+        setAddMemberBtn((prevState) => !prevState);
     };
 
     const handleDelete = async (memberId, imageUrls) => {
-        console.log(memberId, imageUrls);
+        console.log('delete Details',  imageUrls)
         try {
             setShowLoading(true);
-    
-            // Step 1: Delete the images from Cloudinary
-            console.log("Deleting images from Cloudinary...");
+
             const deleteImagesResponse = await axiosInstance.post(
                 `${process.env.REACT_APP_API_BASE_URL}/api/admin/delete-image`,
                 { imageUrls }
             );
-    
+
             if (deleteImagesResponse.data.success) {
-                console.log("Images deleted successfully from Cloudinary. Now deleting member...");
-    
-                // Step 2: If image deletion is successful, delete the member from the database
                 const response = await axiosInstance.delete(
                     `${process.env.REACT_APP_API_BASE_URL}/api/team/DelMember/${memberId}`
                 );
-    
+
                 if (response.data.success) {
                     alert('Member and associated images deleted successfully.');
-    
-                    // Step 3: Update the local state to reflect the changes
                     setData((prevData) => ({
                         ...prevData,
                         team: prevData.team.filter((member) => member._id !== memberId),
                     }));
                 } else {
-                    alert('Failed to delete member from the database.');
+                    throw new Error('Failed to delete member from the database.');
                 }
             } else {
-                alert('Failed to delete images from Cloudinary.');
+                throw new Error('Failed to delete images from Cloudinary.');
             }
-    
-            setShowLoading(false);
         } catch (error) {
             console.error('Error during deletion:', error);
             alert('An error occurred during deletion.');
+        } finally {
             setShowLoading(false);
         }
     };
-    
-    
 
-    const handleEdit = (member) => {
-        setMember(member);
-        setEditingMemberId(member._id);
+    const handleEdit = (editingMember) => {
+        setMember(editingMember);
+        setEditingMemberId(editingMember._id);
         setAddMemberBtn(true);
     };
 
@@ -192,11 +157,13 @@ function AdminAbout() {
             desc: "",
             email: "",
             linkedin: "",
-            img: ""
+            img: "",
         });
+        setImg(null);
         setEditingMemberId(null);
         setAddMemberBtn(false);
     };
+
 
     return (
         <>
@@ -301,7 +268,7 @@ function AdminAbout() {
                             <div className="font-semibold w-[50%] flex justify-center items-center text-center">{item.name}</div>
                             <div className="btn w-[50%] flex justify-around text-center my-5">
                                 <button
-                                    onClick={() => handleEdit(item)}
+                                    onClick={() => { handleEdit(item)}}
                                     className="text-center bg-secondary w-[25%] rounded-[10px] text-primary border-[2px] border-secondary hover:bg-primary hover:text-secondary border-b-[5px] border-secondary duration-200"
                                 >
                                     Edit

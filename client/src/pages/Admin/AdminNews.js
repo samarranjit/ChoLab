@@ -3,7 +3,7 @@ import { allContexts } from '../../Context/AllContexts';
 import axiosInstance from '../../axios/axiosInstance';
 
 function AdminNews() {
-    const { Data, setShowLoading } = useContext(allContexts);
+    const { Data, setShowLoading, setData } = useContext(allContexts);
     const [editingNewsId, setEditingNewsId] = React.useState(null);
     const [addNewsBtn, setAddNewsBtn] = React.useState(false);
     const [paragraphs, setParagraphs] = React.useState([""]);
@@ -135,6 +135,27 @@ function AdminNews() {
 
             if (response.data.success) {
                 alert(response.data.message);
+
+                if (!editingNewsId) {
+                    console.log("Set to add new news to dashboard")
+                    console.log("Here are the existing news", Data.news)
+                    console.log("we are inserting this news: ", response.data.news);
+                    setData((prevData) => ({
+                        ...prevData,
+                        news: [...prevData.news, response.data.data],
+
+                    }));
+                    console.log("we just entered a new news")
+                    console.log("THis is how the new team array looks like", Data.news)
+                } else {
+                    setData((prevData) => ({
+                        ...prevData,
+                        news: prevData.news.map((item) =>
+                            item._id === editingNewsId ? response.data.data : item
+                        ),
+                    }));
+                }
+
                 resetForm();
             }
             else {
@@ -216,6 +237,13 @@ function AdminNews() {
                     alert(response.data.message);
                     console.log(`News with ID ${newsId} deleted successfully.`);
                     // Optionally refresh the data state here
+
+                    setData(prevData=>({
+                        ...prevData,
+                        news : prevData.news.filter(item=>item._id !== newsId)
+                    }))
+                   
+
                 } else {
                     console.error("Failed to delete news data:", response.data.message);
                 }

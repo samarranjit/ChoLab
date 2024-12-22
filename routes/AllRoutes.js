@@ -249,7 +249,9 @@ router.post("/adminResearch/updateResearch/:id", authenticate, async (req, res) 
 
 
 
-router.post("/adminAbout/sendImage", authenticate, upload.single("img"), (req, res) => {
+router.post("/adminAbout/sendImage", authenticate, upload.single("image"), (req, res) => {
+    console.log("re bodyr",req.body)
+    console.log("ReqFile: ",req.file)
 
     cloudinary.uploader.upload(req.file.path, (err, results) => {
         if (err) {
@@ -311,7 +313,7 @@ router.post('/team/addMember', authenticate, async (req, res) => {
         res.status(200).send({
             data: member,
             success: true,
-            message: "Slogan Changed Successfully"
+            message: "Member Added Successfully"
 
         })
     } catch (error) {

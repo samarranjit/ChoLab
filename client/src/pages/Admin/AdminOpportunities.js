@@ -8,7 +8,7 @@ import 'react-quill/dist/quill.snow.css';
 
 const AdminOpportunities = () => {
     // const [displayAnnouncement, setDisplayAnnouncement] = React.useState();
-    const { Data, setShowLoading } = React.useContext(allContexts)
+    const { Data, setData, setShowLoading } = React.useContext(allContexts)
     // console.log("Display Announcement: ", displayAnnouncement);
     const [announcement, setAnnouncement] = React.useState({
         announcementStatus: null,
@@ -67,6 +67,10 @@ const AdminOpportunities = () => {
                 alert(response.data.message);
                 console.log("Changed");
                 // Optionally: refresh data
+                setData(prevData=>({
+                    ...prevData,
+                    opporutunitiesAnnouncement : announcement}
+                ))
             }
             else {
                 console.log("Unable to change")
@@ -79,7 +83,6 @@ const AdminOpportunities = () => {
 
     useEffect(() => {
 
-        // Data && Data.opporutunitiesAnnouncement  && setDisplayAnnouncement(Number(Data.opporutunitiesAnnouncement[0].announcementStatus)); // Store as 0 or 1
         loadAnnouncement()
     }, [Data])
 

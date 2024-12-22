@@ -9,6 +9,7 @@ const AdminResearch = () => {
     const [addResearchBtn, setAddResearchBtn] = React.useState(false)
     const [paragraphs, setParagraphs] = React.useState([""]);
     const { researchData, setResearchData } = useResearchContext();
+    console.log("Data type of research",typeof(researchData))
     const [research, setResearch] = React.useState({
         title: "",
         body: [""],
@@ -127,6 +128,31 @@ const AdminResearch = () => {
 
             if (response.data.success) {
                 alert(response.data.message);
+                let newData= response.data.data
+
+                if (!editingResearchId) {
+                    // console.log("Set to add new research")
+                    // console.log("Here are the existing researches", researchData )
+                    // console.log("we are inserting this research: ", newData);
+                    console.log("Type of research data",typeof(researchData) ," before setting research data after inserting new research: \n", researchData)
+                    setResearchData((prevData) => ([
+                        ...prevData,
+                        newData
+                        
+                    ]));
+                    // console.log("we just entered a new member")
+                    console.log("Type of research data",typeof(researchData) ," after setting  inserting new  research and inserting data: \n", researchData)
+                    // console.log("THis is how the new team array looks like", researchData)
+                } else {
+                    let newResearchData= researchData && researchData?.map((item) =>
+                        item._id === editingResearchId ? response.data.data : item
+                    )
+                    setResearchData(newResearchData);
+                }
+
+
+
+
                 resetForm();
             } else {
                 throw new Error(response.data.message || 'Submission failed');
@@ -159,8 +185,8 @@ const AdminResearch = () => {
             otherImg: [],
         });
         setMainImage(null);
-        setOtherImg(['']);
-        setParagraphs(['']);
+        setOtherImg([]);
+        setParagraphs([]);
         setEditingResearchId(null);
         setAddResearchBtn(false);
     };
@@ -192,7 +218,7 @@ const AdminResearch = () => {
     
     const handleDelete = async (researchId) => {
         setShowLoading(true);
-        const researchToDelete = researchData.find((research) => research._id === researchId);
+        const researchToDelete = researchData && researchData?.find((research) => research._id === researchId);
         console.log("Research to delete:", researchToDelete);
     
         if (!researchToDelete) {
@@ -258,8 +284,6 @@ const AdminResearch = () => {
                                 onChange={handleInputChange}
                             />
                         </div>
-                        
-
                         <div className="flex flex-col w-[40%]">
                             <label htmlFor="body" className="p-1">Body:</label>
                             {paragraphs.map((paragraph, index) => (
@@ -357,7 +381,13 @@ const AdminResearch = () => {
             <div className="flex flex-col">
                 <h2 className='text-xl font-semibold'>Researches:</h2>
                 <div className="inline-block">
+                    {console.log("Now we are gonna show the existing researches ")}
+                    {
+                    console.log("Now, we inserting",typeof(researchData) ," data to the dashbaord: \n", researchData)
+                    }
+
                     {researchData && researchData?.map(research =>(
+
                         <div className="p-5" key={research._id}>
                             
                         <div className="">{research.title}</div>
