@@ -18,7 +18,7 @@ function DrCho() {
 
         <div className="left w-[30%] sm:flex sm:justify-center sm:h-full md:w-[55%] sm:items-center sm:my-10 items-right ">
             <div className="image flex items-center justify-left md:w-[100%] items-right">
-            <img className='rounded-[50%] w-[100%] sm:w-[100%] flex items-center justify-center my-[50px] sm:mt-5 sm:mb-0 md:w-[100%]'  src="https://media.licdn.com/dms/image/v2/D4E03AQHm3YHSVPrgOw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1696147453955?e=1735171200&v=beta&t=v0NXFeq5YL_H38F3fwz3CnwPa1QOxhozHfIbthEiLak" alt="" />
+            <img className='rounded-[50%] w-[100%] sm:w-[100%] flex items-center justify-center my-[50px] sm:mt-5 sm:mb-0 md:w-[100%]'  src='https://res.cloudinary.com/cholab/image/upload/v1736280925/drcholinkedinphoto_ahkbjg.jpg' alt="" />
             </div>
         </div>
         <div className="right w-[60%] flex flex-col justify-center  sm:w-full mr-0 ml-auto">
