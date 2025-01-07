@@ -13,7 +13,7 @@ function Navbar() {
   return (
     <>
       {/* change the hidden to flex */}
-      <div className="bg-[#007C92] flex items-center justify-between py-4 h-[70px] shadow-md md:hidden px-7">
+      <div className="bg-[#007C92] flex items-center justify-between py-4 h-[70px] shadow-md md:hidden px-7 dark:bg-[#013A63]">
         {/* Logo Section */}
         <div className="flex items-center h-full space-x-5">
           <Link to='https://www.txst.edu/' target='_blank' className="h-[250%] cursor-pointer">

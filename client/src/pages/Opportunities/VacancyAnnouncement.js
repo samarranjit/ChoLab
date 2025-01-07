@@ -21,11 +21,17 @@ const VacancyAnnouncement = (props) => {
                     {/* <h2 className="text-tertiary font-semibold text-xl text-center">Announcement:</h2> */}
                     <p className=" heading font-semibold py-5 text-lg">{Data.title}</p>
                     <p className=" " dangerouslySetInnerHTML={{__html: sanitizedBody }}></p>
+
+                    {
+                        Data && (Data.link!=="") ?
                     <div className="flex text-primary my-5">
                         <Link to={Data.link} >
                             <button className='bg-tertiary px-5 py-2'>More info</button>
                         </Link>
                     </div>
+                        
+                        :""
+                    }
                 </div>
 
                 <iframe

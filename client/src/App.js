@@ -19,6 +19,7 @@ import ResearchInfoPage from "./pages/Research/ResearchInfoPage.js";
 import Mentorship from "./pages/Mentorship"
 import { ResearchProvider } from './Context/ResearchContext.js';
 import ScrollToTop from "./components/ScrollToTop.js";
+import NotFound from "./components/NotFound.js";
 
 function App() {
   const [Data, setData] = React.useState(null);
@@ -65,6 +66,7 @@ function App() {
         <Route path="/admin-newMemberRequests/:id" element={<JoinReqPage />} /> 
         <Route path="/ourResearch/:id" element={<ResearchInfoPage />} /> 
         <Route path="/mentorship" element={<Mentorship />} /> 
+        <Route path="*" element={<NotFound/>}></Route>
 
       </Routes>
     </BrowserRouter>

@@ -67,9 +67,10 @@ const AdminOpportunities = () => {
                 alert(response.data.message);
                 console.log("Changed");
                 // Optionally: refresh data
-                setData(prevData=>({
+                setData(prevData => ({
                     ...prevData,
-                    opporutunitiesAnnouncement : announcement}
+                    opporutunitiesAnnouncement: announcement
+                }
                 ))
             }
             else {
@@ -111,12 +112,20 @@ const AdminOpportunities = () => {
                                 className='editor-input bg-primary w-full  text-secondary p-2'
                                 name='body'
                                 value={announcement.body}
-                                 onChange={handleQuillChange} 
+                                onChange={handleQuillChange}
                             />
                             {/* <textarea rows={5} name='body' value={announcement.body} onChange={handleInputChange} className='bg-primary w-full  text-secondary p-2' /> */}
                         </div>
                         <div className="flex flex-col header gap-5">
-                            <h2>Link :</h2>
+                            <h2>Link :
+                                <br />
+                                <i>
+                                   ( Leave Empty if you do not want a button with link to an external file to show up)
+
+                                </i>
+                            </h2>
+                            <p>
+                            </p>
                             <input type="text" name='link' value={announcement.link} onChange={handleInputChange} className='bg-primary w-full h-[2rem] text-secondary p-2' />
                         </div>
                     </div>

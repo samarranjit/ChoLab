@@ -105,8 +105,12 @@ function AdminAbout() {
     };
 
     const handleUnhide = () => {
-        resetForm();
-        setAddMemberBtn((prevState) => !prevState);
+        // resetForm();
+        
+        console.log(addMemberBtn)
+        setAddMemberBtn((prevState) => !prevState);  // This will flip the current state value
+
+        console.log(addMemberBtn)
     };
 
     const handleDelete = async (memberId, imageUrls) => {
@@ -163,7 +167,7 @@ function AdminAbout() {
         setEditingMemberId(null);
         setAddMemberBtn(false);
     };
-
+    
 
     return (
         <>
@@ -174,15 +178,8 @@ function AdminAbout() {
                 >
                     {addMemberBtn ? "Hide" : "Add a member"}
                 </button>
-                <Link to="/admin-newMemberRequests" className='w-[100%] flex'>
-                    <button
-                        className="w-[15%] rounded-[15px] mx-auto align-middle bg-secondary border-[2px] p-2 text-primary hover:bg-primary hover:text-secondary border-b-[5px] border-secondary duration-200"
-                    >
-                        See Form Requests
-                    </button>
-                </Link>
             </div>
-            {addMemberBtn && (
+            {addMemberBtn ?
                 <div className="newMemberAdd flex justify-center items-center bg-secondary my-5 w-100% text-primary">
                     <form
                         className="flex flex-col py-5 mx-auto justify-center items-center w-full gap-2"
@@ -258,7 +255,7 @@ function AdminAbout() {
                         </button>
                     </form>
                 </div>
-            )}
+            :""}
 
             <h1 className="text-2xl my-9">Members</h1>
             <div className="h-screen">

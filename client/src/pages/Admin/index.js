@@ -13,11 +13,6 @@ function Admin() {
     const [toggleState, setToggleState] = React.useState('Intro')
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //   if(!localStorage.getItem('token')){
-    //     window.location.href = '/admin-login'
-    //   }
-    // }, [])
 
     const logoutUser = async () => {
         try {

@@ -320,6 +320,29 @@ router.post('/team/addMember', authenticate, async (req, res) => {
         res.status(500).send(error)
     }
 })
+router.post('/admin/updateOrder', async (req, res) => {
+    const { team } = req.body;
+    
+    try {
+        // Update the order field for each member
+        const updatePromises = team.map((member, index) => {
+            return TeamMember.updateOne(
+                { _id: member._id },
+                { $set: { order: index + 1 } }  // The order is based on the position in the array
+            );
+        });
+
+        // Wait for all updates to complete
+        await Promise.all(updatePromises);
+        
+        res.json({ success: true, message: 'Team order updated successfully.' });
+    } catch (error) {
+        console.error('Error updating team order:', error);
+        res.json({ success: false, message: 'Failed to update team order.' });
+    }
+});
+
+
 router.post('/news/addNews', authenticate, async (req, res) => {
     console.log(req.body)
     try {
