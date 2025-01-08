@@ -104,7 +104,7 @@ function Research() {
 
 
       <div className="translate-y-[5.6rem]">
-        <div style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/StaticImages/Home_ResearchBgimage.avif)` }} className=" h-[90vh] overflow-hidden sm:h-[80vh] bg-fixed  bg-cover bg-top ">
+        <div style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/StaticImages/Home_ResearchBgimage.jpg)` }} className=" h-[90vh] overflow-hidden sm:h-[80vh] bg-fixed  bg-cover bg-top ">
         <div className=' w-[100%] h-[100%] bg-opacity-15 flex items-center justify-center  sm:ml-0 sm:p-2 sm:justify-center '>
               <div className="collaboration-call w-[40%] sm:w-[90%]  md:w-[70%] p-10 gap-7  flex flex-col items-center justify-center bg-secondary bg-opacity-65 sm:gap-2 sm:p-4 ">
                 <p className=' text-2xl text-tertiary text-center w-full font-semibold align-center justify-center sm:text-lg'>Want to Collaborate?</p>
