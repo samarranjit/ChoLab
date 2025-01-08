@@ -22,7 +22,7 @@ function Research() {
         <div className="right w-[30%] sm:w-[100%] hidden sm:inline-block">
 
           {/* <lottie-player src="https://lottie.host/33499152-b2e8-4197-bacb-a7c3022dc1b3/8J5ZDjrToX.json"  background="transparent"  speed="1"  style={{width:" 100%", height: "100%"}} loop className='animators sm:w-[100%]' autoplay></lottie-player> */}
-          <img alt='' src={`${process.env.PUBLIC_URL}/StaticImages/Home_ResearchBgImage.avif`} className='p-2 -translate-y-5 sm:translate-y-[0]' />
+          <img alt='' src={`${process.env.PUBLIC_URL}/StaticImages/Home_ResearchBgImage.jpg`} className='p-2 -translate-y-5 sm:translate-y-[0]' />
 
 
         </div>
@@ -38,7 +38,7 @@ function Research() {
       <div className="right w-[30%] -z-2 md:w-[75%] sm:w-[100%] sm:hidden">
 
         {/* <lottie-player src="https://lottie.host/33499152-b2e8-4197-bacb-a7c3022dc1b3/8J5ZDjrToX.json"  background="transparent"  speed="1"  style={{width:" 100%", height: "100%"}} loop className='animators sm:w-[100%]' autoplay></lottie-player> */}
-        <img alt='' src={`${process.env.PUBLIC_URL}/StaticImages/Home_ResearchBgImage.avif`} className='p-2 -translate-y-5' />
+        <img alt='' src={`${process.env.PUBLIC_URL}/StaticImages/Home_ResearchBgImage.jpg`} className='p-2 -translate-y-5' />
 
 
       </div>

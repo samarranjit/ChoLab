@@ -13,7 +13,7 @@ import { useResearchContext } from '../../Context/ResearchContext'
 
 function Research() {
   const { showLoading } = useContext(allContexts)
-  const bgImg= `${process.env.PUBLIC_URL}/StaticImages/researchBgImg.jpg`;
+  const bgImg= `${process.env.PUBLIC_URL}/StaticImages/researchBgImg1.jpg`;
   const {researchData} = useResearchContext();
   // const ResearchContext = createContext({})
   
@@ -24,7 +24,7 @@ function Research() {
       <Navbar></Navbar>
       <div className="Intro-bg-img-div -z-10 ">
         {showLoading ? <Loader /> :
-          <div style={{ backgroundImage: `url(${bgImg})` }} className=" h-[90vh] overflow-hidden sm:h-[100vh] bg-fixed  bg-cover bg-bottom sm:bg-center sm:bg-scroll sm:pt-[65px]">
+          <div style={{ backgroundImage: `url(${bgImg})` }} className=" h-[90vh] overflow-hidden sm:h-[100vh] bg-fixed  bg-cover bg-top bg sm:bg-center sm:bg-scroll sm:pt-[65px]">
             <div className=' w-[100%] h-[100%] bg-opacity-15 flex items-center justify-left ml-[15%] sm:ml-0 sm:p-2 sm:justify-center '>
               <div className="intro-text w-[40%] sm:w-[90%] md:w-[70%] p-10 gap-7  flex flex-col items-center justify-around bg-secondary bg-opacity-65 sm:gap-2 sm:p-4 md:py-4 ">
                 <p className=' text-2xl text-tertiary text-left w-full font-semibold align-left justify-left sm:text-lg'>Our Research</p>

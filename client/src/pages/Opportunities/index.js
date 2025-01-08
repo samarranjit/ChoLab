@@ -7,6 +7,7 @@ import Quality from './Quality';
 import MeetChoLab from './MeetChoLab';
 import VacancyAnnouncement from './VacancyAnnouncement';
 import { allContexts } from '../../Context/AllContexts';
+import { Link } from 'react-router-dom';
 
 
 function Opportunities() {
@@ -20,6 +21,14 @@ function Opportunities() {
       setIsLoading(false)
     }
   }, [Data])
+
+  const handleNavigation = (destination)=>{
+    const featuresSection = document.getElementById('vacancyAnnouncment');
+    if (featuresSection) {
+      featuresSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+  }
   return (
     <>
       <Navbar />
@@ -46,6 +55,13 @@ function Opportunities() {
             <p className='leading-relaxed sm:text-justify text-primary'>
               We are building a dynamic team of undergraduate and graduate students, as well as postdoctoral researchers, who share a passion for advancing our understanding of hydrology and water resources in a changing climate to promote a sustainable environment. We value self-motivation, a collaborative spirit, and a commitment to collective success. Our lab fosters an inclusive and diverse environment where everyone is empowered to thrive and contribute meaningfully.
             </p>
+
+            <div>
+              <div className="bg-opacity-0 border-[2px] p-3 px-5 mt-2 font-semibold text-primary cursor-pointer hover:bg-tertiary border-tertiary  duration-500" onClick={()=>handleNavigation('vacancyAnnouncement')}>
+
+              HIRING NOW!
+              </div>
+            </div>
 
 
           </div>
