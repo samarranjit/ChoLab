@@ -119,10 +119,10 @@ const AdminOpportunities = () => {
                         <div className="flex flex-col header gap-5">
                             <h2>Link :
                                 <br />
-                                <i>
+                                <em>
                                    ( Leave Empty if you do not want a button with link to an external file to show up)
 
-                                </i>
+                                </em>
                             </h2>
                             <p>
                             </p>
