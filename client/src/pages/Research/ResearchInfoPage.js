@@ -40,7 +40,7 @@ const ResearchInfoPage = () => {
                             </div>
                             <div className="text-md w-[100%] text-opacity-2  grid grid-cols-5 md:grid-cols-3 sm:grid-cols-1  gap-x-2 items-center justify-center align-center text-left px-[10%] md:px-2 bg-secondary text-primary p-5 ">
                                 {
-                                    research && (research.period != "") &&
+                                    research && (research.period !== "") &&
                                     <div className="period my-2 flex flex-col  break-all flex-wrap md:col-span-1 sm:col-span-1  ">
                                         <p className='font-semibold mr-2 mb-2 text-left'>
 
@@ -52,7 +52,7 @@ const ResearchInfoPage = () => {
 
 
                                 {
-                                    research && (research.sponsors != "") &&
+                                    research && (research.sponsors !== "") &&
                                     <div className="sponsor my-2 flex flex-col  break-all flex-wrap col-span-2 md:col-span-2 sm:col-span-1 ">
                                         <p className='font-semibold mr-2  mb-2 text-left'>
 
@@ -64,7 +64,7 @@ const ResearchInfoPage = () => {
                                 }
 
                                 {
-                                    research && (research.collaborators != "") &&
+                                    research && (research.collaborators !== "") &&
 
                                     <div className="collaborators my-2 text-left flex flex-col  break-all flex-wrap col-span-2 md:col-span-3 sm:col-span-1">
                                         <p className='font-semibold mr-2  mb-2 text-left'>

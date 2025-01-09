@@ -11,7 +11,7 @@ export const useResearchContext = () => {
 export const ResearchProvider = ({ children }) => {
     const [researchData, setResearchData] = useState(null);
     const [showLoading, setShowLoading] = useState(false);
-
+  console.log(showLoading)
 
     const getResearchData=async()=>{
         setShowLoading(true)

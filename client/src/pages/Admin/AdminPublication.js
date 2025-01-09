@@ -6,7 +6,7 @@ function AdminPublication() {
     const { Data, setData, setShowLoading } = useContext(allContexts)
     const [addPublicationBtn, setAddPublicationBtn] = React.useState(false);
     const [editingPublicationId, setEditingPublicationId] = React.useState(null);
-    const [published, setPublished] = React.useState(false)
+    const [ setPublished] = React.useState(false)
     const [image, setImage] = React.useState(null)
     const [publication, setPublication] = React.useState({
 

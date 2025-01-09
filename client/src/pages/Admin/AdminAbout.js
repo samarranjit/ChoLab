@@ -1,6 +1,5 @@
 import React from 'react';
 import { allContexts } from '../../Context/AllContexts';
-import { Link } from 'react-router-dom';
 import axiosInstance from '../../axios/axiosInstance';
 
 function AdminAbout() {

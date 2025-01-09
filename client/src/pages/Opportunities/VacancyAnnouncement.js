@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { allContexts } from '../../Context/AllContexts'
 import DOMPurify from 'dompurify';
 
 const VacancyAnnouncement = (props) => {
