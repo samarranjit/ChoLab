@@ -46,10 +46,10 @@ function App() {
 
   
   return (
+    <BrowserRouter>
     <allContexts.Provider value={{Data, setData, showLoading, setShowLoading}} >
     <AuthProvider>
     <ResearchProvider>
-    <BrowserRouter>
     <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />}></Route>
@@ -69,10 +69,10 @@ function App() {
         <Route path="*" element={<NotFound/>}></Route>
 
       </Routes>
-    </BrowserRouter>
     </ResearchProvider>
-    </AuthProvider>
+    </AuthProvider> 
     </allContexts.Provider>
+    </BrowserRouter>
   );
 }
 
