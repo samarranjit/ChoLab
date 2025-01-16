@@ -11,7 +11,7 @@ const VacancyAnnouncement = (props) => {
 
     return (
         <div className='py-7 px-[4rem] sm:px-5' id='vacancyAnnouncement'>
-            <div className="min-h-screen flex flex-col justify-center items-center">
+            <div className="min-h-[80vh] flex flex-col justify-center items-center">
                 <h2 className="text-tertiary text-2xl sm:text-xl md:text-3xl text-center pb-7">
                     Join our Team :
                 </h2>
@@ -33,7 +33,7 @@ const VacancyAnnouncement = (props) => {
                     }
                 </div>
 
-                <iframe
+                {/* <iframe
                     title='googleForm'
                     src="https://docs.google.com/forms/d/e/1FAIpQLSfQrUXr6XuXEI8NLJYg4gU6UBsqndHmBcFtmYGsi_VxD5_mzw/viewform?embedded=true"
                     frameborder="0"
@@ -44,7 +44,7 @@ const VacancyAnnouncement = (props) => {
                     style={{ minHeight: "50vh", flex: "1", scrollbarWidth: "0" }}
                 >
                     Loading…
-                </iframe>
+                </iframe> */}
             </div>
 
 

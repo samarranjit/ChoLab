@@ -16,7 +16,7 @@ function MemberCard(props) {
 
           <h3 className="p-5 text-xl text-tertiary text-center font-semibold sm:text-2xl sm:px-1 sm:text-center sm:justify-center ">{name}</h3>
           <h2 className='text-primary text-base px-5 font-semibold sm:font-thin sm:text-[1rem] sm:px-1 sm:text-left sm:justify-left'>{position}</h2>
-          <p className="p-2 px-5 text-sm justify-center text-primary sm:px-1 sm:text-sm sm:text-left sm:justify-left text-wrap  break-all ">
+          <p className="p-2 px-5 text-sm justify-center text-primary sm:px-1 sm:text-sm sm:text-left sm:justify-left text-wrap  break-words ">
             {desc}
           </p>
           <div className="flex justify-around text-4xl sm:my-5 lg:px-[3rem]">
@@ -32,7 +32,7 @@ function MemberCard(props) {
           :""}
             
             {linkedin ?
-              <p className='p-5 text-primary sm:px-0 sm:text-left sm:justify-left font-bold   sm:p-1 break-all'>
+              <p className='p-5 text-primary sm:px-0 sm:text-left sm:justify-left font-bold   sm:p-1 break-keep'>
                 <Link target='_blank' to={`${linkedin}`}>
                   <FaLinkedin />
                 </Link>

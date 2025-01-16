@@ -46,7 +46,7 @@ function Publication() {
               Google Scholar
             </a>
             <a target='_blank' rel="noreferrer" href="https://www.researchgate.net/profile/Eunsang-Cho" className='py-2 px-5 research-gate p-1  text-tertiary cursor-pointer  border-tertiary border-[2.5px] flex  sm:w-[70%] justify-center font-semibold hover:bg-tertiary hover:text-primary transition duration-500 sm:p-3  '>
-              Research Gate
+              ResearchGate
             </a>
           </div>
         </div>
