@@ -26,6 +26,7 @@ function App() {
   const [Data, setData] = React.useState(null);
   const [showLoading, setShowLoading] = React.useState(true);
   const apiURL = process.env.REACT_APP_API_BASE_URL
+  console.log("API URL:", apiURL);
 
   const getData = async () => {
     setShowLoading(true)
