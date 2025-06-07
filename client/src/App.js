@@ -25,15 +25,13 @@ import NotFound from "./components/NotFound.js";
 function App() {
   const [Data, setData] = React.useState(null);
   const [showLoading, setShowLoading] = React.useState(true);
-  const apiURL = "https://cholab.onrender.com"
+  const apiURL = process.env.REACT_APP_API_BASE_URL
 
   const getData = async () => {
     setShowLoading(true)
     try {
       const response = await axios.get(`${apiURL}/api/getData`);
       setData(response.data)
-      console.log("Data fetched successfully:", response.data);
-      console.log("Data:", Data);
       // setShowLoading(false)
     } catch (error) {
       console.log(error)
