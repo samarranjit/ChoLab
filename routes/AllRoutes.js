@@ -6,6 +6,11 @@ const cloudinary = require("../cloudinary/cloudinary.js");
 const upload = require("../MiddleWare/multer.js");
 const authenticate = require("../MiddleWare/authMiddleware.js");
 
+//ping route backend
+router.get('/ping', (req, res) => {
+    res.status(200).send('pong');
+});
+
 
 //getting all data
 router.get('/getData', async (req, res) => {
@@ -202,7 +207,7 @@ router.post("/adminResearch/addResearch", authenticate, async (req, res) => {
     try {
         const { title, body, date, mainImage, otherImg } = req.body;
 
-         
+
         const newResearch = new Research(req.body);
 
         const savedResearch = await newResearch.save();
@@ -250,8 +255,8 @@ router.post("/adminResearch/updateResearch/:id", authenticate, async (req, res) 
 
 
 router.post("/adminAbout/sendImage", authenticate, upload.single("image"), (req, res) => {
-    console.log("re bodyr",req.body)
-    console.log("ReqFile: ",req.file)
+    console.log("re bodyr", req.body)
+    console.log("ReqFile: ", req.file)
 
     cloudinary.uploader.upload(req.file.path, (err, results) => {
         if (err) {
@@ -322,7 +327,7 @@ router.post('/team/addMember', authenticate, async (req, res) => {
 })
 router.post('/admin/updateOrder', async (req, res) => {
     const { team } = req.body;
-    
+
     try {
         // Update the order field for each member
         const updatePromises = team.map((member, index) => {
@@ -334,7 +339,7 @@ router.post('/admin/updateOrder', async (req, res) => {
 
         // Wait for all updates to complete
         await Promise.all(updatePromises);
-        
+
         res.json({ success: true, message: 'Team order updated successfully.' });
     } catch (error) {
         console.error('Error updating team order:', error);
@@ -591,7 +596,7 @@ router.post('/admin/delete-image', async (req, res) => {
 
     console.log("Image URL received in the backend:", imageUrls);
 
-    
+
     try {
         // Extract the public ID from the Cloudinary URL
         const match = imageUrls.match(/\/upload\/(?:v\d+\/)?([^/.]+)/);
@@ -606,16 +611,16 @@ router.post('/admin/delete-image', async (req, res) => {
         // Delete the image using Cloudinary SDK
         const result = await cloudinary.uploader.destroy(publicId);
 
-        res.status(200).json({ 
-            success: true, 
-            message: 'Image deleted successfully.', 
-            result 
+        res.status(200).json({
+            success: true,
+            message: 'Image deleted successfully.',
+            result
         });
     } catch (error) {
         console.error('Error deleting image:', error.message);
-        res.status(500).json({ 
-            error: 'Failed to delete image.', 
-            details: error.message 
+        res.status(500).json({
+            error: 'Failed to delete image.',
+            details: error.message
         });
     }
 });
