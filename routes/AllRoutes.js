@@ -8,6 +8,7 @@ const authenticate = require("../MiddleWare/authMiddleware.js");
 
 //ping route backend
 router.get('/ping', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.status(200).send('pong');
 });
 
