@@ -4,6 +4,7 @@ import Loader from '../../components/Loader';
 
 function Intro() {
   const { Data, showLoading } = useContext(allContexts);
+  console.log(Data)
   const img = `${process.env.PUBLIC_URL}/StaticImages/HomeBgImg.jpg`;
 
 

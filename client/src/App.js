@@ -24,7 +24,7 @@ import NotFound from "./components/NotFound.js";
 
 function App() {
   const [Data, setData] = React.useState(null);
-  const [showLoading, setShowLoading] = React.useState(false);
+  const [showLoading, setShowLoading] = React.useState(true);
   const apiURL = process.env.REACT_APP_API_BASE_URL
 
   const getData = async () => {
@@ -32,9 +32,11 @@ function App() {
     try {
       const response = await axios.get(`${apiURL}/api/getData`);
       setData(response.data)
-      setShowLoading(false)
+      // setShowLoading(false)
     } catch (error) {
       console.log(error)
+    } finally {
+      setShowLoading(false)
     }
   };
 
