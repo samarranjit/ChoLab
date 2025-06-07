@@ -27,9 +27,9 @@ function Research() {
 
         </div>
         <p className='p-5 sm:p-1 sm:text-justify dark:text-white lg:pl-0'>
-          {Data && Data.intro.research_Desc}
+          {Data && Data?.intro?.research_Desc}
         </p>
-        
+
         <Link to="/research">
 
           <button className='my-10 p-5 border-secondary border-[2px] rounded-[50px] text-secondary font-semibold text-1xl hover:text-primary hover:bg-secondary transition duration-500' >Our Research</button>
