@@ -59,10 +59,10 @@ function AdminIntro() {
       const response = await axiosInstance.post(`${process.env.REACT_APP_API_BASE_URL}/api/update-intro`, {
         _id: Data.intro._id,
         slogan: slogan,
-        research_oneLine: research?.research_oneLine,
-        research_Desc: research?.research_Desc,
-        publication_oneLine: publications?.publications_oneLine,
-        publication_desc: publications?.publications_desc
+        research_oneLine: research.research_oneLine,
+        research_Desc: research.research_Desc,
+        publication_oneLine: publications.publications_oneLine,
+        publication_desc: publications.publications_desc
       });
       setShowLoading(false);
       if (response.data.success) {
