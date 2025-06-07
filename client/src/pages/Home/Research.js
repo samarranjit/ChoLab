@@ -27,7 +27,7 @@ function Research() {
 
         </div>
         <p className='p-5 sm:p-1 sm:text-justify dark:text-white lg:pl-0'>
-          {Data && Data?.intro?.research_Desc}
+          {Data && Data?.intro.research_Desc}
         </p>
 
         <Link to="/research">
