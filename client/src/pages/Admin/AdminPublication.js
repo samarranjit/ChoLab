@@ -6,7 +6,7 @@ function AdminPublication() {
     const { Data, setData, setShowLoading } = useContext(allContexts)
     const [addPublicationBtn, setAddPublicationBtn] = React.useState(false);
     const [editingPublicationId, setEditingPublicationId] = React.useState(null);
-    const [ setPublished] = React.useState(false)
+    const [setPublished] = React.useState(false)
     const [image, setImage] = React.useState(null)
     const [publication, setPublication] = React.useState({
 
@@ -139,12 +139,12 @@ function AdminPublication() {
     };
 
     const handleDelete = async (publicationId) => {
-        let imageUrls = Data?Data.publication.find(pub=>pub._id === publicationId).imgUrl:"";
+        let imageUrls = Data ? Data.publication.find(pub => pub._id === publicationId).imgUrl : "";
         console.log(publicationId, "Deleted")
         try {
             setShowLoading(true);
             let deleteImagesResponse;
-            if(imageUrls){
+            if (imageUrls) {
 
                 console.log("Deleting images from Cloudinary...");
                 deleteImagesResponse = await axiosInstance.post(
@@ -152,7 +152,7 @@ function AdminPublication() {
                     { imageUrls }
                 );
             }
-            else{
+            else {
                 alert("Image deletion failed ")
                 return;
             }
@@ -208,7 +208,7 @@ function AdminPublication() {
             </div>
 
             {addPublicationBtn &&
-                <div className="newPublicationAdd flex justify-center items-center bg-secondary my-5 w-100% p-5 text-primary">
+                <div className="newPublicationAdd flex justify-center items-center bg-secondary my-5 w-100% p-5 text-primary position-fixed top-0 left-0 right-0 bottom-0 z-50">
                     <form className='flex flex-col py-5 mx-auto justify-center items-center w-full gap-2'>
                         <div className="flex flex-col w-[40%]">
                             <label htmlFor="title" className='p-1 text-left'>Title: </label>

@@ -3,7 +3,7 @@ import axiosInstance from "../axios/axiosInstance";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
-export const AuthProvider = ({children}) => {
+export const AuthProvider = ({ children }) => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loadingAuth, setIsLoadingAuth] = useState(true);
@@ -21,10 +21,10 @@ export const AuthProvider = ({children}) => {
     }
     useEffect(() => {
         authenticate();
-    }, []);
+    }, [authenticate]);
 
     return (
-        <AuthContext.Provider value={{isAuthenticated, setIsAuthenticated, loadingAuth}}>
+        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, loadingAuth }}>
             {children}
         </AuthContext.Provider>
     )

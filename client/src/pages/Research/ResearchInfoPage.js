@@ -5,6 +5,7 @@ import Navbar from '../../components/Navbar';
 import { allContexts } from '../../Context/AllContexts';
 import Loader from '../../components/Loader';
 import Footer from '../Home/Footer';
+import { Helmet } from 'react-helmet-async';
 
 
 const ResearchInfoPage = () => {
@@ -17,7 +18,7 @@ const ResearchInfoPage = () => {
             try {
                 setShowLoading(true);
                 const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/getResearchArticle/${id}`)
-                setResearch(response.data.research);    
+                setResearch(response.data.research);
                 setShowLoading(false)
             } catch (error) {
 
@@ -27,6 +28,34 @@ const ResearchInfoPage = () => {
     }, [id])
     return (
         <>
+            <Helmet>
+                <title>{research?.title
+                    ? `${research.title} | Research`
+                    : 'Research | The Cho Lab '}</title>
+                <meta name="description" content={research?.body?.[0]
+                    ? research.body[0].slice(0, 150) + '...'
+                    : "Detailed information about a research project at the Cho Lab, Texas State University."} />
+                <link rel="canonical" href={`https://cholab.science/research/${id}`} />
+                <meta property="og:title" content={research?.title
+                    ? `${research.title} | Research`
+                    : 'Research | The Cho Lab '} />
+                <meta property="og:description" content={research?.body?.[0]
+                    ? research.body[0].slice(0, 150) + '...'
+                    : "Detailed information about a research project at the Cho Lab, Texas State University."} />
+                <meta property="og:type" content="article" />
+                <meta property="og:url" content={`https://cholab.science/research/${id}`} />
+                <meta property="og:image" content={research?.mainImage || "https://cholab.science/ChoLabLogo.png"} />
+                <meta name="twitter:card" content="summary_large_image" />
+
+
+                <meta name="twitter:title" content={research?.title
+                    ? `${research.title} | Research`
+                    : 'Research | The Cho Lab '} />
+                <meta name="twitter:description" content={research?.body?.[0]
+                    ? research.body[0].slice(0, 150) + '...'
+                    : "Detailed information about a research project at the Cho Lab, Texas State University."} />
+                <meta name="twitter:image" content={research?.mainImage || "https://cholab.science/ChoLabLogo.png"} />
+            </Helmet>
             <Navbar></Navbar>
             <div className="body px-7 pt-0 pb-0 mb-0">
                 {

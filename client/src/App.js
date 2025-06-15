@@ -46,7 +46,7 @@ function App() {
       getData();
     }
 
-  }, [Data, getData])
+  }, [Data])
 
 
   return (

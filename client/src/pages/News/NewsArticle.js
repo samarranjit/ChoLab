@@ -41,7 +41,6 @@ function NewsArticle() {
 
     return (
         <>
-            <Navbar />
             <Helmet>
                 <title>{article?.heading || 'Loading...'} | Cho Lab News</title>
                 <meta name="description" content={article?.body?.[0]?.slice(0, 150) + '...'} />
@@ -59,7 +58,26 @@ function NewsArticle() {
                 <meta name="twitter:title" content={article?.heading} />
                 <meta name="twitter:description" content={article?.body?.[0]?.slice(0, 150) + '...'} />
                 <meta name="twitter:image" content={article.mainImage} />
+
+
+                <script type="application/ld+json">
+                    {`
+                        {
+                        "@context": "https://schema.org",
+                        "@type": "NewsArticle",
+                        "headline": "${article?.heading}",
+                        "image": "${article?.mainImage}",
+                        "url": "https://cholab.science/news/${id}",
+                        "datePublished": "${article?.date}",
+                        "author": {
+                            "@type": "Person",
+                            "name": "Eunsang Cho"
+                        },
+                        "description": "${article?.body?.[0]?.slice(0, 150)}"
+                    `}
+                </script>
             </Helmet>
+            <Navbar />
             <main className="min-h-screen bg-gradient-to-br from-gray-50 to-white pt-8 md:pt-10">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-12">
                     {/* Article Header */}

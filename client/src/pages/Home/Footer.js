@@ -50,7 +50,7 @@ function Footer() {
               eunsang.cho@txstate.edu
             </div>
             <div className="social flex w-[50%] my-7 text-left justify-around items-center sm:w-[100%]">
-              <a href="https://github.com/echo-hydro" target='_blank' rel='noreferrer'>
+              <a href="https://github.com/echo-hydro" >
 
                 <FaGithub className='text-5xl sm:text-3xl' />
               </a>
@@ -58,7 +58,7 @@ function Footer() {
               <a href="https://x.com/Eunsang_UNH" target='_blank' rel='noreferrer'>
                 <FaTwitter className='text-5xl sm:text-3xl'></FaTwitter>
               </a>
-              <a href="mailto:eunsangcho86@gmail" target='_blank' rel='noreferrer'>
+              <a href="mailto:eunsang.cho@txstate.edu" target='_blank' rel='noreferrer'>
                 <IoMail className='text-5xl sm:text-3xl'></IoMail>
               </a>
             </div>
@@ -84,7 +84,7 @@ function Footer() {
 
           <p>Copyright &copy; 2024 Eunsang Cho. All rights Reserved.</p>
           <Link to={`https://samarranjit.com.np`} target='_blank'>
-          <p className='pt-5 text-sm'>Designed by Samar Ranjit</p>
+            <p className='pt-5 text-sm'>Designed by Samar Ranjit</p>
           </Link>
         </div>
       </div>

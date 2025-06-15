@@ -3,6 +3,7 @@ import Navbar from '../../components/Navbar';
 import PublicationCard from './PublicationCard';
 import { allContexts } from '../../Context/AllContexts';
 import Footer from "../Home/Footer";
+import { Helmet } from 'react-helmet-async';
 
 function Publication() {
   const { Data } = useContext(allContexts);
@@ -16,21 +17,63 @@ function Publication() {
         if (!acc[year]) acc[year] = [];
         acc[year].push(item);
       }
-      console.log(new Date(item.date))
+      // console.log(new Date(item.date))
       return acc;
     }, {})
     : {};
-  // console.log(Data.publication)
+  // console.log(groupedPublications)
   // console.log(groupedPublicationsx)
   // Sort years in descending order
   const sortedYears = Object.keys(groupedPublications).sort((a, b) => b - a);
 
-  console.log(sortedYears)
+  // console.log(sortedYears)
+
+  const publicationsJsonLd = JSON.stringify(
+    Data?.publication?.map(pub => ({
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "headline": pub.title,
+      "author": {
+        "@type": "Person",
+        "name": "Eunsang Cho"
+      },
+      "datePublished": new Date(pub.date).getFullYear(),
+      "isPartOf": {
+        "@type": "Periodical",
+        "name": pub.journal
+      },
+      "url": pub.link,
+      "image": pub.imgUrl,
+      "description": pub.details,
+    }))
+  );
 
   return (
     <div className='relative'>
+      <Helmet>
+        <title> Publications | The Cho Lab</title>
+        <meta name="description" content="Explore publications from Dr. Eunsang Cho and his team members at The Cho Lab, advancing research in hydrology, water resources, and climate science." />
+        <meta
+          name="keywords"
+          content="research publications, Cho Lab, Texas State University, San Marcos, hydrology, climate science, water resources, environmental research, lab achievements, research publications, Cho Lab news, Eunsang Cho, hydrology research, climate change updates, water resources research, environmental science news, new findings, scientific articles, peer-reviewed papers, hydrology publications, climate research publications, water sustainability research, environmental science publications, academic publications, research articles, scientific research, hydrology and climate science, water resources publications, environmental research publications"
+        />
+        <link rel="canonical" href="https://cholab.science/publication" />
+        <meta property="og:title" content="Publications | The Cho Lab" />
+        <meta property="og:description" content="Explore publications from Dr. Eunsang Cho and his team members at The Cho Lab, advancing research in hydrology, water resources, and climate science." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://cholab.science/publication" />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Publications | The Cho Lab " />
+        <meta name="twitter:description" content="Browse publications from Dr. Eunsang Cho and his team members at The Cho Lab, advancing research in hydrology, water resources, and climate science." />
+        <meta name="twitter:image" content="https://cholab.science/ChoLabLogo.png" />
+        <meta name="twitter:url" content="https://cholab.science/publication" />
+
+        <script type="application/ld+json">{publicationsJsonLd}</script>
+
+      </Helmet>
       <Navbar />
-      
+
       <div className="publications-div relative bg-white text-secondary p-7 sm:p-5 md:top-[60px]">
         <h2 className='flex justify-center text-center p-3 text-secondary text-2xl sm:p-2'>
           <section className='inline border-b-[2px] font-semibold border-tertiary sm:text-xl sm:p-2 sm:font-semibold pb-3'>

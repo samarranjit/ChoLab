@@ -1,0 +1,61 @@
+{
+  "name": "The Cho Lab | Texas State University",
+  "short_name": "ChoLab",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#005B96",
+  "orientation": "portrait",
+  "description": "The Cho Lab at Texas State University focuses on the study of the human microbiome and its impact on health and disease. We aim to understand how microbial communities influence human health through research and innovation.",
+  "lang": "en-US",
+  "shortcuts": [
+    {
+      "name": "Cho Lab Home",
+      "short_name": "Home",
+      "url": "/",
+      "icons": [
+        {
+          "src": "cholabbgincluded.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Cho Lab Research",
+      "short_name": "Research",
+      "url": "/research",
+      "icons": [
+        {
+          "src": "cholabbgincluded.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Cho Lab Publications",
+      "short_name": "Publications",
+      "url": "/publications",
+      "icons": [
+        {
+          "src": "cholabbgincluded.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "icons": [
+    {
+      "src": "cholabbgincluded.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "cholabbgincluded.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

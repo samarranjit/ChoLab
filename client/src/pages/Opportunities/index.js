@@ -8,6 +8,7 @@ import MeetChoLab from './MeetChoLab';
 import VacancyAnnouncement from './VacancyAnnouncement';
 import { allContexts } from '../../Context/AllContexts';
 import { Link, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 function Opportunities() {
   const { Data } = React.useContext(allContexts);
@@ -34,6 +35,27 @@ function Opportunities() {
 
   return (
     <>
+
+      <Helmet>
+        <title>Opportunities | The Cho Lab </title>
+        <meta
+          name="description"
+          content="Explore current research, internship, and fellowship opportunities at the Cho Lab, Texas State University. Join our team and contribute to water sustainability research."
+        />
+        <meta
+          name="keywords"
+          content="research opportunities, Cho Lab, Texas State University, San Marcos, graduate assistantship, undergraduate internship, postdoctoral fellowship, hydrology jobs, climate science jobs, water sustainability, environmental research positions"
+        />
+        <link rel="canonical" href="https://cholab.science/opportunities" />
+        <meta property="og:title" content="Opportunities | The Cho Lab" />
+        <meta property="og:description" content="Explore current research, internship, and fellowship opportunities at the Cho Lab, Texas State University. Join our team and contribute to water sustainability research." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://cholab.science/opportunities" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Opportunities | The Cho Lab" />
+        <meta name="twitter:description" content="Explore current research, internship, and fellowship opportunities at the Cho Lab, Texas State University. Join our team and contribute to water sustainability research." />
+        {/* JSON-LD for all opportunities */}
+      </Helmet>
       <Navbar />
 
       <div
