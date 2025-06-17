@@ -1,16 +1,34 @@
 import axios from 'axios'
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Navbar from '../../components/Navbar';
 import Footer from '../Home/Footer';
 import Loader from '../../components/Loader';
 import { Helmet } from 'react-helmet-async';
+import Gallery from "react-photo-gallery";
+import Carousel, { Modal, ModalGateway } from "react-images";
+
 
 
 function NewsArticle() {
     const { id } = useParams();
     const [article, setArticle] = React.useState({})
     const [isLoading, setIsLoading] = React.useState(true)
+
+
+    //react photo gallery
+    const [currentImage, setCurrentImage] = React.useState(0);
+    const [viewerIsOpen, setViewerIsOpen] = React.useState(false);
+
+    const openLightbox = useCallback((event, { photo, index }) => {
+        setCurrentImage(index);
+        setViewerIsOpen(true);
+    }, []);
+
+    const closeLightbox = () => {
+        setCurrentImage(0);
+        setViewerIsOpen(false);
+    };
 
     useEffect(() => {
         const fetchArticle = async () => {
@@ -39,8 +57,19 @@ function NewsArticle() {
         )
     }
 
+    const photos = article?.otherImage?.map((img, index) => ({
+        src: img,
+        width: 4,
+        height: 3,
+        title: article.heading || `Image ${index + 1}`
+    })) ||
+
+
+
+        console.log('article', article)
     return (
         <>
+
             <Helmet>
                 <title>{article?.heading || 'Loading...'} | Cho Lab News</title>
                 <meta name="description" content={article?.body?.[0]?.slice(0, 150) + '...'} />
@@ -112,8 +141,8 @@ function NewsArticle() {
                                     <p
                                         key={index}
                                         className={`text-gray-700 leading-relaxed font-light tracking-wide
-                                            text-base sm:text-lg lg:text-xl
-                                            ${index === 0 ?
+                                                                    text-base sm:text-lg lg:text-xl
+                                                                    ${index === 0 ?
                                                 'first-letter:text-3xl sm:first-letter:text-4xl lg:first-letter:text-5xl first-letter:font-bold first-letter:text-gray-900 first-letter:float-left first-letter:mr-2 sm:first-letter:mr-3 first-letter:mt-1' :
                                                 ''
                                             }`}
@@ -124,6 +153,40 @@ function NewsArticle() {
                             </div>
                         </div>
                     </article>
+
+
+
+                    {/* Other Images Section */}
+                    {
+                        article?.otherImage && article.otherImage.length > 0 && (
+                            <div className='mt-10 sm:mt-12 lg:mt-16'>
+                                <div className='text-center'>
+                                    <h2 className='text-2xl font-semibold mb-4 py-2 inline-block border-b-2 border-b-tertiary'>Other Images:</h2>
+                                </div>
+                                <Gallery photos={photos} onClick={openLightbox} />
+                                <ModalGateway>
+                                    {viewerIsOpen ? (
+                                        <Modal onClose={closeLightbox} closeOnEsc={true} closeOnClick={true}>
+                                            <div className="flex items-center justify-center w-full h-full mx-auto">
+                                                <Carousel
+                                                    currentIndex={currentImage}
+                                                    views={photos.map(x => ({
+                                                        ...x,
+                                                        srcset: x.srcSet,
+                                                        caption: x.title || ""
+                                                    }))}
+                                                />
+                                            </div>
+                                        </Modal>
+                                    ) : null}
+                                </ModalGateway>
+                            </div>
+
+
+
+
+                        )
+                    }
 
                     {/* Decorative Element */}
                     <div className="mt-12 sm:mt-14 lg:mt-16 text-center">
