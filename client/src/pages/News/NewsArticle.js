@@ -9,8 +9,14 @@ import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 
 
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeHighlight from 'rehype-highlight';
+
+
 
 function NewsArticle() {
+
     const { id } = useParams();
     const [article, setArticle] = React.useState({})
     const [isLoading, setIsLoading] = React.useState(true)
@@ -30,6 +36,7 @@ function NewsArticle() {
         setViewerIsOpen(false);
     };
 
+
     useEffect(() => {
         const fetchArticle = async () => {
             try {
@@ -43,6 +50,8 @@ function NewsArticle() {
             }
         }
         fetchArticle();
+
+
     }, [id])
 
     if (isLoading) {
@@ -63,7 +72,6 @@ function NewsArticle() {
         height: 3,
         title: article.heading || `Image ${index + 1}`
     })) ||
-
 
 
         console.log('article', article)
@@ -107,7 +115,11 @@ function NewsArticle() {
                 </script>
             </Helmet>
             <Navbar />
+
+
+
             <main className="min-h-screen bg-gradient-to-br from-gray-50 to-white pt-8 md:pt-10">
+
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-12">
                     {/* Article Header */}
                     <header className="text-center mb-8 sm:mb-12 lg:mb-16 md:mt-5">
@@ -138,17 +150,20 @@ function NewsArticle() {
                                     Date:   {article?.date ? new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Unknown'}
                                 </p>
                                 {article?.body?.map((paragraph, index) => (
-                                    <p
-                                        key={index}
-                                        className={`text-gray-700 leading-relaxed font-light tracking-wide
-                                                                    text-base sm:text-lg lg:text-xl
-                                                                    ${index === 0 ?
-                                                'first-letter:text-3xl sm:first-letter:text-4xl lg:first-letter:text-5xl first-letter:font-bold first-letter:text-gray-900 first-letter:float-left first-letter:mr-2 sm:first-letter:mr-3 first-letter:mt-1' :
-                                                ''
-                                            }`}
-                                    >
-                                        {paragraph}
-                                    </p>
+                                    <div className={`prose dark:prose-invert max-w-4xl mx-auto text-gray-700 leading-relaxed font-light tracking-wide text-base sm:text-lg lg:text-xl `}>
+                                        <ReactMarkdown
+                                            remarkPlugins={[remarkGfm]}
+                                            rehypePlugins={[rehypeHighlight]}
+                                            components={{
+                                                img: ({ node, ...props }) => (
+                                                    <img {...props} alt={`${article?.heading}img_${index}`} className="block mx-auto w-[75%] my-4 rounded-md shadow-md" />
+                                                )
+                                            }}
+                                        >
+                                            {paragraph}
+                                        </ReactMarkdown>
+                                    </div>
+
                                 ))}
                             </div>
                         </div>

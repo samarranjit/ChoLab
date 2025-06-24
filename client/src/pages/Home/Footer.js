@@ -19,7 +19,7 @@ function Footer() {
           <div className="Cho flex justify-center m-auto items-center w-[90%] sm:w-[70%] ">
             <div className="ml-10 sm:ml-0 w-[70%] p-[1.5rem] sm:p-[0.75rem] aspect-square overflow-hidden sm:h-full bg-white rounded-full flex justify-center items-center  shadow-lg sm:w-[55%] " >
 
-              <img className='bg-white w-full h-full object-contain flex items-center justify-center my-[50px]   ' src={`${process.env.PUBLIC_URL}/ChoLabLogo.png`} alt="" />
+              <img className='bg-white w-full h-full object-contain flex items-center justify-center my-[50px]' src="/ChoLabLogo.png" alt="" />
             </div>
 
           </div>
