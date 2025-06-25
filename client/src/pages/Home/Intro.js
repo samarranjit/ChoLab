@@ -19,8 +19,8 @@ function Intro() {
             <div className="bg-secondary h-full w-full bg-opacity-[0.05] relative">
 
 
-              <div className='bg-secondary w-[100%] h-[100%] bg-opacity-15 items-center justify-center'>
-                <div className="intro-text w-[100%] h-[100%] flex flex-col items-center justify-center  lg:translate-y-[0px] md:translate-y-[-10px] sm:translate-y-[20px]">
+              <div className='bg-secondary w-[100%] h-[100%] bg-opacity-15 items-center justify-center '>
+                <div className="intro-text w-[100%] h-[100%] flex flex-col items-center justify-center  lg:translate-y-[0px] md:translate-y-[-10px] sm:translate-y-[20px] max-w-[1775px] mx-auto">
                   <p className='font-bold text-primary text-5xl md:text-5xl sm:text-2xl'>The Cho Lab at TXST</p>
                   <h1 className=' text-2xl md:text-2xl  text-center sm:text-sm    md:mt-0 p-7  md:pt-2 font-semibold text-primary leading-normal  '>" {Data?.intro?.slogan} "</h1>
                 </div>

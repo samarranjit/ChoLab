@@ -8,7 +8,7 @@ function Research() {
   // console.log(research_oneLine);
 
   return (
-    <div className='h-[90vh] px-[50px] py-[50px]  flex justify-center items-center sm:flex-col md:justify-around md:h-full md:p-7 dark:bg-slate-800 '>
+    <div className='h-[90vh] px-[50px] py-[50px]  flex justify-center items-center sm:flex-col md:justify-around md:h-full md:p-7 dark:bg-slate-800 max-w-[1775px] mx-auto'>
       <div className="left w-[55%] md:w-[100%] p-5 md:p-1  ">
         <p className='text-tertiary text-2xl sm:text-xl '>About Our Research</p>
 

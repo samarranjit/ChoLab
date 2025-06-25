@@ -14,7 +14,7 @@ function News() {
     }) : [];
 
   return (
-    <div className=' p-[65px] flex flex-col sm:p-7 sm:my-2 dark:bg-[#323F4B]'>
+    <div className=' p-[65px] flex flex-col sm:p-7 sm:my-2 dark:bg-[#323F4B] max-w-[1904px] mx-auto'>
       <p className='text-tertiary text-xl '>Latest from the Lab</p>
 
       <div className="grid grid-cols-3 justify-evenly gap-20 width-[100%] md:grid-cols-2 sm:grid-cols-1 sm:gap-3">

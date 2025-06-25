@@ -16,7 +16,7 @@ function NewsCard(props) {
       <div className="bg-primary  shadow-md shadow-gray-400 my-10 p-7 justify-center items-center rounded-[12px] sm:my-5 relative md:p-4 max-h-[800px]">
         <div
           style={{ backgroundImage: `url(${mainImage})` }}
-          className="w-[100%] overflow-hidden bg-no-repeat bg-cover rounded-[12px] h-[300px]"
+          className="w-[100%] overflow-hidden bg-no-repeat bg-cover rounded-[12px] h-[300px] bg-center"
         ></div>
         <h3 className="p-5 text-2xl text-secondary font-semibold sm:text-xl md:px-0 md:py-2">{heading}</h3>
         <p className='px-5 py-4 pt-2 text-gray-400 text-left md:p-0'>Date: {date}</p>

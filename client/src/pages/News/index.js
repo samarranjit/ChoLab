@@ -36,7 +36,7 @@ function News() {
         <meta property="og:url" content="https://cholab.science/news" />
       </Helmet>
       <Navbar />
-      <div className="relative md:top-[100px]">
+      <div className="relative md:top-[100px] max-w-[1600px] mx-auto pt-[60px] ">
         <div className=" ">
           <h2 className='text-3xl text-center p-2 '><section className='border-b-tertiary border-b-[2px] inline p-2 '>Latest News</section></h2>
         </div>
