@@ -1,18 +1,20 @@
 import axios from 'axios'
-import React, { useCallback, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Navbar from '../../components/Navbar';
 import Footer from '../Home/Footer';
 import Loader from '../../components/Loader';
 import { Helmet } from 'react-helmet-async';
-import Gallery from "react-photo-gallery";
-import Carousel, { Modal, ModalGateway } from "react-images";
+// import Gallery from "react-photo-gallery";
+// import Carousel, { Modal, ModalGateway } from "react-images";
+
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
-
 
 
 function NewsArticle() {
@@ -22,19 +24,19 @@ function NewsArticle() {
     const [isLoading, setIsLoading] = React.useState(true)
 
 
-    //react photo gallery
-    const [currentImage, setCurrentImage] = React.useState(0);
-    const [viewerIsOpen, setViewerIsOpen] = React.useState(false);
+    // //react photo gallery
+    // const [currentImage, setCurrentImage] = React.useState(0);
+    // const [viewerIsOpen, setViewerIsOpen] = React.useState(false);
 
-    const openLightbox = useCallback((event, { photo, index }) => {
-        setCurrentImage(index);
-        setViewerIsOpen(true);
-    }, []);
+    // const openLightbox = useCallback((event, { photo, index }) => {
+    //     setCurrentImage(index);
+    //     setViewerIsOpen(true);
+    // }, []);
 
-    const closeLightbox = () => {
-        setCurrentImage(0);
-        setViewerIsOpen(false);
-    };
+    // const closeLightbox = () => {
+    //     setCurrentImage(0);
+    //     setViewerIsOpen(false);
+    // };
 
 
     useEffect(() => {
@@ -66,14 +68,14 @@ function NewsArticle() {
         )
     }
 
-    const photos = article?.otherImage?.map((img, index) => ({
-        src: img,
+    // const photos = article?.otherImage?.map((img, index) => ({
+    //     src: img,
 
-        title: article.heading || `Image ${index + 1}`
-    })) ||
+    //     title: article.heading || `Image ${index + 1}`
+    // })) ||
 
 
-        console.log('article', article)
+    //     console.log('article', article)
     return (
         <>
 
@@ -178,28 +180,36 @@ function NewsArticle() {
                                     <div className='text-center'>
                                         <h2 className='text-2xl font-semibold mb-4 py-2 inline-block border-b-2 border-b-tertiary'>Other Images:</h2>
                                     </div>
-                                    <Gallery photos={photos} onClick={openLightbox} />
-                                    <ModalGateway>
-                                        {viewerIsOpen ? (
-                                            <Modal onClose={closeLightbox} closeOnEsc={true} closeOnClick={true}>
-                                                <div className="flex items-center justify-center w-full h-full mx-auto">
-                                                    <Carousel
-                                                        currentIndex={currentImage}
-                                                        views={photos.map(x => ({
-                                                            ...x,
-                                                            srcset: x.srcSet,
-                                                            caption: x.title || ""
-                                                        }))}
+                                    <div className=" bg- rounded-lg ">
+                                        <Carousel
+                                            showArrows={true}
+                                            className="!h-full"
+                                            showStatus={false}
+                                            showIndicators={true}
+                                            showThumbs={false}
+                                            infiniteLoop={true}
+                                            autoPlay={true}
+                                            interval={3000}
+                                            transitionTime={500}
+                                            stopOnHover={true}
+                                            dynamicHeight={false}
+                                            emulateTouch={true}
+                                            swipeable={true}
+                                            style={{ backgroundImage: `url(${article?.mainImage})` }}
+
+                                        >
+                                            {article?.otherImage.map((img, index) => (
+                                                <div key={index} className="h-[27rem] flex items-center justify-center">
+                                                    <img
+                                                        className="max-w-full max-h-full w-auto h-auto object-contain"
+                                                        src={img}
+                                                        alt={`${article?.heading}img-${index}`}
                                                     />
                                                 </div>
-                                            </Modal>
-                                        ) : null}
-                                    </ModalGateway>
+                                            ))}
+                                        </Carousel>
+                                    </div>
                                 </div>
-
-
-
-
                             )
                         }
 
@@ -213,7 +223,7 @@ function NewsArticle() {
                         </div>
                     </div>
                 </div>
-            </main>
+            </main >
             <Footer />
         </>
     )
