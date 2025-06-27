@@ -15,6 +15,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
+import rehypeRaw from 'rehype-raw';
 
 
 function NewsArticle() {
@@ -155,14 +156,18 @@ function NewsArticle() {
                                         <div className={`prose dark:prose-invert max-w-4xl mx-auto text-gray-700 leading-relaxed font-light tracking-wide text-base sm:text-lg lg:text-xl `}>
                                             <ReactMarkdown
                                                 remarkPlugins={[remarkGfm]}
-                                                rehypePlugins={[rehypeHighlight]}
+                                                rehypePlugins={[rehypeHighlight, rehypeRaw]}
                                                 components={{
                                                     img: ({ node, ...props }) => (
                                                         <img {...props} alt={`${article?.heading}img_${index}`} className="block mx-auto w-[75%] my-4 rounded-md shadow-md" />
+                                                    ),
+                                                    a: ({ node, ...props }) => (
+                                                        <a {...props} target="_blank" rel="noopener noreferrer" className="" />
                                                     )
                                                 }}
                                             >
                                                 {paragraph}
+
                                             </ReactMarkdown>
                                         </div>
 
@@ -170,7 +175,6 @@ function NewsArticle() {
                                 </div>
                             </div>
                         </article>
-
 
 
                         {/* Other Images Section */}
@@ -214,7 +218,7 @@ function NewsArticle() {
                         }
 
                         {/* Decorative Element */}
-                        <div className="mt-12 sm:mt-14 lg:mt-16 text-center">
+                        <div className="mt-6 sm:mt-14 lg:mt-16 text-center">
                             <div className="inline-flex items-center space-x-1.5 sm:space-x-2">
                                 <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-500 rounded-full"></div>
                                 <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-purple-500 rounded-full"></div>
